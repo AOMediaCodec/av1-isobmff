@@ -1,0 +1,26 @@
+{
+	"AV1": {
+		"href": "http://AOMediaCodec.github.io/av1-spec/",
+		"title": "AV1 Bitstream & Decoding Process Specification",
+		"status": "LS",
+		"publisher": "AOM"
+	},
+	"CMAF": {
+		"title": "Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media",
+		"status": "Standard",
+		"publisher": "ISO",
+		"href": "https://www.iso.org/standard/71975.html"
+	},
+	"CENC": {
+		"title": "Information technology — MPEG systems technologies — Part 7: Common encryption in ISO base media file format files",
+		"status": "Standard",
+		"publisher": "ISO",
+		"href": "https://www.iso.org/standard/68042.html"
+	},
+	"CICP-Video": {
+		"title": "Information technology — Coding-independent code points — Part 2: Video",
+		"status": "Standard",
+		"publisher": "ISO",
+		"href": "https://www.iso.org/standard/73412.html"
+	}
+}
