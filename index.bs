@@ -6,13 +6,15 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] video in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
-Status Text: This document is still at draft stage
 Date: 2017-10-31
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright no
 Markup Shorthands: css on
 Group: AOM
+Warning: Custom
+Custom Warning Title: Warning
+Custom Warning Text: This specification is still at draft stage and should not be referenced other than as a working draft.
 </pre>
 
 <pre class="anchors">
