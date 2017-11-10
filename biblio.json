@@ -1,6 +1,6 @@
 {
 	"AV1": {
-		"href": "http://AOMediaCodec.github.io/av1-spec/",
+		"href": "http://av1-spec.argondesign.com/av1-spec/av1-spec.html",
 		"title": "AV1 Bitstream & Decoding Process Specification",
 		"status": "LS",
 		"publisher": "AOM"
