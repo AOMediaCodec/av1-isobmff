@@ -199,7 +199,7 @@ NOTE: Within this definition, a sync sample may contain additional frames that a
 
 ISSUE: A new sample group may be needed for signaling show_existing_frames referring to a keyframe.
 
-NOTE: Other types of OBUs such as metadata could be present before the [=sequence header=].
+NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header=].
 
 [=Intra-only frames=] MAY be signaled using the 'sap ' sample group.
 
@@ -301,7 +301,7 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
 
-[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose, for example of adaptive streaming or for encrypted files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
+[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for encrypted files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
 
 If a [=CMAF Video Track=] signals one of the brands defined below, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
 - it SHALL use an [=AV1SampleEntry=]

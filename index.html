@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="5399f563ade0b71459b51f5ad98cd7f133f020f6" name="document-revision">
+  <meta content="d9ef4025678aeee81021aaede581d4163c17bdae" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1583,7 +1583,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    </ul>
    <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its <a class="property" data-link-type="propdesc" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">show_frame</a> flag set. Subsequent frames may have it.</p>
    <p class="issue" id="issue-fdaa2220"><a class="self-link" href="#issue-fdaa2220"></a> A new sample group may be needed for signaling show_existing_frames referring to a keyframe.</p>
-   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">sequence header</a>.</p>
+   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">Sequence Header</a>.</p>
    <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③①">Intra-only frames</a> MAY be signaled using the 'sap ' sample group.</p>
    <p>S-Frames SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1sframesamplegroupentry" id="ref-for-av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a>.</p>
    <p>Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks should be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①①">bitr</a>).</p>
@@ -1666,7 +1666,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <h4 class="heading settled" data-level="2.8.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.8.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
    <p><dfn data-dfn-type="dfn" data-noexport="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> is as specified in the AV1 specification.</p>
    <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format and CMAF media profiles</span><a class="self-link" href="#cmaf"></a></h2>
-   <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose, for example of adaptive streaming or for encrypted files. <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.</p>
+   <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for encrypted files. <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.</p>
    <p>If a <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⑥">CMAF Video Track</a> signals one of the brands defined below, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
    <ul>
     <li data-md="">
