@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="d9ef4025678aeee81021aaede581d4163c17bdae" name="document-revision">
+  <meta content="69ac66639b76719dfecb0898c6da948639558794" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1503,7 +1503,7 @@ pre .property::before, pre .property::after {
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="compressorname">compressorname<a class="self-link" href="#compressorname"></a></dfn> field of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑤">VisualSampleEntry</a> is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.</p>
    <p class="note" role="note"><span>NOTE:</span> Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="config">config<a class="self-link" href="#config"></a></dfn> field SHALL contain an <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox①">AV1CodecConfigurationBox</a> that applies to the samples associated with this sample entry.</p>
-   <p class="note" role="note"><span>NOTE:</span> Multiple instances of <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a> may be required when the track contains samples having requiring a AV1ConfigurationBox with different characteristics.</p>
+   <p class="note" role="note"><span>NOTE:</span> Multiple instances of <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a> may be required when the track contains samples requiring a AV1ConfigurationBox with different characteristics.</p>
    <p>Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑥">VisualSampleEntry</a> in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.3" id="av1codecconfigurationbox-section"><span class="secno">2.3. </span><span class="content">AV1 Codec Configuration Box</span><a class="self-link" href="#av1codecconfigurationbox-section"></a></h3>
    <h4 class="heading settled" data-level="2.3.1" id="av1codecconfigurationbox-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1codecconfigurationbox-definition"></a></h4>
