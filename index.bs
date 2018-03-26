@@ -65,7 +65,7 @@ OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OB
 
 Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
 
-NOTE: The AV1 specification defines scalability features, but this version of the storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
+NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
 
 Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a show_existing_frame flag set to 1. Key Frames with the show_frame flag set to 1, S Frames and frames with a show_existing_frame flag set to 1 and refering to a previous Key Frame have the additional property that after decoding the Key Frame (respectively the S Frame, respectively the referenced Key Frame), all frames can be decoded.
 
@@ -115,7 +115,7 @@ NOTE: Parsers may ignore the value of the compressorname field. It is specified 
 
 The <dfn>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
 
-NOTE: Multiple [=AV1SampleEntry=] may be required when the track contains samples having requiring different AV1ConfigurationBox.
+NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples having requiring a AV1ConfigurationBox with different characteristics.
 
 Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the [=VisualSampleEntry=] in [[ISOBMFF]].
 
@@ -156,7 +156,7 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 The <dfn>configOBUs</dfn> field contains zero or more OBUs applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their [=temporal_id=] or [=spatial_id=] value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.
 
-NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associate samples.
+NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
 The <dfn>OBU_length_mode</dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:
 - 0: present for all OBUs, before the OBU header, and the [=obu_has_payload_length_field=] flag is set to 0,
@@ -176,7 +176,7 @@ The values of timing_info in the [=Sequence Header=] (in the configOBUs field or
 
 If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
 
-Additional boxes may be provided in the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
+Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
 AV1 Sample Format {#sampleformat}
 ---------------------------------
