@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] video in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
-Date: 2017-10-31
+Date: 2018-03-19
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright no
@@ -36,12 +36,18 @@ url: AOMediaCodec/av1-spec; spec: AV1; type: dfn;
 	text: AV1 bitstream
 	text: OBU
 	text: Key Frame
-	text: Intra Frame
+	text: Intra-only Frame
 	text: S Frame
 	text: Inter Frame
 	text: Temporal Unit
 	text: Frame Header
 	text: Sequence Header
+	text: max_frame_width_minus_1
+	text: max_frame_height_minus_1
+	text: obu_has_payload_length_field
+
+url: http://iso.org; spec: CMAF; type: dfn;
+	text: CMAF Video Track
 
 url: http://iso.org; spec: CENC; type: property;
 	text: cbcs
@@ -55,13 +61,13 @@ Bitstream features overview {#bitstream-overview}
 =================================================
 An [=AV1 bitstream=] is composed of a sequence of [=OBU=]s, grouped into [=Temporal Unit=]s.
 
-OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OBU and of an optional payload whose presence and content depend on the OBU type. Depending on its type, an OBU can carry configuration information, metadata or coded video data.
+OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OBU, followed by an optional length field and by an optional payload whose presence and content depend on the OBU type. Depending on its type, an OBU can carry configuration information, metadata or coded video data.
 
-Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented. Some Temporal Units may only reference a previously decoded frame for presentation.
+Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
 
-Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two types: [=Key Frames=] and [=Intra Frames=]. Frames that cannot be decoded independently are of two types: [=Inter Frames=] and [=S Frames=]. Key Frames and S Frames have the additional property that after decoding the Key Frame (respectively the S Frame), all frames can be decoded.
+NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
 
-The frames within a Temporal Unit may further divided into temporal layers and/or quality layers, as identified by the OBU header. Multiple frames within a single temporal unit may lead to more than one frame being presented only if the frames to be presented belong to different layers.
+Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a show_existing_frame flag set to 1. Key Frames with the show_frame flag set to 1, S Frames and frames with a show_existing_frame flag set to 1 and refering to a previous Key Frame have the additional property that after decoding the Key Frame (respectively the S Frame, respectively the referenced Key Frame), all frames can be decoded.
 
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
@@ -87,7 +93,7 @@ AV1 Sample Entry {#av1sampleentry-section}
 
 ### Description ### {#av1sampleentry-description}
 
-The <dfn>AV1SampleEntry</dfn> sample entry identifies that the track contains [=AV1 Samples=], and uses an [=AV1CodecConfigurationBox=] that contains decoding and display configuration information.
+The <dfn>AV1SampleEntry</dfn> sample entry identifies that the track contains [=AV1 Samples=], and uses an [=AV1CodecConfigurationBox=].
 
 ### Syntax ### {#av1sampleentry-syntax}
 
@@ -99,19 +105,19 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 ### Semantics ### {#av1sampleentry-semantics}
 
-A new [=AV1SampleEntry=] is required whenever any of the values stored within the entry change.
+The <dfn>width</dfn> and <dfn>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
 
-Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the [=VisualSampleEntry=] in [[ISOBMFF]].
+As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box MUST be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
 
-<dfn>width</dfn> and <dfn>height</dfn> of the [=VisualSampleEntry=] SHALL be encoded as an upper bound of the frame size of the video samples associated with that entry. AV1 supports on-the-fly decoding of dynamic video resolutions, so these fields SHALL contain the highest values of the portion of the video stream associated with that entry. The width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box MUST be included. The 'pasp' box and the track header width and height SHOULD match the value of the render size given in the associated samples.
-
-ISSUE: Given that the render size could change within a stream, it is hard to provide a one-to-one mapping, thus the "should".
-
-<dfn>compressorname</dfn> of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
+The <dfn>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
 
 NOTE: Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.
 
-<dfn>config</dfn> is an [=AV1CodecConfigurationBox=].
+The <dfn>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
+
+NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a AV1ConfigurationBox with different characteristics.
+
+Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the [=VisualSampleEntry=] in [[ISOBMFF]].
 
 AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 --------------------------------------------------------
@@ -128,7 +134,7 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Description ### {#av1codecconfigurationbox-description}
 
-The <dfn>AV1CodecConfigurationBox</dfn> is contained in every [=AV1SampleEntry=]. It contains an array of [=OBU=] that MUST be valid for every sample that references the sample entry.
+The <dfn>AV1CodecConfigurationBox</dfn> contains an array of [=OBUs=] that MUST be valid for every sample that references the sample entry.
 
 
 ### Syntax ### {#av1codecconfigurationbox-syntax}
@@ -139,61 +145,69 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (4) reserved = 0;
-  unsigned int (1) has_enhancement_layers;
-  unsigned int (1) has_temporal_layers;
-  unsigned int (2) OBULengthSizeMinusOne;
-  unsigned int (8) numOBUs;
-  for(i = 0; i < numOBUs; i++) {
-    unsigned int(OBULengthSizeMinusOne+1) OBULength;
-    unsigned int (8)[OBULength] OBU;
-  }
+  unsigned int (6) reserved = 0;
+  unsigned int (2) OBU_length_mode;
+  unsigned int (3) initial_presentation_delay;
+  unsigned int (8)[] configOBUs;
 }
 ```
 
-ISSUE: Additional parameters are being considered. For example, 'use of tiling' or 'use of S-Frames'. These could be exposed in the codecs parameter for use in adaptive streaming. However, the additional parameters should be specific to the carriage within ISOBMFF, otherwise the parameters should probably be in the OBU Sequence Header or other OBUs.
-
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-<dfn>has_enhancement_layers</dfn> signals the presence of enhancement layers within the samples associated with this sample description entry.
+The <dfn>configOBUs</dfn> field contains zero or more OBUs applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their [=temporal_id=] or [=spatial_id=] value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.
 
-NOTE: Samples may contain either only enhancement layers OBUs, only base layer OBUs or both.
+NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
-<dfn>has_temporal_layers</dfn> signals the presence of multiple temporal layers within the samples associated with this sample description entry.
+The <dfn>OBU_length_mode</dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:
+- 0: present for all OBUs, before the OBU header, and the [=obu_has_payload_length_field=] flag is set to 0,
+- 1: present for all OBUs, after the OBU header, and the [=obu_has_payload_length_field=] flag set to 1,
+- 2: same as 1 except for the last OBU where the length is not present and the [=obu_has_payload_length_field=] flag is set to 0.
+- 3: The value 3 for OBU_length_mode is not allowed.
 
-When [=has_enhancement_layers=] or [=has_temporal_layers=] is set within a sample description entry, then all OBUs within the sample description entry and within all samples associated with this sample description entry SHOULD have OBU Extension Headers identifying the layer to which they belong, if the OBU is actually associated to a given layer.
-OBULengthSizeMinusOne provides the size minus 1 of the length field OBULength preceding each OBU in the subsequent array of OBUs, as well as in the samples associated with this sample description entry. Only the value 0, 1, 3 are allowed.
+In all cases, if present, the length is coded using LEB128 as specified in [[!AV1]].
 
-OBUs may be carried in the <dfn>AV1CodecConfigurationRecord</dfn>. In this version of the [=AV1CodecConfigurationRecord=], only the following OBU types are permitted: sequence header and metadata. Of the metadata OBUs, only the following OBU metadata types are allowed:
-- METADATA_TYPE_PRIVATE_DATA
-- METADATA_TYPE_HDR_CLL
-- METADATA_TYPE_HDR_MDCV
+ISSUE: This field could disappear if we decide to mandate only one mode.
 
-Future versions may allow more types. Even if a type is allowed, an OBU is only permitted if it is applicable to all the samples corresponding to the sample description entry. Duplicate OBUs may be present when the AV1CodecConfigurationRecord corresponds to a layered stream. When duplicate OBUs are present they are distinguished using the enhancement or temporal ID carried in the OBU extension header, and apply only to samples carrying the same ID.
+The <dfn>initial_presentation_delay</dfn> field indicates the number of samples that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time (as indicated by the timing information in ISOBMFF structures) if decoding happens at the decoding rate required by the level indicated in the [=Sequence Header=] and according to the hypothetical decoder model specified in [[!AV1]]. The value of this field shall be compatible with the value of decoding_delay indicated in the [=Sequence Header=].
 
-Boxes may be provided, at the end of the [=VisualSampleEntry=], that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. Examples include the 'colr' box which declares similar information to the OBU Sequence Header.  In this case, for each box providing similar information as the one in the OBUs, the box semantics indicate if the box information overrides the OBU information. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
+ISSUE: The initial_presentation_delay might be removed if added to the Sequence Header.
 
-ISSUE: Emulation prevention bytes could be included in these OBUs (if codec spec allows them), but not start codes
+The values of timing_info in the [=Sequence Header=] (in the configOBUs field or in the associated samples) SHALL be ignored for the purpose of timed processing of the ISOBMFF file. In particular, the presentation times of AV1 samples are given by the ISOBMFF structures and not by the equal_picture_interval flag.
+
+If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
+
+Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
 AV1 Sample Format {#sampleformat}
 ---------------------------------
 
-For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> SHALL consist of a sequence of [=OBU=]s forming a [=Temporal Unit=]. In particular, a AV1 Sample SHALL contain exactly one presentable frame with enhancement_id set to 0. The sample SHOULD not contain any padding OBU. Each OBU SHALL be preceded by a length field, providing the length of the OBU. The size of this field is configurable and is provided in the sample description entry associated with this sample.
+For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the following constraints:
+- the sample SHALL contain a sequence of [=OBU=]s forming a [=Temporal Unit=],
+- each OBU SHALL have the [=obu_has_payload_length_field=] set to 1 except for the last one, the last OBU size is obtained from the sample size,
+- each OBU SHALL have its length coded as signaled by the OBU_length_mode field,
 
-ISSUE: Emulation prevention bytes may be present in the sample data (if EPB are accepted)
+ISSUE: We need to choose one of the two options above.
 
-A sync sample for this specification is a temporal unit satisfying the following constraints:
-- Its first frame is a [=Key Frame=];
-- It contains the associated Sequence Header and Frame Header OBUs.
+- OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
+- OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
+
+If an AV1 Sample is signaled as a sync sample, it SHALL satisfy the following constraints:
+- Its first frame is a [=Key Frame=] that has either show_frame flag set to 1 or refresh_frame_flags set to 0xFF or an [=Intra-only Frame=] that has refresh_frame_flags set to 0xFF,
+- It contain a [=Sequence Header=] before the first [=Frame Header=].
 
 NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its 'show_frame' flag set. Subsequent frames may have it.
-Intra-only frames may be signaled using the 'sap ' sample group.
+
+ISSUE: A new sample group may be needed for signaling show_existing_frames referring to a keyframe.
+
+NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header=].
+
+[=Intra-only frames=] MAY be signaled using the 'sap ' sample group.
 
 S-Frames SHOULD be signaled using sample groups and the [=AV1SFrameSampleGroupEntry=].
 
 Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks should be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
 
-Unlike other video elementary streams, AOM AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In files conformant to this specification, the 'ctts' box and composition offsets in movie fragments SHALL NOT be used for AV1 tracks. Similarly, the is_leading flag, if used, shall be set to 0 or 2.
+Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In files conformant to this specification, the 'ctts' box and composition offsets in movie fragments SHALL NOT be used for AV1 tracks. Similarly, the is_leading flag, if used, shall be set to 0 or 2.
 
 When a temporal unit contains more than one frame, the sample corresponding to that temporal unit should be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
@@ -221,15 +235,8 @@ The <dfn>AV1MultiFrameSampleGroupEntry</dfn> documents samples that contain mult
 
 ```
 class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
-  unsigned int (8) numFrames;
 }
 ```
-
-### Semantics ### {#multiframesamplegroupentry-semantics}
-
-<dfn>numFrames</dfn> is an integer indicating the number of frames contained in the temporal unit carried in the sample marked using this sample group. Value 0 is forbidden.
-
-ISSUE: This sample group will be revisited when the discussion in the RTC subgroup on the constraints applied to TU is finalized.
 
 AV1 S-Frame sample group entry {#sframeamplegroupentry}
 -------------------------------------------------------
@@ -254,17 +261,13 @@ The <dfn>AV1SFrameSampleGroupEntry</dfn> documents samples that start with an S-
 class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
 }
 ```
+
 ISSUE: we could define subsample information for identifying OBUs within a sample, of frames offsets within a sample, or tiles ...
 
 Carriage of HDR Metadata {#hdrmetadata}
 ---------------------------------------
 
-HDR metadata may be provided using the METADATA OBU type, with a metadata_type value equal to METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV. These OBUs may be carried in sample data, but if they are static for the entire set of samples associated with a given sample description entry, they should also be in the OBU array in the sample description entry.
-
-<pre class="issue">When the metadata is not static, we could:
-- Use multiple sample description entries, which is not ideal in live streaming cases when you don't know in advance all metadata that's going to be used
-- Mark the samples containing new metadata OBU with a new sample group
-- Or add to the AV1CodecConfigurationRecord, possibly through OBUs, that some metadata of some type will be used in the stream</pre>
+HDR metadata may be provided using the METADATA OBU type, with a metadata_type value equal to METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV. These OBUs may be carried in sample data, but if they are static for the entire set of samples associated with a given sample description entry, they should also be in the OBU array in the sample description entry. When carried in sample, the [=AV1MetadataSampleGroupEntry=] should be used.
 
 AV1 Metadata sample group entry {#metadatasamplegroupentry}
 -----------------------------------------------------------
@@ -286,7 +289,7 @@ The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain metada
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
 ```
-class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
+class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
   unsigned int (16) metadata_type;
 }
 ```
@@ -298,29 +301,46 @@ class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
 
-When fragmented or segmented, for example for the purpose of adaptive streaming, tracks conforming to this specification SHALL also conform to the constraints given in section 9.2 of CMAF, and are called CMAF AV1 Tracks.
-When encrypted, CMAF AV1 Tracks SHALL use the signaling defined in CMAF, which in turns relies on CENC, with the provisions given in the “Common Encryption” Section below.
-A CMAF AV1 Track SHALL contain a valid AV1 bitstream with the following constraints:
-- The track may use multiple sample entries,
-- The following values SHALL not change in the track:
+[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for encrypted files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
+
+If a [=CMAF Video Track=] signals one of the brands defined below, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
+- it SHALL use an [=AV1SampleEntry=]
+- it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:
     - profile
     - level
-    - The entire color_config() structure
+    - color_config()
+- the 'colr' and 'pasp' boxes SHALL be present
+- for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
 
-ISSUE: The points above need to be confirmed when the SH syntax is finalized.
+When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in CMAF, which in turns relies on CENC, with the provisions given in the “Common Encryption” Section below.
 
-ISSUE: AVC/HEVC CMAF Tracks require the presence of 'colr' and 'pasp', and recommend MDCV metadata. Should this be the case here too?
+The following brands are defined for [=CMAF AV1 Tracks=]:
 
-The following brands are defined to enable signaling of the additional constraints that apply to CMAF AV1 Tracks:
-
-[Add Table]
+<table>
+<thead>
+<tr>
+<th>Profile</th><th>Level</th><th>colour primaries</th><th>transfer characteristics</th><th>matrix coefficients</th><th>Max Frame Height</th><th>Max Frame Width</th><th>Max Frame Rate</th><th>CMAF File Brand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+</tr>
+<tr>
+<td>High</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+</tr>
+<tr>
+<td>Professional</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+</tr>
+</tbody>
+</table>
 
 ISSUE: The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.
 
 Common Encryption {#cenc}
 =========================
 
-This section specifies how [=AV1 bitstreams=] are encrypted, in particular how to partition [=AV1 samples=] into clear and encrypted subsamples. Fragmented (as indicated previously) and non-fragmented AV1 files SHALL use [[!CENC]]. Both 'cenc' and 'cbcs' scheme types are permitted.
+This section specifies how [=AV1 bitstreams=] are encrypted, in particular how to partition [=AV1 samples=] into clear and encrypted subsamples. [=CMAF AV1 Tracks=] and non-segmented AV1 files SHALL use [[!CENC]]. Both 'cenc' and 'cbcs' scheme types are permitted.
 
 Sample Encryption {#sample-encryption}
 --------------------------------------
@@ -346,32 +366,50 @@ Codecs Parameter String {#codecsparam}
 
 DASH and other applications require defined values for the 'Codecs' parameter specified in [[!RFC6381]] for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:
 ```
-<sample entry 4CC>.<profile>.<level>.<bitDepth>.<chromaSubsampling>.
+<sample entry 4CC>.<profile>.<level>.<bitDepth>.<monochrome>.<chromaSubsampling>.
 <colourPrimaries>.<transferCharacteristics>.<matrixCoefficients>.
 <videoFullRangeFlag>
 ```
 
-For all parameters, the semantics are explained in the OBU Sequence Header. All fields following the sample entry 4CC are expressed as double digit decimals.. The colourPrimaries, transferCharacteristics, and matrixCoefficients values are as specified in [[!CICP-Video]].
+All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.
 
-For example, codecs="av01.02.01.10.01.09.16.09.01" represents AV1 profile 2, level 1, 10-bit YUV content, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.
+The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the [=Sequence Header=].
 
-Mandatory Fields {#codecsparam-mandatory}
------------------------------------------
+The level parameter value SHALL equal the value of level in the [=Sequence Header=] for one of the operating point.
 
-sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
+The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in [[AV1]] derived from the [=Sequence Header=].
 
-Optional Fields {#codecsparam-optional}
-----------------------------------------
+The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the [=Sequence Header=].
 
-colourPrimaries, transferCharacteristics, matrixCoefficients, videoFullRangeFlag, and chromaSubsampling are OPTIONAL, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.
+The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.
 
-<pre class='elementdef'>
+The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise the fields can take any value.
 
-	chromaSubsampling: 1 (4:2:0 colocated with luma (0,0))
-	colourPrimaries: 1 (ITU-R BT.709)
-	transferCharacteristics: 1 (ITU-R BT.709)
-	matrixCoefficients: 1 (ITU-R BT.709)
-	videoFullRangeFlag: 0 (limited range)
-</pre>
+For example, codecs="av01.2.01.10.0.112.09.16.09.01" represents AV1 profile 2, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.
+
+The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
+
+All the other fields are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.
+
+<table class="def">
+<tr>
+<td>mono_chrome</td><td>0</td>
+</tr>
+<tr>
+<td>chromaSubsampling</td><td>112 (4:2:0 colocated with luma (0,0))</td>
+</tr>
+<tr>
+<td>colourPrimaries</td><td>1 (ITU-R BT.709)</td>
+</tr>
+<tr>
+<td>transferCharacteristics</td><td>1 (ITU-R BT.709)</td>
+</tr>
+<tr>
+<td>matrixCoefficients</td><td>1 (ITU-R BT.709)</td>
+</tr>
+<tr>
+<td>videoFullRangeFlag</td><td>0 (limited range)</td>
+</tr>
+</table>
 
 The string codecs="av01.01.01.08" in this case would represent AV1 profile 1, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
