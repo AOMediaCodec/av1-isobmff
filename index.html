@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="34e058ea50562220b8485916597f5a0214ee85e6" name="document-revision">
+  <meta content="8cf18c06e1689b15f851e8166a05fdea0e8162ce" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1425,20 +1425,28 @@ pre .property::before, pre .property::after {
         <li><a href="#multiframesamplegroupentry-syntax"><span class="secno">2.5.3</span> <span class="content">Syntax</span></a>
        </ol>
       <li>
-       <a href="#sframeamplegroupentry"><span class="secno">2.6</span> <span class="content">AV1 S-Frame sample group entry</span></a>
+       <a href="#forwardaccesssamplegroupentry"><span class="secno">2.6</span> <span class="content">AV1 Forward Access sample group entry</span></a>
        <ol class="toc">
-        <li><a href="#sframeamplegroupentry-definition"><span class="secno">2.6.1</span> <span class="content">Definition</span></a>
-        <li><a href="#sframeamplegroupentry-description"><span class="secno">2.6.2</span> <span class="content">Description</span></a>
-        <li><a href="#sframeamplegroupentry-syntax"><span class="secno">2.6.3</span> <span class="content">Syntax</span></a>
+        <li><a href="#forwardaccesssamplegroupentry-definition"><span class="secno">2.6.1</span> <span class="content">Definition</span></a>
+        <li><a href="#forwardaccesssamplegroupentry-description"><span class="secno">2.6.2</span> <span class="content">Description</span></a>
+        <li><a href="#forwardaccesssamplegroupentry-syntax"><span class="secno">2.6.3</span> <span class="content">Syntax</span></a>
+        <li><a href="#forwardaccesssamplegroupentry-semantics"><span class="secno">2.6.4</span> <span class="content">Semantics</span></a>
        </ol>
-      <li><a href="#hdrmetadata"><span class="secno">2.7</span> <span class="content">Carriage of HDR Metadata</span></a>
       <li>
-       <a href="#metadatasamplegroupentry"><span class="secno">2.8</span> <span class="content">AV1 Metadata sample group entry</span></a>
+       <a href="#sframeamplegroupentry"><span class="secno">2.7</span> <span class="content">AV1 S-Frame sample group entry</span></a>
        <ol class="toc">
-        <li><a href="#metadatasamplegroupentry-definition"><span class="secno">2.8.1</span> <span class="content">Definition</span></a>
-        <li><a href="#metadatasamplegroupentry-description"><span class="secno">2.8.2</span> <span class="content">Description</span></a>
-        <li><a href="#metadatasamplegroupentry-syntax"><span class="secno">2.8.3</span> <span class="content">Syntax</span></a>
-        <li><a href="#metadatasamplegroupentry-semantics"><span class="secno">2.8.4</span> <span class="content">Semantics</span></a>
+        <li><a href="#sframeamplegroupentry-definition"><span class="secno">2.7.1</span> <span class="content">Definition</span></a>
+        <li><a href="#sframeamplegroupentry-description"><span class="secno">2.7.2</span> <span class="content">Description</span></a>
+        <li><a href="#sframeamplegroupentry-syntax"><span class="secno">2.7.3</span> <span class="content">Syntax</span></a>
+       </ol>
+      <li><a href="#hdrmetadata"><span class="secno">2.8</span> <span class="content">Carriage of HDR Metadata</span></a>
+      <li>
+       <a href="#metadatasamplegroupentry"><span class="secno">2.9</span> <span class="content">AV1 Metadata sample group entry</span></a>
+       <ol class="toc">
+        <li><a href="#metadatasamplegroupentry-definition"><span class="secno">2.9.1</span> <span class="content">Definition</span></a>
+        <li><a href="#metadatasamplegroupentry-description"><span class="secno">2.9.2</span> <span class="content">Description</span></a>
+        <li><a href="#metadatasamplegroupentry-syntax"><span class="secno">2.9.3</span> <span class="content">Syntax</span></a>
+        <li><a href="#metadatasamplegroupentry-semantics"><span class="secno">2.9.4</span> <span class="content">Semantics</span></a>
        </ol>
      </ol>
     <li><a href="#cmaf"><span class="secno">3</span> <span class="content">CMAF AV1 track format and CMAF media profiles</span></a>
@@ -1572,14 +1580,13 @@ aligned (8) class AV1CodecConfigurationRecord {
      <p>It contain a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑤">Sequence Header</a> before the first <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑥">Frame Header</a>.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its <a class="property" data-link-type="propdesc" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑦">show_frame</a> flag set. Subsequent frames may have it.</p>
-   <p class="issue" id="issue-fdaa2220"><a class="self-link" href="#issue-fdaa2220"></a> A new sample group may be needed for signaling show_existing_frames referring to a keyframe.</p>
    <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑧">Sequence Header</a>.</p>
    <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Intra-only frames</a> MAY be signaled using the 'sap ' sample group.</p>
    <p>S-Frames SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1sframesamplegroupentry" id="ref-for-av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a>.</p>
    <p>Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks should be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①①">bitr</a>).</p>
    <p>Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In files conformant to this specification, the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①②">ctts</a> box and composition offsets in movie fragments SHALL NOT be used for AV1 tracks. Similarly, the is_leading flag, if used, shall be set to 0 or 2.</p>
    <p>When a temporal unit contains more than one frame, the sample corresponding to that temporal unit should be marked using the <a data-link-type="dfn" href="#av1multiframesamplegroupentry" id="ref-for-av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a>.</p>
-   <p>The grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification (i.e. <a class="property" data-link-type="propdesc">av1m</a>, <a class="property" data-link-type="propdesc">av1s</a>, <a class="property" data-link-type="propdesc">av1M</a>).</p>
+   <p>The grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification (i.e. <a class="property" data-link-type="propdesc">av1m</a>, <a class="property" data-link-type="propdesc">av1s</a>, <a class="property" data-link-type="propdesc">av1M</a>, <a class="property" data-link-type="propdesc">av1f</a>).</p>
    <h3 class="heading settled" data-level="2.5" id="multiframesamplegroupentry"><span class="secno">2.5. </span><span class="content">AV1 Multi-Frame sample group entry</span><a class="self-link" href="#multiframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.5.1" id="multiframesamplegroupentry-definition"><span class="secno">2.5.1. </span><span class="content">Definition</span><a class="self-link" href="#multiframesamplegroupentry-definition"></a></h4>
    <table class="def elementdef">
@@ -1603,13 +1610,13 @@ aligned (8) class AV1CodecConfigurationRecord {
 <pre>class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
 }
 </pre>
-   <h3 class="heading settled" data-level="2.6" id="sframeamplegroupentry"><span class="secno">2.6. </span><span class="content">AV1 S-Frame sample group entry</span><a class="self-link" href="#sframeamplegroupentry"></a></h3>
-   <h4 class="heading settled" data-level="2.6.1" id="sframeamplegroupentry-definition"><span class="secno">2.6.1. </span><span class="content">Definition</span><a class="self-link" href="#sframeamplegroupentry-definition"></a></h4>
+   <h3 class="heading settled" data-level="2.6" id="forwardaccesssamplegroupentry"><span class="secno">2.6. </span><span class="content">AV1 Forward Access sample group entry</span><a class="self-link" href="#forwardaccesssamplegroupentry"></a></h3>
+   <h4 class="heading settled" data-level="2.6.1" id="forwardaccesssamplegroupentry-definition"><span class="secno">2.6.1. </span><span class="content">Definition</span><a class="self-link" href="#forwardaccesssamplegroupentry-definition"></a></h4>
    <table class="def elementdef">
     <tbody>
      <tr>
       <th>Group type:
-      <td><dfn data-dfn-type="element" data-export="" id="elementdef-av1s"><code>av1s</code><a class="self-link" href="#elementdef-av1s"></a></dfn>
+      <td><dfn data-dfn-type="element" data-export="" id="elementdef-av1f"><code>av1f</code><a class="self-link" href="#elementdef-av1f"></a></dfn>
      <tr>
       <th>Container:
       <td>Sample Group Description Box (<a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①④">sgpd</a>)
@@ -1618,24 +1625,26 @@ aligned (8) class AV1CodecConfigurationRecord {
       <td>No
      <tr>
       <th>Quantity:
-      <td>Zero or more.
+      <td>Zero or one.
    </table>
-   <h4 class="heading settled" data-level="2.6.2" id="sframeamplegroupentry-description"><span class="secno">2.6.2. </span><span class="content">Description</span><a class="self-link" href="#sframeamplegroupentry-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</dfn> documents samples that start with an S-Frame.</p>
-   <h4 class="heading settled" data-level="2.6.3" id="sframeamplegroupentry-syntax"><span class="secno">2.6.3. </span><span class="content">Syntax</span><a class="self-link" href="#sframeamplegroupentry-syntax"></a></h4>
-<pre>class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
+   <h4 class="heading settled" data-level="2.6.2" id="forwardaccesssamplegroupentry-description"><span class="secno">2.6.2. </span><span class="content">Description</span><a class="self-link" href="#forwardaccesssamplegroupentry-description"></a></h4>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="av1forwardaccesssamplegroupentry">AV1ForwardAccessSampleGroupEntry<a class="self-link" href="#av1forwardaccesssamplegroupentry"></a></dfn> documents samples that contain multiple frames.</p>
+   <h4 class="heading settled" data-level="2.6.3" id="forwardaccesssamplegroupentry-syntax"><span class="secno">2.6.3. </span><span class="content">Syntax</span><a class="self-link" href="#forwardaccesssamplegroupentry-syntax"></a></h4>
+<pre>class AV1ForwardAccessSampleGroupEntry extends VisualSampleGroupEntry('av1f') {
+  unsigned int(1) initial_display;
+  unsigned int(7) fwd_distance;
 }
 </pre>
-   <p class="issue" id="issue-d3f2d355"><a class="self-link" href="#issue-d3f2d355"></a> we could define subsample information for identifying OBUs within a sample, of frames offsets within a sample, or tiles ...</p>
-   <h3 class="heading settled" data-level="2.7" id="hdrmetadata"><span class="secno">2.7. </span><span class="content">Carriage of HDR Metadata</span><a class="self-link" href="#hdrmetadata"></a></h3>
-   <p>HDR metadata may be provided using the METADATA OBU type, with a metadata_type value equal to METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV. These OBUs may be carried in sample data, but if they are static for the entire set of samples associated with a given sample description entry, they should also be in the OBU array in the sample description entry. When carried in sample, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> should be used.</p>
-   <h3 class="heading settled" data-level="2.8" id="metadatasamplegroupentry"><span class="secno">2.8. </span><span class="content">AV1 Metadata sample group entry</span><a class="self-link" href="#metadatasamplegroupentry"></a></h3>
-   <h4 class="heading settled" data-level="2.8.1" id="metadatasamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#metadatasamplegroupentry-definition"></a></h4>
+   <h4 class="heading settled" data-level="2.6.4" id="forwardaccesssamplegroupentry-semantics"><span class="secno">2.6.4. </span><span class="content">Semantics</span><a class="self-link" href="#forwardaccesssamplegroupentry-semantics"></a></h4>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="initial_display">initial_display<a class="self-link" href="#initial_display"></a></dfn> fields indicates if the processing of this sample will produce an output frame or not.</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="fwd_distance">fwd_distance<a class="self-link" href="#fwd_distance"></a></dfn> field indicates the number of samples whose decoding can be skipped before encountering the sample outputting the next frame. 0 means the next sample.</p>
+   <h3 class="heading settled" data-level="2.7" id="sframeamplegroupentry"><span class="secno">2.7. </span><span class="content">AV1 S-Frame sample group entry</span><a class="self-link" href="#sframeamplegroupentry"></a></h3>
+   <h4 class="heading settled" data-level="2.7.1" id="sframeamplegroupentry-definition"><span class="secno">2.7.1. </span><span class="content">Definition</span><a class="self-link" href="#sframeamplegroupentry-definition"></a></h4>
    <table class="def elementdef">
     <tbody>
      <tr>
       <th>Group type:
-      <td><dfn data-dfn-type="element" data-export="" id="elementdef-av1m①"><code>av1M</code><a class="self-link" href="#elementdef-av1m①"></a></dfn>
+      <td><dfn data-dfn-type="element" data-export="" id="elementdef-av1s"><code>av1s</code><a class="self-link" href="#elementdef-av1s"></a></dfn>
      <tr>
       <th>Container:
       <td>Sample Group Description Box (<a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑤">sgpd</a>)
@@ -1646,18 +1655,44 @@ aligned (8) class AV1CodecConfigurationRecord {
       <th>Quantity:
       <td>Zero or more.
    </table>
-   <h4 class="heading settled" data-level="2.8.2" id="metadatasamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
+   <h4 class="heading settled" data-level="2.7.2" id="sframeamplegroupentry-description"><span class="secno">2.7.2. </span><span class="content">Description</span><a class="self-link" href="#sframeamplegroupentry-description"></a></h4>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</dfn> documents samples that start with an S-Frame.</p>
+   <h4 class="heading settled" data-level="2.7.3" id="sframeamplegroupentry-syntax"><span class="secno">2.7.3. </span><span class="content">Syntax</span><a class="self-link" href="#sframeamplegroupentry-syntax"></a></h4>
+<pre>class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
+}
+</pre>
+   <p class="issue" id="issue-d3f2d355"><a class="self-link" href="#issue-d3f2d355"></a> we could define subsample information for identifying OBUs within a sample, of frames offsets within a sample, or tiles ...</p>
+   <h3 class="heading settled" data-level="2.8" id="hdrmetadata"><span class="secno">2.8. </span><span class="content">Carriage of HDR Metadata</span><a class="self-link" href="#hdrmetadata"></a></h3>
+   <p>HDR metadata may be provided using the METADATA OBU type, with a metadata_type value equal to METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV. These OBUs may be carried in sample data, but if they are static for the entire set of samples associated with a given sample description entry, they should also be in the OBU array in the sample description entry. When carried in sample, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> should be used.</p>
+   <h3 class="heading settled" data-level="2.9" id="metadatasamplegroupentry"><span class="secno">2.9. </span><span class="content">AV1 Metadata sample group entry</span><a class="self-link" href="#metadatasamplegroupentry"></a></h3>
+   <h4 class="heading settled" data-level="2.9.1" id="metadatasamplegroupentry-definition"><span class="secno">2.9.1. </span><span class="content">Definition</span><a class="self-link" href="#metadatasamplegroupentry-definition"></a></h4>
+   <table class="def elementdef">
+    <tbody>
+     <tr>
+      <th>Group type:
+      <td><dfn data-dfn-type="element" data-export="" id="elementdef-av1m①"><code>av1M</code><a class="self-link" href="#elementdef-av1m①"></a></dfn>
+     <tr>
+      <th>Container:
+      <td>Sample Group Description Box (<a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑥">sgpd</a>)
+     <tr>
+      <th>Mandatory:
+      <td>No
+     <tr>
+      <th>Quantity:
+      <td>Zero or more.
+   </table>
+   <h4 class="heading settled" data-level="2.9.2" id="metadatasamplegroupentry-description"><span class="secno">2.9.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain metadata OBUs.</p>
-   <h4 class="heading settled" data-level="2.8.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
+   <h4 class="heading settled" data-level="2.9.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.9.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
 <pre>class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
   unsigned int (16) metadata_type;
 }
 </pre>
-   <h4 class="heading settled" data-level="2.8.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.8.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
+   <h4 class="heading settled" data-level="2.9.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.9.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
    <p><dfn data-dfn-type="dfn" data-noexport="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> is as specified in the AV1 specification.</p>
    <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format and CMAF media profiles</span><a class="self-link" href="#cmaf"></a></h2>
    <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for encrypted files. <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.</p>
-   <p>If a <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⑥">CMAF Video Track</a> signals one of the brands defined below, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
+   <p>If a <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⑦">CMAF Video Track</a> signals one of the brands defined below, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
    <ul>
     <li data-md="">
      <p>it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry②">AV1SampleEntry</a></p>
@@ -1672,7 +1707,7 @@ aligned (8) class AV1CodecConfigurationRecord {
        <p>color_config()</p>
      </ul>
     <li data-md="">
-     <p>the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑦">colr</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑧">pasp</a> boxes SHALL be present</p>
+     <p>the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑧">colr</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑨">pasp</a> boxes SHALL be present</p>
     <li data-md="">
      <p>for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.</p>
    </ul>
@@ -1724,11 +1759,11 @@ aligned (8) class AV1CodecConfigurationRecord {
    </table>
    <p class="issue" id="issue-e789b68e"><a class="self-link" href="#issue-e789b68e"></a> The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.</p>
    <h2 class="heading settled" data-level="4" id="cenc"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#cenc"></a></h2>
-   <p>This section specifies how <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑨">cenc</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②⓪">cbcs</a> scheme types are permitted.</p>
+   <p>This section specifies how <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②⓪">cenc</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②①">cbcs</a> scheme types are permitted.</p>
    <h3 class="heading settled" data-level="4.1" id="sample-encryption"><span class="secno">4.1. </span><span class="content">Sample Encryption</span><a class="self-link" href="#sample-encryption"></a></h3>
    <p>When encrypting OBUs, all OBU headers MUST be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs MUST be unencrypted.</p>
    <p>Tile Groups OBU shall be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.</p>
-   <p>For the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②①">cenc</a> scheme type, the encrypted bytes of each OBU within the sample MUST be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.</p>
+   <p>For the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②②">cenc</a> scheme type, the encrypted bytes of each OBU within the sample MUST be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.</p>
    <figure>
      <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
     <figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
@@ -1738,7 +1773,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②②">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②③">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colourPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.
 &lt;videoFullRangeFlag>
@@ -1928,21 +1963,25 @@ aligned (8) class AV1CodecConfigurationRecord {
    <li><a href="#elementdef-av01">av01</a><span>, in §2.2.1</span>
    <li><a href="#elementdef-av1c">av1C</a><span>, in §2.3.1</span>
    <li><a href="#av1codecconfigurationbox">AV1CodecConfigurationBox</a><span>, in §2.3.2</span>
+   <li><a href="#elementdef-av1f">av1f</a><span>, in §2.6.1</span>
+   <li><a href="#av1forwardaccesssamplegroupentry">AV1ForwardAccessSampleGroupEntry</a><span>, in §2.6.2</span>
    <li><a href="#elementdef-av1m">av1m</a><span>, in §2.5.1</span>
-   <li><a href="#elementdef-av1m①">av1M</a><span>, in §2.8.1</span>
-   <li><a href="#av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a><span>, in §2.8.2</span>
+   <li><a href="#elementdef-av1m①">av1M</a><span>, in §2.9.1</span>
+   <li><a href="#av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a><span>, in §2.9.2</span>
    <li><a href="#av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a><span>, in §2.5.2</span>
-   <li><a href="#elementdef-av1s">av1s</a><span>, in §2.6.1</span>
+   <li><a href="#elementdef-av1s">av1s</a><span>, in §2.7.1</span>
    <li><a href="#av1-sample">AV1 Sample</a><span>, in §2.4</span>
    <li><a href="#av1sampleentry">AV1SampleEntry</a><span>, in §2.2.2</span>
-   <li><a href="#av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a><span>, in §2.6.2</span>
+   <li><a href="#av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a><span>, in §2.7.2</span>
    <li><a href="#cmaf-av1-track">CMAF AV1 Track</a><span>, in §3</span>
    <li><a href="#compressorname">compressorname</a><span>, in §2.2.4</span>
    <li><a href="#config">config</a><span>, in §2.2.4</span>
    <li><a href="#configobus">configOBUs</a><span>, in §2.3.4</span>
+   <li><a href="#fwd_distance">fwd_distance</a><span>, in §2.6.4</span>
    <li><a href="#height">height</a><span>, in §2.2.4</span>
+   <li><a href="#initial_display">initial_display</a><span>, in §2.6.4</span>
    <li><a href="#initial_presentation_delay">initial_presentation_delay</a><span>, in §2.3.4</span>
-   <li><a href="#metadata_type">metadata_type</a><span>, in §2.8.4</span>
+   <li><a href="#metadata_type">metadata_type</a><span>, in §2.9.4</span>
    <li><a href="#obu_length_mode">OBU_length_mode</a><span>, in §2.3.4</span>
    <li><a href="#width">width</a><span>, in §2.2.4</span>
   </ul>
@@ -2046,7 +2085,7 @@ aligned (8) class AV1CodecConfigurationRecord {
   <aside class="dfn-panel" data-for="av1metadatasamplegroupentry">
    <b><a href="#av1metadatasamplegroupentry">#av1metadatasamplegroupentry</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-av1metadatasamplegroupentry">2.7. Carriage of HDR Metadata</a>
+    <li><a href="#ref-for-av1metadatasamplegroupentry">2.8. Carriage of HDR Metadata</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="cmaf-av1-track">

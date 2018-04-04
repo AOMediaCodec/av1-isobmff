@@ -189,8 +189,6 @@ If an AV1 Sample is signaled as a sync sample, it SHALL satisfy the following co
 
 NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its 'show_frame' flag set. Subsequent frames may have it.
 
-ISSUE: A new sample group may be needed for signaling show_existing_frames referring to a keyframe.
-
 NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header=].
 
 [=Intra-only frames=] MAY be signaled using the 'sap ' sample group.
@@ -203,7 +201,7 @@ Unlike many video standards, AV1 does not distinguish the display order from the
 
 When a temporal unit contains more than one frame, the sample corresponding to that temporal unit should be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
-The grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification (i.e. 'av1m', 'av1s', 'av1M').
+The grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification (i.e. 'av1m', 'av1s', 'av1M', 'av1f').
 
 AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ----------------------------------------------------------------
@@ -229,6 +227,39 @@ The <dfn>AV1MultiFrameSampleGroupEntry</dfn> documents samples that contain mult
 class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
 }
 ```
+AV1 Forward Access sample group entry {#forwardaccesssamplegroupentry}
+----------------------------------------------------------------
+
+### Definition ### {#forwardaccesssamplegroupentry-definition}
+
+<pre class='elementdef'>
+	Group Type: av1f
+	Container: Sample Group Description Box ('sgpd')
+	Mandatory: No
+	Quantity: Zero or one.
+</pre>
+
+
+### Description ### {#forwardaccesssamplegroupentry-description}
+
+The <dfn>AV1ForwardAccessSampleGroupEntry</dfn> documents samples that contain multiple frames.
+
+
+### Syntax ### {#forwardaccesssamplegroupentry-syntax}
+
+```
+class AV1ForwardAccessSampleGroupEntry extends VisualSampleGroupEntry('av1f') {
+  unsigned int(1) initial_display;
+  unsigned int(7) fwd_distance;
+}
+```
+
+### Semantics ### {#forwardaccesssamplegroupentry-semantics}
+
+The <dfn>initial_display</dfn> fields indicates if the processing of this sample will produce an output frame or not.
+
+The <dfn>fwd_distance</dfn> field indicates the number of samples whose decoding can be skipped before encountering the sample outputting the next frame. 0 means the next sample.
+
 
 AV1 S-Frame sample group entry {#sframeamplegroupentry}
 -------------------------------------------------------
