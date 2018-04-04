@@ -145,8 +145,8 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (6) reserved = 0;
-  unsigned int (2) OBU_length_mode;
+  unsigned int (7) reserved = 0;
+  unsigned int (1) OBU_length_mode;
   unsigned int (3) initial_presentation_delay;
   unsigned int (8)[] configOBUs;
 }
@@ -158,15 +158,11 @@ The <dfn>configOBUs</dfn> field contains zero or more OBUs applicable to all the
 
 NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
-The <dfn>OBU_length_mode</dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:
-- 0: present for all OBUs, before the OBU header, and the [=obu_has_payload_length_field=] flag is set to 0,
-- 1: present for all OBUs, after the OBU header, and the [=obu_has_payload_length_field=] flag set to 1,
-- 2: same as 1 except for the last OBU where the length is not present and the [=obu_has_payload_length_field=] flag is set to 0.
-- 3: The value 3 for OBU_length_mode is not allowed.
+The <dfn>OBU_length_mode</dfn> field indicates if the length of each OBU (in the sample entry or in the samples) is:
+- 0: coded for all OBUs as specified in Annex B of [[!AV1]], i.e. before the OBU header. In this case, the [=obu_has_payload_length_field=] flag in the OBU header should be set to 0.
+- 1: signaled by the [=obu_has_payload_length_field=] flag in the OBU header. If set to 1, the length field is coded as specified by the [[!AV1]] specification, i.e. it follows the OBU header. The flag SHALL be set to 1 for all OBUs except the last one. It may be set to 0 for the last OBU.
 
 In all cases, if present, the length is coded using LEB128 as specified in [[!AV1]].
-
-ISSUE: This field could disappear if we decide to mandate only one mode.
 
 The <dfn>initial_presentation_delay</dfn> field indicates the number of samples that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time (as indicated by the timing information in ISOBMFF structures) if decoding happens at the decoding rate required by the level indicated in the [=Sequence Header=] and according to the hypothetical decoder model specified in [[!AV1]]. The value of this field shall be compatible with the value of decoding_delay indicated in the [=Sequence Header=].
 
@@ -183,11 +179,7 @@ AV1 Sample Format {#sampleformat}
 
 For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the following constraints:
 - the sample SHALL contain a sequence of [=OBU=]s forming a [=Temporal Unit=],
-- each OBU SHALL have the [=obu_has_payload_length_field=] set to 1 except for the last one, the last OBU size is obtained from the sample size,
 - each OBU SHALL have its length coded as signaled by the OBU_length_mode field,
-
-ISSUE: We need to choose one of the two options above.
-
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
 - OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
 
