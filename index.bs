@@ -42,9 +42,6 @@ url: AOMediaCodec/av1-spec; spec: AV1; type: dfn;
 	text: Temporal Unit
 	text: Frame Header
 	text: Sequence Header
-	text: max_frame_width_minus_1
-	text: max_frame_height_minus_1
-	text: obu_has_payload_length_field
 
 url: http://iso.org; spec: CMAF; type: dfn;
 	text: CMAF Video Track
@@ -54,7 +51,14 @@ url: http://iso.org; spec: CENC; type: property;
 	text: cenc
 
 url: AOMediaCodec/av1-spec; spec: AV1; type: property;
+	text: max_frame_width_minus_1
+	text: max_frame_height_minus_1
+	text: obu_has_payload_length_field
 	text: show_frame
+	text: initial_display_delay_minus1
+	text: frame_presentation_delay
+	text: timing_info
+	text: buffer_removal_delay
 </pre>
 
 Bitstream features overview {#bitstream-overview}
@@ -147,7 +151,7 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 aligned (8) class AV1CodecConfigurationRecord {
   unsigned int (6) reserved = 0;
   unsigned int (2) OBU_length_mode;
-  unsigned int (3) initial_presentation_delay;
+  unsigned int (3) initial_presentation_delay_minus_one;
   unsigned int (8)[] configOBUs;
 }
 ```
@@ -168,11 +172,14 @@ In all cases, if present, the length is coded using LEB128 as specified in [[!AV
 
 ISSUE: This field could disappear if we decide to mandate only one mode.
 
-The <dfn>initial_presentation_delay</dfn> field indicates the number of samples that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time (as indicated by the timing information in ISOBMFF structures) if decoding happens at the decoding rate required by the level indicated in the [=Sequence Header=] and according to the hypothetical decoder model specified in [[!AV1]]. The value of this field shall be compatible with the value of decoding_delay indicated in the [=Sequence Header=].
+The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the [=Sequence Header=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
+- construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,
+- set the first [=initial_display_delay_minus1=] field of each sequence header to the number of frames contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
+- set the [=frame_presentation_delay=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise)
+- apply the display model verification algorithm.
+In particular, when smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used; and if an ISOBMFF writer cannot verify the above procedure, it should set [=initial_presentation_delay=] to its maximum value.
 
-ISSUE: The initial_presentation_delay might be removed if added to the Sequence Header.
-
-The values of timing_info in the [=Sequence Header=] (in the configOBUs field or in the associated samples) SHALL be ignored for the purpose of timed processing of the ISOBMFF file. In particular, the presentation times of AV1 samples are given by the ISOBMFF structures and not by the equal_picture_interval flag.
+The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header=], the [=frame_presentation_delay=] and [=buffer_removal_delay=] fields of the [=Frame Headers=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
 If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
 

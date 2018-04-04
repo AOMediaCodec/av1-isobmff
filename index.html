@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="69ac66639b76719dfecb0898c6da948639558794" name="document-revision">
+  <meta content="34e058ea50562220b8485916597f5a0214ee85e6" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1498,8 +1498,8 @@ pre .property::before, pre .property::after {
 }
 </pre>
    <h4 class="heading settled" data-level="2.2.4" id="av1sampleentry-semantics"><span class="secno">2.2.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1sampleentry-semantics"></a></h4>
-   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="width">width<a class="self-link" href="#width"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="height">height<a class="self-link" href="#height"></a></dfn> fields of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①">VisualSampleEntry</a> SHALL equal the values of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec⑧">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec⑨">max_frame_height_minus_1</a> + 1 of the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⓪">Sequence Header</a> applying to the samples associated with this sample entry.</p>
-   <p>As specified in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>, the width and height in the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org②">VisualSampleEntry</a> are specified in square pixels. If the video pixels are not square, then a <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org③">pasp</a> box MUST be included and the track header width and height SHOULD match the values of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①①">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①②">max_frame_height_minus_1</a> + 1 after the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org④">pasp</a> ratio has been applied.</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="width">width<a class="self-link" href="#width"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="height">height<a class="self-link" href="#height"></a></dfn> fields of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①">VisualSampleEntry</a> SHALL equal the values of <a data-link-type="dfn">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn">max_frame_height_minus_1</a> + 1 of the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec⑧">Sequence Header</a> applying to the samples associated with this sample entry.</p>
+   <p>As specified in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>, the width and height in the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org②">VisualSampleEntry</a> are specified in square pixels. If the video pixels are not square, then a <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org③">pasp</a> box MUST be included and the track header width and height SHOULD match the values of <a data-link-type="dfn">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn">max_frame_height_minus_1</a> + 1 after the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org④">pasp</a> ratio has been applied.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="compressorname">compressorname<a class="self-link" href="#compressorname"></a></dfn> field of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑤">VisualSampleEntry</a> is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.</p>
    <p class="note" role="note"><span>NOTE:</span> Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="config">config<a class="self-link" href="#config"></a></dfn> field SHALL contain an <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox①">AV1CodecConfigurationBox</a> that applies to the samples associated with this sample entry.</p>
@@ -1523,7 +1523,7 @@ pre .property::before, pre .property::after {
       <td>Exactly One
    </table>
    <h4 class="heading settled" data-level="2.3.2" id="av1codecconfigurationbox-description"><span class="secno">2.3.2. </span><span class="content">Description</span><a class="self-link" href="#av1codecconfigurationbox-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains an array of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①③">OBUs</a> that MUST be valid for every sample that references the sample entry.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains an array of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec⑨">OBUs</a> that MUST be valid for every sample that references the sample entry.</p>
    <h4 class="heading settled" data-level="2.3.3" id="av1codecconfigurationbox-syntax"><span class="secno">2.3.3. </span><span class="content">Syntax</span><a class="self-link" href="#av1codecconfigurationbox-syntax"></a></h4>
 <pre>class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
   AV1CodecConfigurationRecord() av1Config;
@@ -1532,7 +1532,7 @@ pre .property::before, pre .property::after {
 aligned (8) class AV1CodecConfigurationRecord {
   unsigned int (6) reserved = 0;
   unsigned int (2) OBU_length_mode;
-  unsigned int (3) initial_presentation_delay;
+  unsigned int (3) initial_presentation_delay_minus_one;
   unsigned int (8)[] configOBUs;
 }
 </pre>
@@ -1542,28 +1542,38 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="obu_length_mode">OBU_length_mode<a class="self-link" href="#obu_length_mode"></a></dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:</p>
    <ul>
     <li data-md="">
-     <p>0: present for all OBUs, before the OBU header, and the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①④">obu_has_payload_length_field</a> flag is set to 0,</p>
+     <p>0: present for all OBUs, before the OBU header, and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag is set to 0,</p>
     <li data-md="">
-     <p>1: present for all OBUs, after the OBU header, and the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑤">obu_has_payload_length_field</a> flag set to 1,</p>
+     <p>1: present for all OBUs, after the OBU header, and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag set to 1,</p>
     <li data-md="">
-     <p>2: same as 1 except for the last OBU where the length is not present and the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑥">obu_has_payload_length_field</a> flag is set to 0.</p>
+     <p>2: same as 1 except for the last OBU where the length is not present and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag is set to 0.</p>
     <li data-md="">
      <p>3: The value 3 for OBU_length_mode is not allowed.</p>
    </ul>
    <p>In all cases, if present, the length is coded using LEB128 as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>.</p>
    <p class="issue" id="issue-4768ce66"><a class="self-link" href="#issue-4768ce66"></a> This field could disappear if we decide to mandate only one mode.</p>
-   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay">initial_presentation_delay<a class="self-link" href="#initial_presentation_delay"></a></dfn> field indicates the number of samples that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time (as indicated by the timing information in ISOBMFF structures) if decoding happens at the decoding rate required by the level indicated in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑦">Sequence Header</a> and according to the hypothetical decoder model specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The value of this field shall be compatible with the value of decoding_delay indicated in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑧">Sequence Header</a>.</p>
-   <p class="issue" id="issue-da03e7c2"><a class="self-link" href="#issue-da03e7c2"></a> The initial_presentation_delay might be removed if added to the Sequence Header.</p>
-   <p>The values of timing_info in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑨">Sequence Header</a> (in the configOBUs field or in the associated samples) SHALL be ignored for the purpose of timed processing of the ISOBMFF file. In particular, the presentation times of AV1 samples are given by the ISOBMFF structures and not by the equal_picture_interval flag.</p>
-   <p>If a <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑦">colr</a> box is present in the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑧">VisualSampleEntry</a> with a colour_type set to <a class="property" data-link-type="propdesc">nclx</a>, the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⓪">Sequence Header</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑨">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②①">Sequence Header</a>.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⓪">Sequence Header</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
+   <ul>
+    <li data-md="">
+     <p>construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,</p>
+    <li data-md="">
+     <p>set the first <a data-link-type="dfn">initial_display_delay_minus1</a> field of each sequence header to the number of frames contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
+    <li data-md="">
+     <p>set the <a data-link-type="dfn">frame_presentation_delay</a> field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise)</p>
+    <li data-md="">
+     <p>apply the display model verification algorithm.
+In particular, when smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used; and if an ISOBMFF writer cannot verify the above procedure, it should set <a data-link-type="dfn">initial_presentation_delay</a> to its maximum value.</p>
+   </ul>
+   <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn">timing_info_present_flag</a> in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①①">Sequence Header</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn">timing_info</a> structure of the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①②">Sequence Header</a>, the <a data-link-type="dfn">frame_presentation_delay</a> and <a data-link-type="dfn">buffer_removal_delay</a> fields of the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①③">Frame Headers</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
+   <p>If a <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑦">colr</a> box is present in the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑧">VisualSampleEntry</a> with a colour_type set to <a class="property" data-link-type="propdesc">nclx</a>, the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①④">Sequence Header</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑨">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑤">Sequence Header</a>.</p>
    <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⓪">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn">AV1CodecConfigurationRecord</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
    <h3 class="heading settled" data-level="2.4" id="sampleformat"><span class="secno">2.4. </span><span class="content">AV1 Sample Format</span><a class="self-link" href="#sampleformat"></a></h3>
    <p>For tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry①">AV1SampleEntry</a>, an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1-sample">AV1 Sample</dfn> has the following constraints:</p>
    <ul>
     <li data-md="">
-     <p>the sample SHALL contain a sequence of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②②">OBU</a>s forming a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②③">Temporal Unit</a>,</p>
+     <p>the sample SHALL contain a sequence of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑥">OBU</a>s forming a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑦">Temporal Unit</a>,</p>
     <li data-md="">
-     <p>each OBU SHALL have the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②④">obu_has_payload_length_field</a> set to 1 except for the last one, the last OBU size is obtained from the sample size,</p>
+     <p>each OBU SHALL have the <a data-link-type="dfn">obu_has_payload_length_field</a> set to 1 except for the last one, the last OBU size is obtained from the sample size,</p>
     <li data-md="">
      <p>each OBU SHALL have its length coded as signaled by the OBU_length_mode field,</p>
    </ul>
@@ -1577,14 +1587,14 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>If an AV1 Sample is signaled as a sync sample, it SHALL satisfy the following constraints:</p>
    <ul>
     <li data-md="">
-     <p>Its first frame is a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑤">Key Frame</a> that has either show_frame flag set to 1 or refresh_frame_flags set to 0xFF or an <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑥">Intra-only Frame</a> that has refresh_frame_flags set to 0xFF,</p>
+     <p>Its first frame is a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑧">Key Frame</a> that has either show_frame flag set to 1 or refresh_frame_flags set to 0xFF or an <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑨">Intra-only Frame</a> that has refresh_frame_flags set to 0xFF,</p>
     <li data-md="">
-     <p>It contain a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑦">Sequence Header</a> before the first <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑧">Frame Header</a>.</p>
+     <p>It contain a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⓪">Sequence Header</a> before the first <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②①">Frame Header</a>.</p>
    </ul>
-   <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its <a class="property" data-link-type="propdesc" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">show_frame</a> flag set. Subsequent frames may have it.</p>
+   <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its <a class="property" data-link-type="propdesc" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②②">show_frame</a> flag set. Subsequent frames may have it.</p>
    <p class="issue" id="issue-fdaa2220"><a class="self-link" href="#issue-fdaa2220"></a> A new sample group may be needed for signaling show_existing_frames referring to a keyframe.</p>
-   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">Sequence Header</a>.</p>
-   <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③①">Intra-only frames</a> MAY be signaled using the 'sap ' sample group.</p>
+   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②③">Sequence Header</a>.</p>
+   <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②④">Intra-only frames</a> MAY be signaled using the 'sap ' sample group.</p>
    <p>S-Frames SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1sframesamplegroupentry" id="ref-for-av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a>.</p>
    <p>Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks should be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①①">bitr</a>).</p>
    <p>Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In files conformant to this specification, the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①②">ctts</a> box and composition offsets in movie fragments SHALL NOT be used for AV1 tracks. Similarly, the is_leading flag, if used, shall be set to 0 or 2.</p>
@@ -1734,7 +1744,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    </table>
    <p class="issue" id="issue-e789b68e"><a class="self-link" href="#issue-e789b68e"></a> The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.</p>
    <h2 class="heading settled" data-level="4" id="cenc"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#cenc"></a></h2>
-   <p>This section specifies how <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③②">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑨">cenc</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②⓪">cbcs</a> scheme types are permitted.</p>
+   <p>This section specifies how <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑤">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①⑨">cenc</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②⓪">cbcs</a> scheme types are permitted.</p>
    <h3 class="heading settled" data-level="4.1" id="sample-encryption"><span class="secno">4.1. </span><span class="content">Sample Encryption</span><a class="self-link" href="#sample-encryption"></a></h3>
    <p>When encrypting OBUs, all OBU headers MUST be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs MUST be unencrypted.</p>
    <p>Tile Groups OBU shall be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.</p>
@@ -1754,12 +1764,12 @@ aligned (8) class AV1CodecConfigurationRecord {
 &lt;videoFullRangeFlag>
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
-   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③③">Sequence Header</a>.</p>
-   <p>The level parameter value SHALL equal the value of level in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③④">Sequence Header</a> for one of the operating point.</p>
-   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑤">Sequence Header</a>.</p>
-   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑥">Sequence Header</a>.</p>
+   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑥">Sequence Header</a>.</p>
+   <p>The level parameter value SHALL equal the value of level in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑦">Sequence Header</a> for one of the operating point.</p>
+   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑧">Sequence Header</a>.</p>
+   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Sequence Header</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.</p>
-   <p>The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑦">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise the fields can take any value.</p>
+   <p>The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise the fields can take any value.</p>
    <p>For example, codecs="av01.2.01.10.0.112.09.16.09.01" represents AV1 profile 2, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.</p>
    <p>The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.</p>
@@ -1951,7 +1961,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <li><a href="#config">config</a><span>, in §2.2.4</span>
    <li><a href="#configobus">configOBUs</a><span>, in §2.3.4</span>
    <li><a href="#height">height</a><span>, in §2.2.4</span>
-   <li><a href="#initial_presentation_delay">initial_presentation_delay</a><span>, in §2.3.4</span>
+   <li><a href="#initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a><span>, in §2.3.4</span>
    <li><a href="#metadata_type">metadata_type</a><span>, in §2.8.4</span>
    <li><a href="#obu_length_mode">OBU_length_mode</a><span>, in §2.3.4</span>
    <li><a href="#width">width</a><span>, in §2.2.4</span>
@@ -1966,10 +1976,7 @@ aligned (8) class AV1CodecConfigurationRecord {
      <li><a href="#AOMediaCodec/av1-spec">inter frame</a>
      <li><a href="#AOMediaCodec/av1-spec">intra-only frame</a>
      <li><a href="#AOMediaCodec/av1-spec">key frame</a>
-     <li><a href="#AOMediaCodec/av1-spec">max_frame_height_minus_1</a>
-     <li><a href="#AOMediaCodec/av1-spec">max_frame_width_minus_1</a>
      <li><a href="#AOMediaCodec/av1-spec">obu</a>
-     <li><a href="#AOMediaCodec/av1-spec">obu_has_payload_length_field</a>
      <li><a href="#AOMediaCodec/av1-spec">s frame</a>
      <li><a href="#AOMediaCodec/av1-spec">sequence header</a>
      <li><a href="#AOMediaCodec/av1-spec">show_frame</a>
@@ -2032,6 +2039,12 @@ aligned (8) class AV1CodecConfigurationRecord {
    <ul>
     <li><a href="#ref-for-av1codecconfigurationbox">2.2.2. Description</a>
     <li><a href="#ref-for-av1codecconfigurationbox①">2.2.4. Semantics</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="initial_presentation_delay_minus_one">
+   <b><a href="#initial_presentation_delay_minus_one">#initial_presentation_delay_minus_one</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-initial_presentation_delay_minus_one">2.3.4. Semantics</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="av1-sample">
