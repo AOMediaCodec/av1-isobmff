@@ -366,7 +366,7 @@ Codecs Parameter String {#codecsparam}
 
 DASH and other applications require defined values for the 'Codecs' parameter specified in [[!RFC6381]] for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:
 ```
-<sample entry 4CC>.<profile>.<level>.<bitDepth>.<monochrome>.<chromaSubsampling>.
+<sample entry 4CC>.<profile>.<still>.<level>.<bitDepth>.<monochrome>.<chromaSubsampling>.
 <colourPrimaries>.<transferCharacteristics>.<matrixCoefficients>.
 <videoFullRangeFlag>
 ```
@@ -375,7 +375,9 @@ All fields following the sample entry 4CC are expressed as double digit decimals
 
 The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the [=Sequence Header=].
 
-The level parameter value SHALL equal the value of level in the [=Sequence Header=] for one of the operating point.
+The still parameter value, represented by a single digit decimal, SHALL equal the value of still_picture in the [=Sequence Header=].
+
+The level parameter value SHALL equal the first level value in the [=Sequence Header=].
 
 The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in [[AV1]] derived from the [=Sequence Header=].
 
@@ -383,13 +385,13 @@ The monochrome parameter value, represented by a single digit decimal, SHALL equ
 
 The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.
 
-The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise the fields can take any value.
+The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
 
-For example, codecs="av01.2.01.10.0.112.09.16.09.01" represents AV1 profile 2, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.
+For example, codecs="av01.2.0.01.10.0.112.09.16.09.1" represents AV1 profile 2, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.
 
 The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
 
-All the other fields are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.
+All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.
 
 <table class="def">
 <tr>
@@ -412,4 +414,6 @@ All the other fields are optional, mutually inclusive (all or none) fields. If n
 </tr>
 </table>
 
-The string codecs="av01.01.01.08" in this case would represent AV1 profile 1, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
+The string codecs="av01.1.0.01.08" in this case would represent AV1 profile 1, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
+
+If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
