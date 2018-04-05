@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="16496b7001f4dc2df3915ddef79bb49061619fca" name="document-revision">
+  <meta content="80cfacf8d08386fe8f6628ae6dda6b43ab90791e" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1760,7 +1760,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑦">Sequence Header</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.</p>
    <p>The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑧">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
-   <p>For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
+   <p>For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
    <p>The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.</p>
    <table class="def">
@@ -1784,7 +1784,7 @@ aligned (8) class AV1CodecConfigurationRecord {
       <td>videoFullRangeFlag
       <td>0 (studio swing representation)
    </table>
-   <p>The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.</p>
+   <p>The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.</p>
    <p>If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.</p>
   </main>
   <div data-fill-with="conformance">
