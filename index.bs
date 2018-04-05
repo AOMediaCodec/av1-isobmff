@@ -390,7 +390,7 @@ For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, 
 
 The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
 
-All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.
+All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.
 
 <table class="def">
 <tr>
@@ -413,6 +413,6 @@ All the other fields (including their leading '.') are optional, mutually inclus
 </tr>
 </table>
 
-The string codecs="av01.1.0.01.08" in this case would represent AV1 profile 1, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
+The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
 
 If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
