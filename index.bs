@@ -386,7 +386,7 @@ The chromaSubsampling parameter value, represented by a three-digit decimal, SHA
 
 The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
 
-For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ EOTF, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
+For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
 
 The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
 
@@ -413,6 +413,6 @@ All the other fields (including their leading '.') are optional, mutually inclus
 </tr>
 </table>
 
-The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
+The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and luma/chroma encoded in the "limited" range.
 
 If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
