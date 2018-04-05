@@ -367,8 +367,7 @@ Codecs Parameter String {#codecsparam}
 DASH and other applications require defined values for the 'Codecs' parameter specified in [[!RFC6381]] for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:
 ```
 <sample entry 4CC>.<profile>.<still>.<level>.<bitDepth>.<monochrome>.<chromaSubsampling>.
-<colourPrimaries>.<transferCharacteristics>.<matrixCoefficients>.
-<videoFullRangeFlag>
+<colourPrimaries>.<transferCharacteristics>.<matrixCoefficients>.<videoFullRangeFlag>
 ```
 
 All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.
