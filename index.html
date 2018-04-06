@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="685bba9d657729d75b1b5061ea2cbffc0d294589" name="document-revision">
+  <meta content="4620b07b6499571340d1827dfcfdd02ba37e8f1c" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1526,12 +1526,11 @@ pre .property::before, pre .property::after {
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains an array of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec⑨">OBUs</a> that MUST be valid for every sample that references the sample entry.</p>
    <h4 class="heading settled" data-level="2.3.3" id="av1codecconfigurationbox-syntax"><span class="secno">2.3.3. </span><span class="content">Syntax</span><a class="self-link" href="#av1codecconfigurationbox-syntax"></a></h4>
 <pre>class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
-  AV1CodecConfigurationRecord() av1Config;
+  AV1CodecConfigurationRecord av1Config;
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (6) reserved = 0;
-  unsigned int (2) OBU_length_mode;
+  unsigned int (5) reserved = 0;
   unsigned int (3) initial_presentation_delay_minus_one;
   unsigned int (8)[] configOBUs;
 }
@@ -1539,19 +1538,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <h4 class="heading settled" data-level="2.3.4" id="av1codecconfigurationbox-semantics"><span class="secno">2.3.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1codecconfigurationbox-semantics"></a></h4>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their <a data-link-type="dfn">temporal_id</a> or <a data-link-type="dfn">spatial_id</a> value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.</p>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.</p>
-   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="obu_length_mode">OBU_length_mode<a class="self-link" href="#obu_length_mode"></a></dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:</p>
-   <ul>
-    <li data-md="">
-     <p>0: present for all OBUs, before the OBU header, and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag is set to 0,</p>
-    <li data-md="">
-     <p>1: present for all OBUs, after the OBU header, and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag set to 1,</p>
-    <li data-md="">
-     <p>2: same as 1 except for the last OBU where the length is not present and the <a data-link-type="dfn">obu_has_payload_length_field</a> flag is set to 0.</p>
-    <li data-md="">
-     <p>3: The value 3 for OBU_length_mode is not allowed.</p>
-   </ul>
-   <p>In all cases, if present, the length is coded using LEB128 as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>.</p>
-   <p class="issue" id="issue-4768ce66"><a class="self-link" href="#issue-4768ce66"></a> This field could disappear if we decide to mandate only one mode.</p>
+   <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn">obu_has_payload_length_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⓪">Sequence Header</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md="">
@@ -1573,12 +1560,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
     <li data-md="">
      <p>the sample SHALL contain a sequence of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑥">OBU</a>s forming a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑦">Temporal Unit</a>,</p>
     <li data-md="">
-     <p>each OBU SHALL have the <a data-link-type="dfn">obu_has_payload_length_field</a> set to 1 except for the last one, the last OBU size is obtained from the sample size,</p>
-    <li data-md="">
-     <p>each OBU SHALL have its length coded as signaled by the OBU_length_mode field,</p>
-   </ul>
-   <p class="issue" id="issue-ceeb19fb"><a class="self-link" href="#issue-ceeb19fb"></a> We need to choose one of the two options above.</p>
-   <ul>
+     <p>each OBU SHALL follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn">obu_has_payload_length_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn">obu_has_payload_length_field</a> MAY be set to 0, in which case it is assumed to fill the remaining of the sample,</p>
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
     <li data-md="">
@@ -1764,13 +1746,13 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
 &lt;videoFullRangeFlag>
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
-   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③③">Sequence Header</a>.</p>
-   <p>The still parameter value, represented by a single digit decimal, SHALL equal the value of still_picture in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③④">Sequence Header</a>.</p>
-   <p>The level parameter value SHALL equal the first level value in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑤">Sequence Header</a>.</p>
-   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑥">Sequence Header</a>.</p>
-   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑦">Sequence Header</a>.</p>
+   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑥">Sequence Header</a>.</p>
+   <p>The still parameter value, represented by a single digit decimal, SHALL equal the value of still_picture in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑦">Sequence Header</a>.</p>
+   <p>The level parameter value SHALL equal the first level value in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑧">Sequence Header</a>.</p>
+   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Sequence Header</a>.</p>
+   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">Sequence Header</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.</p>
-   <p>The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑧">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
+   <p>The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③①">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
    <p>For example, codecs="av01.2.0.01.10.0.112.09.16.09.1" represents AV1 profile 2, non still picture mode, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.</p>
    <p>The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.</p>
@@ -1965,7 +1947,6 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
    <li><a href="#height">height</a><span>, in §2.2.4</span>
    <li><a href="#initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a><span>, in §2.3.4</span>
    <li><a href="#metadata_type">metadata_type</a><span>, in §2.8.4</span>
-   <li><a href="#obu_length_mode">OBU_length_mode</a><span>, in §2.3.4</span>
    <li><a href="#width">width</a><span>, in §2.2.4</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
