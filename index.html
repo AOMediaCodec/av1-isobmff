@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="4620b07b6499571340d1827dfcfdd02ba37e8f1c" name="document-revision">
+  <meta content="80cfacf8d08386fe8f6628ae6dda6b43ab90791e" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1685,7 +1685,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
      <tr>
       <th>Profile
       <th>Level
-      <th>colour primaries
+      <th>color primaries
       <th>transfer characteristics
       <th>matrix coefficients
       <th>Max Frame Height
@@ -1696,7 +1696,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
      <tr>
       <td>Main
       <td>Level
-      <td>colour primaries
+      <td>color primaries
       <td>transfer characteristics
       <td>matrix coefficients
       <td>Max Frame Height
@@ -1706,7 +1706,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
      <tr>
       <td>High
       <td>Level
-      <td>colour primaries
+      <td>color primaries
       <td>transfer characteristics
       <td>matrix coefficients
       <td>Max Frame Height
@@ -1716,7 +1716,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
      <tr>
       <td>Professional
       <td>Level
-      <td>colour primaries
+      <td>color primaries
       <td>transfer characteristics
       <td>matrix coefficients
       <td>Max Frame Height
@@ -1742,8 +1742,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
    <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②②">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;still>.&lt;level>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
-&lt;colourPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.
-&lt;videoFullRangeFlag>
+&lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
    <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑥">Sequence Header</a>.</p>
@@ -1752,10 +1751,10 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
    <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Sequence Header</a>.</p>
    <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⓪">Sequence Header</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.</p>
-   <p>The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③①">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
-   <p>For example, codecs="av01.2.0.01.10.0.112.09.16.09.1" represents AV1 profile 2, non still picture mode, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.</p>
+   <p>The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec③⑧">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
+   <p>For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
    <p>The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
-   <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.</p>
+   <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.</p>
    <table class="def">
     <tbody>
      <tr>
@@ -1765,7 +1764,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
       <td>chromaSubsampling
       <td>112 (4:2:0 colocated with luma (0,0))
      <tr>
-      <td>colourPrimaries
+      <td>colorPrimaries
       <td>1 (ITU-R BT.709)
      <tr>
       <td>transferCharacteristics
@@ -1775,9 +1774,9 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
       <td>1 (ITU-R BT.709)
      <tr>
       <td>videoFullRangeFlag
-      <td>0 (limited range)
+      <td>0 (studio swing representation)
    </table>
-   <p>The string codecs="av01.1.0.01.08" in this case would represent AV1 profile 1, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.</p>
+   <p>The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.</p>
    <p>If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.</p>
   </main>
   <div data-fill-with="conformance">
