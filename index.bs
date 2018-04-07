@@ -326,18 +326,18 @@ The following brands are defined for [=CMAF AV1 Tracks=]:
 <table>
 <thead>
 <tr>
-<th>Profile</th><th>Level</th><th>colour primaries</th><th>transfer characteristics</th><th>matrix coefficients</th><th>Max Frame Height</th><th>Max Frame Width</th><th>Max Frame Rate</th><th>CMAF File Brand</th>
+<th>Profile</th><th>Level</th><th>color primaries</th><th>transfer characteristics</th><th>matrix coefficients</th><th>Max Frame Height</th><th>Max Frame Width</th><th>Max Frame Rate</th><th>CMAF File Brand</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Main</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+<td>Main</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
 </tr>
 <tr>
-<td>High</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+<td>High</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
 </tr>
 <tr>
-<td>Professional</td><td>Level</td><td>colour primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
+<td>Professional</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
 </tr>
 </tbody>
 </table>
@@ -374,8 +374,7 @@ Codecs Parameter String {#codecsparam}
 DASH and other applications require defined values for the 'Codecs' parameter specified in [[!RFC6381]] for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:
 ```
 <sample entry 4CC>.<profile>.<still>.<level>.<bitDepth>.<monochrome>.<chromaSubsampling>.
-<colourPrimaries>.<transferCharacteristics>.<matrixCoefficients>.
-<videoFullRangeFlag>
+<colorPrimaries>.<transferCharacteristics>.<matrixCoefficients>.<videoFullRangeFlag>
 ```
 
 All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.
@@ -392,13 +391,13 @@ The monochrome parameter value, represented by a single digit decimal, SHALL equ
 
 The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y and the third digit equal to chroma_sample_position, if the first two values are non-zero, or 0 otheriwise.
 
-The colourPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
+The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
 
-For example, codecs="av01.2.0.01.10.0.112.09.16.09.1" represents AV1 profile 2, non still picture mode, level 1, 10-bit YUV content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2020 primaries, ST 2084 EOTF, ITU-R BT.2020 non-constant luminance color matrix, and full-range chroma/luma encoding.
+For example, codecs="av01.0.0.04.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
 
 The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
 
-All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed and SHALL match the value in the bitstream.
+All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.
 
 <table class="def">
 <tr>
@@ -408,7 +407,7 @@ All the other fields (including their leading '.') are optional, mutually inclus
 <td>chromaSubsampling</td><td>112 (4:2:0 colocated with luma (0,0))</td>
 </tr>
 <tr>
-<td>colourPrimaries</td><td>1 (ITU-R BT.709)</td>
+<td>colorPrimaries</td><td>1 (ITU-R BT.709)</td>
 </tr>
 <tr>
 <td>transferCharacteristics</td><td>1 (ITU-R BT.709)</td>
@@ -417,10 +416,10 @@ All the other fields (including their leading '.') are optional, mutually inclus
 <td>matrixCoefficients</td><td>1 (ITU-R BT.709)</td>
 </tr>
 <tr>
-<td>videoFullRangeFlag</td><td>0 (limited range)</td>
+<td>videoFullRangeFlag</td><td>0 (studio swing representation)</td>
 </tr>
 </table>
 
-The string codecs="av01.1.0.01.08" in this case would represent AV1 profile 1, non still picture mode, level 1, 8-bit YUV content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer function and matrix coefficients, and luma/chroma encoded in the "limited" range.
+The string codecs="av01.0.0.01.08" in this case would represent AV1 profile 0, non still picture mode, level 1, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.
 
 If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
