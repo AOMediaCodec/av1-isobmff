@@ -145,12 +145,11 @@ The <dfn>AV1CodecConfigurationBox</dfn> contains an array of [=OBUs=] that MUST 
 
 ```
 class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
-  AV1CodecConfigurationRecord() av1Config;
+  AV1CodecConfigurationRecord av1Config;
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (6) reserved = 0;
-  unsigned int (2) OBU_length_mode;
+  unsigned int (5) reserved = 0;
   unsigned int (3) initial_presentation_delay_minus_one;
   unsigned int (8)[] configOBUs;
 }
@@ -162,15 +161,7 @@ The <dfn>configOBUs</dfn> field contains zero or more OBUs applicable to all the
 
 NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
-The <dfn>OBU_length_mode</dfn> field indicates if the length of the OBUs (in the sample entry or in the samples) is:
-- 0: present for all OBUs, before the OBU header, and the [=obu_has_payload_length_field=] flag is set to 0,
-- 1: present for all OBUs, after the OBU header, and the [=obu_has_payload_length_field=] flag set to 1,
-- 2: same as 1 except for the last OBU where the length is not present and the [=obu_has_payload_length_field=] flag is set to 0.
-- 3: The value 3 for OBU_length_mode is not allowed.
-
-In all cases, if present, the length is coded using LEB128 as specified in [[!AV1]].
-
-ISSUE: This field could disappear if we decide to mandate only one mode.
+OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] syntax as specified in [[!AV1]]. The flag [=obu_has_payload_length_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
 The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that should be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the [=Sequence Header=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
 - construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,
@@ -190,11 +181,7 @@ AV1 Sample Format {#sampleformat}
 
 For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the following constraints:
 - the sample SHALL contain a sequence of [=OBU=]s forming a [=Temporal Unit=],
-- each OBU SHALL have the [=obu_has_payload_length_field=] set to 1 except for the last one, the last OBU size is obtained from the sample size,
-- each OBU SHALL have its length coded as signaled by the OBU_length_mode field,
-
-ISSUE: We need to choose one of the two options above.
-
+- each OBU SHALL follow the [=open_bitstream_unit=] syntax as specified in [[!AV1]]. Each OBU SHALL have the [=obu_has_payload_length_field=] set to 1 except for the last OBU in the sample, for which [=obu_has_payload_length_field=] MAY be set to 0, in which case it is assumed to fill the remaining of the sample,
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
 - OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
 
