@@ -223,6 +223,8 @@ Unlike many video standards, AV1 does not distinguish the display order from the
 
 When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
+Metadata OBUs may be carried in sample data. In this case, the [=AV1MetadataSampleGroupEntry=] SHOULD be used. If the metadata OBUs are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.
+
 Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.
 
 AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
@@ -303,11 +305,6 @@ class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
 }
 ```
 
-Carriage of HDR Metadata {#hdrmetadata}
----------------------------------------
-
-HDR metadata may be provided using the METADATA OBU type, with a metadata_type value equal to METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV. These OBUs may be carried in sample data, but if they are static for the entire set of samples associated with a given sample description entry, they should also be in the OBU array in the sample description entry. When carried in sample, the [=AV1MetadataSampleGroupEntry=] should be used.
-
 AV1 Metadata sample group entry {#metadatasamplegroupentry}
 -----------------------------------------------------------
 
@@ -323,7 +320,7 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Description ### {#metadatasamplegroupentry-description}
 
-The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain metadata OBUs.
+The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain metadata OBUs of the given type.
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
@@ -335,7 +332,7 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn>metadata_type</dfn> is as specified in the AV1 specification.
+<dfn>metadata_type</dfn> used by one OBU in the sample.
 
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
