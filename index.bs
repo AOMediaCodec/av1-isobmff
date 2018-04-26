@@ -198,32 +198,61 @@ AV1 Sample Format {#sampleformat}
 ---------------------------------
 
 For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the following constraints:
-- the sample SHALL contain a sequence of [=OBU=]s forming a [=Temporal Unit=],
+- the sample data SHALL be a sequence of [=OBU=]s forming a [=Temporal Unit=],
 - each OBU SHALL follow the [=open_bitstream_unit=] syntax as specified in [[!AV1]]. Each OBU SHALL have the [=obu_has_payload_length_field=] set to 1 except for the last OBU in the sample, for which [=obu_has_payload_length_field=] MAY be set to 0, in which case it is assumed to fill the remaining of the sample,
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
 - OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
 
-If an AV1 Sample is signaled as a sync sample, it SHALL satisfy the following constraints:
-- Its first frame is a [=Key Frame=] that has either show_frame flag set to 1 or refresh_frame_flags set to 0xFF or an [=Intra-only Frame=] that has refresh_frame_flags set to 0xFF,
-- It contain a [=Sequence Header=] before the first [=Frame Header=].
+If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in [[!AV1]], i.e. satisfy the following constraints:
+- Its first frame is a [=Key Frame=] that has show_frame flag set to 1,
+- It contains a [=Sequence Header=] before the first [=Frame Header=].
 
-NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable. Additionally, there is no requirement for the first frame to have its 'show_frame' flag set. Subsequent frames may have it.
-
-ISSUE: A new sample group may be needed for signaling show_existing_frames referring to a keyframe.
+NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.
 
 NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header=].
 
-[=Intra-only frames=] MAY be signaled using the 'sap ' sample group.
+[=Intra-only frames=] SHOULD be signaled using the sample_depends_on flag set to 2.
+
+[=Delayed Random Access Points=] SHOULD be signaled using sample groups and the [=AV1ForwardKeyFrameSampleGroupEntry=].
 
 S-Frames SHOULD be signaled using sample groups and the [=AV1SFrameSampleGroupEntry=].
 
-Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks should be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
+Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
 
-Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In files conformant to this specification, the 'ctts' box and composition offsets in movie fragments SHALL NOT be used for AV1 tracks. Similarly, the is_leading flag, if used, shall be set to 0 or 2.
+Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In tracks using the [=AV1SampleEntry=], the 'ctts' box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.
 
-When a temporal unit contains more than one frame, the sample corresponding to that temporal unit should be marked using the [=AV1MultiFrameSampleGroupEntry=].
+When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
-The grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification (i.e. 'av1m', 'av1s', 'av1M').
+Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.
+
+AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
+----------------------------------------------------------------
+
+### Definition ### {#forwardkeyframesamplegroupentry-definition}
+
+<pre class='elementdef'>
+	Group Type: av1f
+	Container: Sample Group Description Box ('sgpd')
+	Mandatory: No
+	Quantity: Zero or more.
+</pre>
+
+### Description ### {#forwardkeyframesamplegroupentry-description}
+
+The <dfn>AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain a [=Delayed Random Access Point=] that are followed at a given distance in the bitstream by a [=Key Frame Dependent Random Access Point=].
+
+
+### Syntax ### {#forwardkeyframesamplegroupentry-syntax}
+
+```
+class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') {
+  unsigned int(8) fwd_distance;
+}
+```
+
+### Semantics ### {#forwardkeyframesamplegroupentry-semantics}
+
+The <dfn>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
 
 AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ----------------------------------------------------------------
@@ -273,8 +302,6 @@ The <dfn>AV1SFrameSampleGroupEntry</dfn> documents samples that start with an S-
 class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
 }
 ```
-
-ISSUE: we could define subsample information for identifying OBUs within a sample, of frames offsets within a sample, or tiles ...
 
 Carriage of HDR Metadata {#hdrmetadata}
 ---------------------------------------
