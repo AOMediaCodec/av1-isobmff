@@ -128,7 +128,7 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 The <dfn>width</dfn> and <dfn>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
 
-As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box MUST be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
+As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box SHALL be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
 
 The <dfn>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
 
@@ -155,7 +155,7 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Description ### {#av1codecconfigurationbox-description}
 
-The <dfn>AV1CodecConfigurationBox</dfn> contains an array of [=OBUs=] that MUST be valid for every sample that references the sample entry.
+The <dfn>AV1CodecConfigurationBox</dfn> contains an array of [=OBUs=] that SHALL be valid for every sample that references the sample entry.
 
 
 ### Syntax ### {#av1codecconfigurationbox-syntax}
@@ -356,11 +356,11 @@ This section specifies how [=AV1 bitstreams=] are encrypted, in particular how t
 Sample Encryption {#sample-encryption}
 --------------------------------------
 
-When encrypting OBUs, all OBU headers MUST be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs MUST be unencrypted.
+When encrypting OBUs, all OBU headers SHALL be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs SHALL be unencrypted.
 
 Tile Groups OBU shall be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.
 
-For the 'cenc' scheme type, the encrypted bytes of each OBU within the sample MUST be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
+For the 'cenc' scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
 
 <figure>
 	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
