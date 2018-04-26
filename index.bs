@@ -89,6 +89,12 @@ Basic Encapsulation Scheme {#basic-encapsulation}
 
 This section describes the basic data structures used to signal encapsulation of [=AV1 bitstreams=] in [[!ISOBMFF]] containers.
 
+General requirement {#general-requirement}
+--------------------
+
+A file conformant to this specification SHALL conform to the normative requirements of [[!ISOBMFF]].
+
+
 Brand {#basic-brand}
 --------------------
 
