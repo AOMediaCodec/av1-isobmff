@@ -98,7 +98,7 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-Tracks conformant to this specification should signal it by the use of the file brand 'av01'.
+If the 'av01' brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------

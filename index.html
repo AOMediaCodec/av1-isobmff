@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="17f38e8842efa2c82ac425401333d6c336dc49a8" name="document-revision">
+  <meta content="ceb9fd543b00d6d73974a0eaae6d5df72c8d0a82" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1481,7 +1481,7 @@ pre .property::before, pre .property::after {
    <h3 class="heading settled" data-level="2.1" id="general-requirement"><span class="secno">2.1. </span><span class="content">General requirement</span><a class="self-link" href="#general-requirement"></a></h3>
    <p>A file conformant to this specification SHALL conform to the normative requirements of <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.2" id="basic-brand"><span class="secno">2.2. </span><span class="content">Brand</span><a class="self-link" href="#basic-brand"></a></h3>
-   <p>Tracks conformant to this specification should signal it by the use of the file brand <a class="property" data-link-type="propdesc">av01</a>.</p>
+   <p>If the <a class="property" data-link-type="propdesc">av01</a> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
    <h3 class="heading settled" data-level="2.3" id="av1sampleentry-section"><span class="secno">2.3. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.3.1" id="av1sampleentry-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
    <table class="def elementdef">
@@ -1512,7 +1512,7 @@ pre .property::before, pre .property::after {
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="compressorname">compressorname<a class="self-link" href="#compressorname"></a></dfn> field of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑤">VisualSampleEntry</a> is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The size field MAY be set to 0. The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.</p>
    <p class="note" role="note"><span>NOTE:</span> Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="config">config<a class="self-link" href="#config"></a></dfn> field SHALL contain an <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox①">AV1CodecConfigurationBox</a> that applies to the samples associated with this sample entry.</p>
-   <p class="note" role="note"><span>NOTE:</span> Multiple instances of <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a> may be required when the track contains samples requiring a AV1ConfigurationBox with different characteristics.</p>
+   <p class="note" role="note"><span>NOTE:</span> Multiple instances of <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry①">AV1SampleEntry</a> may be required when the track contains samples requiring a AV1ConfigurationBox with different characteristics.</p>
    <p>Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑥">VisualSampleEntry</a> in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.4" id="av1codecconfigurationbox-section"><span class="secno">2.4. </span><span class="content">AV1 Codec Configuration Box</span><a class="self-link" href="#av1codecconfigurationbox-section"></a></h3>
    <h4 class="heading settled" data-level="2.4.1" id="av1codecconfigurationbox-definition"><span class="secno">2.4.1. </span><span class="content">Definition</span><a class="self-link" href="#av1codecconfigurationbox-definition"></a></h4>
@@ -1564,7 +1564,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
    <p>If a <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑦">colr</a> box is present in the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org⑧">VisualSampleEntry</a> with a colour_type set to <a class="property" data-link-type="propdesc">nclx</a>, the values of colour_primaries, transfer_characteristics, and matrix_coefficients shall match the values given in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑦">Sequence Header</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org⑨">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑧">Sequence Header</a>.</p>
    <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⓪">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn">AV1CodecConfigurationRecord</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
    <h3 class="heading settled" data-level="2.5" id="sampleformat"><span class="secno">2.5. </span><span class="content">AV1 Sample Format</span><a class="self-link" href="#sampleformat"></a></h3>
-   <p>For tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry①">AV1SampleEntry</a>, an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1-sample">AV1 Sample</dfn> has the following constraints:</p>
+   <p>For tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry②">AV1SampleEntry</a>, an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1-sample">AV1 Sample</dfn> has the following constraints:</p>
    <ul>
     <li data-md="">
      <p>the sample SHALL contain a sequence of <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑨">OBU</a>s forming a <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⓪">Temporal Unit</a>,</p>
@@ -1671,7 +1671,7 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
    <p>If a <a data-link-type="dfn" href="#http://iso.org" id="ref-for-http://iso.org①⑥">CMAF Video Track</a> signals one of the brands defined below, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
    <ul>
     <li data-md="">
-     <p>it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry②">AV1SampleEntry</a></p>
+     <p>it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a></p>
     <li data-md="">
      <p>it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:</p>
      <ul>
@@ -2023,9 +2023,10 @@ In particular, when smooth presentation can be guaranteed after decoding the fir
   <aside class="dfn-panel" data-for="av1sampleentry">
    <b><a href="#av1sampleentry">#av1sampleentry</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-av1sampleentry">2.3.4. Semantics</a>
-    <li><a href="#ref-for-av1sampleentry①">2.5. AV1 Sample Format</a>
-    <li><a href="#ref-for-av1sampleentry②">3. CMAF AV1 track format and CMAF media profiles</a>
+    <li><a href="#ref-for-av1sampleentry">2.2. Brand</a>
+    <li><a href="#ref-for-av1sampleentry①">2.3.4. Semantics</a>
+    <li><a href="#ref-for-av1sampleentry②">2.5. AV1 Sample Format</a>
+    <li><a href="#ref-for-av1sampleentry③">3. CMAF AV1 track format and CMAF media profiles</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="av1codecconfigurationbox">
