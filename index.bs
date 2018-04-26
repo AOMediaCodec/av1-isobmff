@@ -155,7 +155,7 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Description ### {#av1codecconfigurationbox-description}
 
-The <dfn>AV1CodecConfigurationBox</dfn> contains an array of [=OBUs=] that SHALL be valid for every sample that references the sample entry.
+The <dfn>AV1CodecConfigurationBox</dfn> contains decoder configuration information that SHALL be valid for every sample that references the sample entry.
 
 
 ### Syntax ### {#av1codecconfigurationbox-syntax}
@@ -174,7 +174,7 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn>configOBUs</dfn> field contains zero or more OBUs applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their [=temporal_id=] or [=spatial_id=] value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.
+The <dfn>configOBUs</dfn> field contains zero or more OBUs that provide decoder configuration applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their [=temporal_id=] or [=spatial_id=] value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.
 
 NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
