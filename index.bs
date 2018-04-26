@@ -5,7 +5,7 @@ URL: https://AOMediaCodec.github.io/av1-isobmff
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
-Abstract: This document specifies the storage format for [[!AV1]] video in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
+Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
 Date: 2018-03-19
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
@@ -48,6 +48,9 @@ url: AOMediaCodec/av1-spec; spec: AV1; type: dfn;
 	text: Temporal Unit
 	text: Frame Header
 	text: Sequence Header
+	text: Random Access Point
+	text: Delayed Random Access Point
+	text: Key Frame Dependent Random Access Point
 
 url: http://iso.org; spec: CMAF; type: dfn;
 	text: CMAF Video Track
@@ -77,7 +80,9 @@ Temporal Units are processed by a decoder in the order given by the bitstream. E
 
 NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
 
-Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a show_existing_frame flag set to 1. Key Frames with the show_frame flag set to 1, S Frames and frames with a show_existing_frame flag set to 1 and refering to a previous Key Frame have the additional property that after decoding the Key Frame (respectively the S Frame, respectively the referenced Key Frame), all frames can be decoded.
+Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a show_existing_frame flag set to 1.
+
+Key Frames with the show_frame flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Point=] in [[!AV1]]. Key Frames with the show_frame flag set to 0 (called [=Delayed Random Access Point=]) have the additional property that if a future frame (with show_existing_frame set to 1 and referring to the Key Frame; and called a [=Key Frame Dependent Random Access Point=]) exists, all frames following that future frame can be decoded.
 
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
