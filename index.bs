@@ -9,13 +9,19 @@ Abstract: This document specifies the storage format for [[!AV1]] video in [[!IS
 Date: 2018-03-19
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
-Boilerplate: property-index no, issues-index no, copyright no
+Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
 Warning: Custom
 Custom Warning Title: Warning
 Custom Warning Text: This specification is still at draft stage and should not be referenced other than as a working draft.
 </pre>
+
+<div boilerplate='copyright'>
+<p>Copyright 2018, The Alliance for Open Media</p>
+<p>Licensing information is available at http://aomedia.org/license/</p>
+<p>The MATERIALS ARE PROVIDED “AS IS.” The Alliance for Open Media, its members, and its contributors expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials. The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE ALLIANCE FOR OPEN MEDIA, ITS MEMBERS, OR CONTRIBUTORS BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</div>
 
 <pre class="anchors">
 url: http://iso.org; spec: ISOBMFF; type: dfn;
