@@ -348,7 +348,7 @@ If a [=CMAF Video Track=] signals one of the brands defined below, it is called 
 - the 'colr' and 'pasp' boxes SHALL be present
 - for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
 
-When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in CMAF, which in turns relies on CENC, with the provisions given in the “Common Encryption” Section below.
+When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]], which in turns relies on [[CENC]], with the provisions given in the “Common Encryption” Section below.
 
 The following brands are defined for [=CMAF AV1 Tracks=]:
 
@@ -383,7 +383,7 @@ Sample Encryption {#sample-encryption}
 
 When encrypting OBUs, all OBU headers SHALL be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs SHALL be unencrypted.
 
-Tile Groups OBU shall be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.
+Tile Groups OBU SHALL be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.
 
 For the 'cenc' scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
 

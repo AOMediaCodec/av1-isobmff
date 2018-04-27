@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="f20d57064bce26d6e80d03be61c093388661ac24" name="document-revision">
+  <meta content="c1d81dae4281d71afb7539debd77523960aab530" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1718,7 +1718,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.</p>
    </ul>
-   <p>When encrypted, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in CMAF, which in turns relies on CENC, with the provisions given in the “Common Encryption” Section below.</p>
+   <p>When encrypted, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turns relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions given in the “Common Encryption” Section below.</p>
    <p>The following brands are defined for <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a>:</p>
    <table>
     <thead>
@@ -1769,7 +1769,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>This section specifies how <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②⓪">cenc</a> and <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②①">cbcs</a> scheme types are permitted.</p>
    <h3 class="heading settled" data-level="4.1" id="sample-encryption"><span class="secno">4.1. </span><span class="content">Sample Encryption</span><a class="self-link" href="#sample-encryption"></a></h3>
    <p>When encrypting OBUs, all OBU headers SHALL be unencrypted. Additionally, Temporal Delimiter, Sequence Header, Metadata (except for those requiring protection), Frame Header OBUs SHALL be unencrypted.</p>
-   <p>Tile Groups OBU shall be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.</p>
+   <p>Tile Groups OBU SHALL be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.</p>
    <p>For the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org②②">cenc</a> scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.</p>
    <figure>
      <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
