@@ -82,7 +82,9 @@ NOTE: The AV1 specification defines scalability features, but this version of st
 
 Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a show_existing_frame flag set to 1.
 
-Key Frames with the show_frame flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Point=] in [[!AV1]]. Key Frames with the show_frame flag set to 0 (called [=Delayed Random Access Point=]) have the additional property that if a future frame (with show_existing_frame set to 1 and referring to the Key Frame; and called a [=Key Frame Dependent Random Access Point=]) exists, all frames following that future frame can be decoded.
+Key Frames with the show_frame flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Points=] in [[!AV1]].
+
+Key Frames with the show_frame flag set to 0 are called [=Delayed Random Access Points=]. [=Delayed Random Access Points=] have the additional property that if a future [=Key Frame Dependent Random Access Point=] exists, all frames following that [=Key Frame Dependent Random Access Point=] can be decoded. A [=Key Frame Dependent Random Access Point=] is a frame with show_existing_frame set to 1 which refers to a previous [=Delayed Random Access Points=].
 
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
