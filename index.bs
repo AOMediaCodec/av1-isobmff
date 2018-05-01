@@ -220,9 +220,9 @@ NOTE: Other types of OBUs such as metadata could be present before the [=Sequenc
 
 [=Delayed Random Access Points=] SHOULD be signaled using sample groups and the [=AV1ForwardKeyFrameSampleGroupEntry=].
 
-S-Frames SHOULD be signaled using sample groups and the [=AV1SFrameSampleGroupEntry=].
+[=S Frames=] SHOULD be signaled using sample groups and the [=AV1SFrameSampleGroupEntry=].
 
-Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
+Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using [=S Frames=], those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
 
 Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In tracks using the [=AV1SampleEntry=], the 'ctts' box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.
 
@@ -301,7 +301,7 @@ AV1 S-Frame sample group entry {#sframeamplegroupentry}
 
 ### Description ### {#sframeamplegroupentry-description}
 
-The <dfn>AV1SFrameSampleGroupEntry</dfn> documents samples that start with an S-Frame.
+The <dfn>AV1SFrameSampleGroupEntry</dfn> documents samples that start with an [=S Frame=].
 
 ### Syntax ### {#sframeamplegroupentry-syntax}
 
