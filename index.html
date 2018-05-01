@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="eef54dd884f484a9ca5a9afbd724eab24279e24d" name="document-revision">
+  <meta content="6953102b89377071332918ded028c4b99ecad14e" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1553,7 +1553,13 @@ aligned (8) class AV1CodecConfigurationRecord {
 }
 </pre>
    <h4 class="heading settled" data-level="2.4.4" id="av1codecconfigurationbox-semantics"><span class="secno">2.4.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1codecconfigurationbox-semantics"></a></h4>
-   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs that provide decoder configuration applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their <a data-link-type="dfn">temporal_id</a> or <a data-link-type="dfn">spatial_id</a> value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:</p>
+   <ul>
+    <li data-md="">
+     <p>From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox②">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.</p>
+    <li data-md="">
+     <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bistream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox③">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
+   </ul>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.</p>
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn">obu_has_payload_length_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec①⑥">Sequence Header</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
@@ -1593,7 +1599,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.</p>
    <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as metadata could be present before the <a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑦">Sequence Header</a>.</p>
    <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑧">Intra-only frames</a> SHOULD be signaled using the sample_depends_on flag set to 2.</p>
-   <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Delayed Random Access Points</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>.</p>
+   <p><a data-link-type="dfn" href="#AOMediaCodec/av1-spec" id="ref-for-AOMediaCodec/av1-spec②⑨">Delayed Random Access Points</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry①">AV1ForwardKeyFrameSampleGroupEntry</a>.</p>
    <p>S-Frames SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1sframesamplegroupentry" id="ref-for-av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a>.</p>
    <p>Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using S-Frames, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①①">bitr</a>).</p>
    <p>Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property" data-link-type="propdesc" href="#http://iso.org" id="ref-for-http://iso.org①②">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
@@ -2068,6 +2074,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <ul>
     <li><a href="#ref-for-av1codecconfigurationbox">2.3.2. Description</a>
     <li><a href="#ref-for-av1codecconfigurationbox①">2.3.4. Semantics</a>
+    <li><a href="#ref-for-av1codecconfigurationbox②">2.4.4. Semantics</a> <a href="#ref-for-av1codecconfigurationbox③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="initial_presentation_delay_minus_one">
@@ -2086,7 +2093,8 @@ aligned (8) class AV1CodecConfigurationRecord {
   <aside class="dfn-panel" data-for="av1forwardkeyframesamplegroupentry">
    <b><a href="#av1forwardkeyframesamplegroupentry">#av1forwardkeyframesamplegroupentry</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-av1forwardkeyframesamplegroupentry">2.5. AV1 Sample Format</a>
+    <li><a href="#ref-for-av1forwardkeyframesamplegroupentry">2.4.4. Semantics</a>
+    <li><a href="#ref-for-av1forwardkeyframesamplegroupentry①">2.5. AV1 Sample Format</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="av1multiframesamplegroupentry">

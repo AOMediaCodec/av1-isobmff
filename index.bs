@@ -176,7 +176,9 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn>configOBUs</dfn> field contains zero or more OBUs that provide decoder configuration applicable to all the samples corresponding to the sample description entry. Multiple OBUs of the same type may be present only if they differ by their [=temporal_id=] or [=spatial_id=] value. The following OBU types are not permitted: OBU_TD, OBU_FRAME_HEADER, OBU_REDUNDANT_FRAME_HEADER, OBU_TILE_GROUP, OBU_FRAME.
+The <dfn>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
+- From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
+- From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
 NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
 
