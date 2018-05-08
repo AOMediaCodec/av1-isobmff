@@ -357,7 +357,7 @@ When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]],
 
 The following brands are defined for [=CMAF AV1 Tracks=]:
 
-<table>
+<table border="1">
 <thead>
 <tr>
 <th>Profile</th><th>Level</th><th>color primaries</th><th>transfer characteristics</th><th>matrix coefficients</th><th>Max Frame Height</th><th>Max Frame Width</th><th>Max Frame Rate</th><th>CMAF File Brand</th>
