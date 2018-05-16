@@ -1178,7 +1178,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 67155cabad72a8ab669a7d4421c90e2999a29b68" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="d274b5305479260641f47165f55395bf0ed73e38" name="document-revision">
+  <meta content="07c62a6ce7fd8f6757fd98d7c3b7267bbc4a10df" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1561,7 +1561,7 @@ aligned (8) class AV1CodecConfigurationRecord {
      <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bistream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox③">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.</p>
-   <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②④">obu_has_payload_length_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
+   <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②④">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated in the <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②⑤">Sequence Header</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md="">
@@ -1583,7 +1583,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>the sample data SHALL be a sequence of <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf③⑦">OBU</a>s forming a <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf③⑧">Temporal Unit</a>,</p>
     <li data-md="">
-     <p>each OBU SHALL follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf③⑨">obu_has_payload_length_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf④⓪">obu_has_payload_length_field</a> MAY be set to 0, in which case it is assumed to fill the remaining of the sample,</p>
+     <p>each OBU SHALL follow the <a data-link-type="dfn">open_bitstream_unit</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf③⑨">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf④⓪">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remaining of the sample,</p>
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
     <li data-md="">
@@ -2016,7 +2016,7 @@ aligned (8) class AV1CodecConfigurationRecord {
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">max_frame_height_minus_1</a>
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">max_frame_width_minus_1</a>
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">obu</a>
-     <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">obu_has_payload_length_field</a>
+     <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">obu_has_size_field</a>
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">random access point</a>
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">s frame</a>
      <li><a href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf">sequence header</a>
