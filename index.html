@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 3f684c5a8b9e82482490404d25c7ed75e25b2c98" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="821ffcdaa7f7bea55a72ae63ca57a82c984988a2" name="document-revision">
+  <meta content="e29fc43cf1b2669fe4e825cc452df3e6257fa1f8" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1582,8 +1582,13 @@ pre .property::before, pre .property::after {
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (5) reserved = 0;
-  unsigned int (3) initial_presentation_delay_minus_one;
+  unsigned int (3) reserved = 0;
+  unsigned int (1) initial_presentation_delay_present;
+  if (initial_presentation_delay_present) {
+    unsigned int (4) initial_presentation_delay_minus_one;
+  } else {
+    unsigned int (4) reserved;
+  }
   unsigned int (8)[] configOBUs;
 }
 </pre>
@@ -1597,6 +1602,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    </ul>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.</p>
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn">open_bitstream_unit</a> <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②④">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②⑤">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_present">initial_presentation_delay_present<a class="self-link" href="#initial_presentation_delay_present"></a></dfn> field indicates the presence of the initial_presentation_delay_minus_one field.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②⑥">seq_level_idx</a> in the <a data-link-type="dfn" href="#https://aomediacodec.github.io/av1-spec/av1-spec.pdf" id="ref-for-https://aomediacodec.github.io/av1-spec/av1-spec.pdf②⑦">Sequence Header</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md="">
@@ -2030,6 +2036,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <li><a href="#fwd_distance">fwd_distance</a><span>, in §2.6.4</span>
    <li><a href="#height">height</a><span>, in §2.3.4</span>
    <li><a href="#initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a><span>, in §2.4.4</span>
+   <li><a href="#initial_presentation_delay_present">initial_presentation_delay_present</a><span>, in §2.4.4</span>
    <li><a href="#metadata_type">metadata_type</a><span>, in §2.9.4</span>
    <li><a href="#width">width</a><span>, in §2.3.4</span>
   </ul>
