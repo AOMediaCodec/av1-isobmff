@@ -171,8 +171,8 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (5) reserved = 0;
-  unsigned int (3) initial_presentation_delay_minus_one;
+  unsigned int (4) reserved = 0;
+  unsigned int (4) initial_presentation_delay_minus_one;
   unsigned int (8)[] configOBUs;
 }
 ```
