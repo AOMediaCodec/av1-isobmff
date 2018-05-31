@@ -200,7 +200,7 @@ The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number o
 - set the [=frame_presentation_delay=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise)
 - apply the display model verification algorithm.
 
-When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay=] SHOULD be set to its maximum value.
+When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header=], the [=frame_presentation_delay=] and [=buffer_removal_delay=] fields of the [=Frame Headers=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
