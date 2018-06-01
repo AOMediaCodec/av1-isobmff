@@ -152,7 +152,7 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 <pre class='elementdef'>
 	Box Type: av1C
-	Container: AV1 Codec Sample Entry Box ('av01')
+	Container: AV1 Sample Entry ('av01')
 	Mandatory: Yes
 	Quantity: Exactly One
 </pre>
