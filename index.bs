@@ -141,7 +141,7 @@ NOTE: Parsers may ignore the value of the compressorname field. It is specified 
 
 The <dfn>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
 
-NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a [=AV1ConfigurationBox=] with different characteristics.
+NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a [=AV1CodecConfigurationBox=] with different characteristics.
 
 Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the [=VisualSampleEntry=] in [[ISOBMFF]].
 
