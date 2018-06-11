@@ -103,7 +103,7 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-If the 'av01' brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
+If the <b><code>av01</code></b> brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
