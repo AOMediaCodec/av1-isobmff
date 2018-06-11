@@ -24,10 +24,10 @@ Custom Warning Text: This specification is still at draft stage and should not b
 </div>
 
 <pre class="anchors">
-url: http://iso.org; spec: ISOBMFF; type: dfn;
+url: http://iso.org/#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
-url: http://iso.org; spec: ISOBMFF; type: property;
+url: http://iso.org/#; spec: ISOBMFF; type: property;
 	text: colr
 	text: pasp
 	text: stsd
@@ -35,10 +35,10 @@ url: http://iso.org; spec: ISOBMFF; type: property;
 	text: ctts
 	text: sgpd
 
-url: http://iso.org; spec: RFC6381; type: property;
+url: http://iso.org/#; spec: RFC6381; type: property;
 	text: codecs
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: AV1 bitstream
 	text: OBU
 	text: Key Frame
@@ -53,14 +53,14 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
 	text: Key Frame Dependent Random Access Point
 	text: Low Overhead Bitstream Format
 
-url: http://iso.org; spec: CMAF; type: dfn;
+url: http://iso.org/#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 
-url: http://iso.org; spec: CENC; type: property;
+url: http://iso.org/#; spec: CENC; type: property;
 	text: cbcs
 	text: cenc
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: max_frame_width_minus_1
 	text: max_frame_height_minus_1
 	text: obu_has_size_field
