@@ -91,7 +91,7 @@ Frames carried in Temporal Units may have coding dependencies on frames carried 
 Key Frames with the [=show_frame=] flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Points=] in [[!AV1]].
 
 Key Frames with the [=show_frame=] flag set to 0 are called [=Delayed Random Access Points=]. [=Delayed Random Access Points=] have the additional property that if a future [=Key Frame Dependent Random Access Point=] exists, all frames following that [=Key Frame Dependent Random Access Point=] can be decoded. A [=Key Frame Dependent Random Access Point=] is a frame with [=show_existing_frame=] set to 1 which refers to a previous [=Delayed Random Access Points=].
-q
+
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
 
