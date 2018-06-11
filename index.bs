@@ -34,6 +34,7 @@ url: http://iso.org/#; spec: ISOBMFF; type: property;
 	text: bitr
 	text: ctts
 	text: sgpd
+	text: nclx
 
 url: http://iso.org/#; spec: RFC6381; type: property;
 	text: codecs
@@ -71,6 +72,8 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn
 	text: timing_info
 	text: buffer_removal_delay
 	text: seq_level_idx
+	text: open_bitstream_unit
+	text: timing_info_present_flag
 </pre>
 
 Bitstream features overview {#bitstream-overview}
