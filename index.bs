@@ -88,7 +88,7 @@ Frames carried in Temporal Units may have coding dependencies on frames carried 
 Key Frames with the [=show_frame=] flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Points=] in [[!AV1]].
 
 Key Frames with the [=show_frame=] flag set to 0 are called [=Delayed Random Access Points=]. [=Delayed Random Access Points=] have the additional property that if a future [=Key Frame Dependent Random Access Point=] exists, all frames following that [=Key Frame Dependent Random Access Point=] can be decoded. A [=Key Frame Dependent Random Access Point=] is a frame with [=show_existing_frame=] set to 1 which refers to a previous [=Delayed Random Access Points=].
-
+q
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
 
@@ -206,7 +206,7 @@ The presentation times of AV1 samples are given by the ISOBMFF structures. The [
 
 If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
 
-Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
+Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
 AV1 Sample Format {#sampleformat}
 ---------------------------------
