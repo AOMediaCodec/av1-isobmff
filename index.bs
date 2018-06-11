@@ -110,11 +110,11 @@ AV1 Sample Entry {#av1sampleentry-section}
 
 ### Definition ### {#av1sampleentry-definition}
 
-<pre class='elementdef'>
+<pre class="def">
 	Sample Entry Type: av01
-	Container: Sample Description Box ('stsd')
-	Mandatory: Yes
-	Quantity: One or more.
+	Container:         Sample Description Box ('stsd')
+	Mandatory:         Yes
+	Quantity:          One or more.
 </pre>
 
 ### Description ### {#av1sampleentry-description}
@@ -150,11 +150,11 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Definition ### {#av1codecconfigurationbox-definition}
 
-<pre class='elementdef'>
-	Box Type: av1C
+<pre class="def">
+	Box Type:  av1C
 	Container: AV1 Sample Entry ('av01')
 	Mandatory: Yes
-	Quantity: Exactly One
+	Quantity:  Exactly One
 </pre>
 
 
@@ -246,11 +246,11 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 
 ### Definition ### {#forwardkeyframesamplegroupentry-definition}
 
-<pre class='elementdef'>
+<pre class="def">
 	Group Type: av1f
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 ### Description ### {#forwardkeyframesamplegroupentry-description}
@@ -275,11 +275,11 @@ AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 
 ### Definition ### {#multiframesamplegroupentry-definition}
 
-<pre class='elementdef'>
+<pre class="def">
 	Group Type: av1m
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
@@ -300,11 +300,11 @@ AV1 S-Frame sample group entry {#sframeamplegroupentry}
 
 ### Definition ### {#sframeamplegroupentry-definition}
 
-<pre class='elementdef'>
+<pre class="def">
 	Group Type: av1s
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
@@ -324,11 +324,11 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Definition ### {#metadatasamplegroupentry-definition}
 
-<pre class='elementdef'>
+<pre class="def">
 	Group Type: av1M
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
