@@ -134,15 +134,15 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 ### Semantics ### {#av1sampleentry-semantics}
 
-The <dfn>width</dfn> and <dfn>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
+The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
 
 As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box SHALL be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
 
-The <dfn>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
+The <dfn noexport>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
 
 NOTE: Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.
 
-The <dfn>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
+The <dfn noexport>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
 
 NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a [=AV1CodecConfigurationBox=] with different characteristics.
 
@@ -187,7 +187,7 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
+The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
 - From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
@@ -271,7 +271,7 @@ class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') 
 
 ### Semantics ### {#forwardkeyframesamplegroupentry-semantics}
 
-The <dfn>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
+The <dfn export>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
 
 AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ----------------------------------------------------------------
@@ -349,7 +349,7 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn>metadata_type</dfn> used by one OBU in the sample.
+<dfn export>metadata_type</dfn> used by one OBU in the sample.
 
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
