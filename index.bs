@@ -422,15 +422,13 @@ Codecs Parameter String {#codecsparam}
 
 DASH and other applications require defined values for the 'Codecs' parameter specified in [[!RFC6381]] for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:
 ```
-<sample entry 4CC>.<profile>.<still>.<level><tier>.<bitDepth>.<monochrome>.<chromaSubsampling>.
+<sample entry 4CC>.<profile>.<level><tier>.<bitDepth>.<monochrome>.<chromaSubsampling>.
 <colorPrimaries>.<transferCharacteristics>.<matrixCoefficients>.<videoFullRangeFlag>
 ```
 
 All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.
 
 The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the [=Sequence Header=].
-
-The still parameter value, represented by a single digit decimal, SHALL equal the value of still_picture in the [=Sequence Header=].
 
 The level parameter value SHALL equal the first level value indicated by [=seq_level_idx=] in the [=Sequence Header=].
 
@@ -444,7 +442,7 @@ The chromaSubsampling parameter value, represented by a three-digit decimal, SHA
 
 The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
 
-For example, codecs="av01.0.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, non still picture mode, level 4, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
+For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, level 4, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
 
 The parameters sample entry 4CC, profile, level, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.
 
@@ -471,6 +469,6 @@ All the other fields (including their leading '.') are optional, mutually inclus
 </tr>
 </table>
 
-The string codecs="av01.0.0.01M.08" in this case would represent AV1 profile 0, non still picture mode, level 1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.
+The string codecs="av01.0.01M.08" in this case would represent AV1 profile 0, level 1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics and matrix coefficients, and studio swing representation.
 
 If any character that is not '.' or digits is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
