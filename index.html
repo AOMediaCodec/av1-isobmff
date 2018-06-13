@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
+  <meta content="Bikeshed version 3f684c5a8b9e82482490404d25c7ed75e25b2c98" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="336259cea848c0a63e40a00ed943363084f82dc4" name="document-revision">
+  <meta content="844c31a589f5204b4cc71b26b0a9e0fbbed07a9f" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1524,10 +1524,10 @@ pre .property::before, pre .property::after {
    <h3 class="heading settled" data-level="2.1" id="general-requirement"><span class="secno">2.1. </span><span class="content">General requirement</span><a class="self-link" href="#general-requirement"></a></h3>
    <p>A file conformant to this specification SHALL conform to the normative requirements of <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.2" id="basic-brand"><span class="secno">2.2. </span><span class="content">Brand</span><a class="self-link" href="#basic-brand"></a></h3>
-   <p>If the <b><code>av01</code></b> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
+   <p>If the <a data-link-type="dfn" href="#av01" id="ref-for-av01">av01</a> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
    <h3 class="heading settled" data-level="2.3" id="av1sampleentry-section"><span class="secno">2.3. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.3.1" id="av1sampleentry-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
-<pre class="def">Sample Entry Type: av01
+<pre class="def">Sample Entry Type: <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="av01">av01</dfn>
 Container:         Sample Description Box ('stsd')
 Mandatory:         Yes
 Quantity:          One or more.
@@ -1549,7 +1549,7 @@ Quantity:          One or more.
    <p>Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑨">VisualSampleEntry</a> in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.4" id="av1codecconfigurationbox-section"><span class="secno">2.4. </span><span class="content">AV1 Codec Configuration Box</span><a class="self-link" href="#av1codecconfigurationbox-section"></a></h3>
    <h4 class="heading settled" data-level="2.4.1" id="av1codecconfigurationbox-definition"><span class="secno">2.4.1. </span><span class="content">Definition</span><a class="self-link" href="#av1codecconfigurationbox-definition"></a></h4>
-<pre class="def">Box Type:  av1C
+<pre class="def">Box Type:  <dfn data-dfn-type="dfn" data-export="" id="av1c">av1C<a class="self-link" href="#av1c"></a></dfn>
 Container: AV1 Sample Entry ('av01')
 Mandatory: Yes
 Quantity:  Exactly One
@@ -1629,7 +1629,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.</p>
    <h3 class="heading settled" data-level="2.6" id="forwardkeyframesamplegroupentry"><span class="secno">2.6. </span><span class="content">AV1 Forward Key Frame sample group entry</span><a class="self-link" href="#forwardkeyframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.6.1" id="forwardkeyframesamplegroupentry-definition"><span class="secno">2.6.1. </span><span class="content">Definition</span><a class="self-link" href="#forwardkeyframesamplegroupentry-definition"></a></h4>
-<pre class="def">Group Type: av1f
+<pre class="def">Group Type: <dfn data-dfn-type="dfn" data-export="" id="av1f">av1f<a class="self-link" href="#av1f"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
 Mandatory:  No
 Quantity:   Zero or more.
@@ -1645,7 +1645,7 @@ Quantity:   Zero or more.
    <p>The <dfn data-dfn-type="dfn" data-export="" id="fwd_distance">fwd_distance<a class="self-link" href="#fwd_distance"></a></dfn> field indicates the number of samples between this sample and the next sample containing the associated <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑦①">Key Frame Dependent Random Access Point</a>. 0 means the next sample.</p>
    <h3 class="heading settled" data-level="2.7" id="multiframesamplegroupentry"><span class="secno">2.7. </span><span class="content">AV1 Multi-Frame sample group entry</span><a class="self-link" href="#multiframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.7.1" id="multiframesamplegroupentry-definition"><span class="secno">2.7.1. </span><span class="content">Definition</span><a class="self-link" href="#multiframesamplegroupentry-definition"></a></h4>
-<pre class="def">Group Type: av1m
+<pre class="def">Group Type: <dfn data-dfn-type="dfn" data-export="" id="av1m">av1m<a class="self-link" href="#av1m"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
 Mandatory:  No
 Quantity:   Zero or more.
@@ -1658,7 +1658,7 @@ Quantity:   Zero or more.
 </pre>
    <h3 class="heading settled" data-level="2.8" id="sframeamplegroupentry"><span class="secno">2.8. </span><span class="content">AV1 S-Frame sample group entry</span><a class="self-link" href="#sframeamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.8.1" id="sframeamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#sframeamplegroupentry-definition"></a></h4>
-<pre class="def">Group Type: av1s
+<pre class="def">Group Type: <dfn data-dfn-type="dfn" data-export="" id="av1s">av1s<a class="self-link" href="#av1s"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
 Mandatory:  No
 Quantity:   Zero or more.
@@ -1671,7 +1671,7 @@ Quantity:   Zero or more.
 </pre>
    <h3 class="heading settled" data-level="2.9" id="metadatasamplegroupentry"><span class="secno">2.9. </span><span class="content">AV1 Metadata sample group entry</span><a class="self-link" href="#metadatasamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.9.1" id="metadatasamplegroupentry-definition"><span class="secno">2.9.1. </span><span class="content">Definition</span><a class="self-link" href="#metadatasamplegroupentry-definition"></a></h4>
-<pre class="def">Group Type: av1M
+<pre class="def">Group Type: <dfn data-dfn-type="dfn" data-noexport="" id="av1m①">av1M<a class="self-link" href="#av1m①"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
 Mandatory:  No
 Quantity:   Zero or more.
@@ -1956,10 +1956,16 @@ Quantity:   Zero or more.
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#av01">av01</a><span>, in §2.3.1</span>
+   <li><a href="#av1c">av1C</a><span>, in §2.4.1</span>
    <li><a href="#av1codecconfigurationbox">AV1CodecConfigurationBox</a><span>, in §2.4.2</span>
+   <li><a href="#av1f">av1f</a><span>, in §2.6.1</span>
    <li><a href="#av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a><span>, in §2.6.2</span>
+   <li><a href="#av1m">av1m</a><span>, in §2.7.1</span>
+   <li><a href="#av1m①">av1M</a><span>, in §2.9.1</span>
    <li><a href="#av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a><span>, in §2.9.2</span>
    <li><a href="#av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a><span>, in §2.7.2</span>
+   <li><a href="#av1s">av1s</a><span>, in §2.8.1</span>
    <li><a href="#av1-sample">AV1 Sample</a><span>, in §2.5</span>
    <li><a href="#av1sampleentry">AV1SampleEntry</a><span>, in §2.3.2</span>
    <li><a href="#av1sframesamplegroupentry">AV1SFrameSampleGroupEntry</a><span>, in §2.8.2</span>
@@ -2568,6 +2574,12 @@ Quantity:   Zero or more.
    <dt id="biblio-rfc6381">[RFC6381]
    <dd>R. Gellens; D. Singer; P. Frojdh. <a href="https://tools.ietf.org/html/rfc6381">The 'Codecs' and 'Profiles' Parameters for "Bucket" Media Types</a>. August 2011. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc6381">https://tools.ietf.org/html/rfc6381</a>
   </dl>
+  <aside class="dfn-panel" data-for="av01">
+   <b><a href="#av01">#av01</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-av01">2.2. Brand</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="av1sampleentry">
    <b><a href="#av1sampleentry">#av1sampleentry</a></b><b>Referenced in:</b>
    <ul>

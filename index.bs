@@ -106,7 +106,7 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-If the <b><code>av01</code></b> brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
+If the [=av01=] brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
@@ -114,7 +114,7 @@ AV1 Sample Entry {#av1sampleentry-section}
 ### Definition ### {#av1sampleentry-definition}
 
 <pre class="def">
-	Sample Entry Type: av01
+	Sample Entry Type: <dfn export>av01</dfn>
 	Container:         Sample Description Box ('stsd')
 	Mandatory:         Yes
 	Quantity:          One or more.
@@ -154,7 +154,7 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 ### Definition ### {#av1codecconfigurationbox-definition}
 
 <pre class="def">
-	Box Type:  av1C
+	Box Type:  <dfn export>av1C</dfn>
 	Container: AV1 Sample Entry ('av01')
 	Mandatory: Yes
 	Quantity:  Exactly One
@@ -250,7 +250,7 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 ### Definition ### {#forwardkeyframesamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: av1f
+	Group Type: <dfn export>av1f</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
@@ -279,7 +279,7 @@ AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ### Definition ### {#multiframesamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: av1m
+	Group Type: <dfn export>av1m</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
@@ -304,7 +304,7 @@ AV1 S-Frame sample group entry {#sframeamplegroupentry}
 ### Definition ### {#sframeamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: av1s
+	Group Type: <dfn export>av1s</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
@@ -328,7 +328,7 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 ### Definition ### {#metadatasamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: av1M
+	Group Type: <dfn noexport>av1M</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
