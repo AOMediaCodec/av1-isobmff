@@ -279,7 +279,7 @@ AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ### Definition ### {#multiframesamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: <dfn export>av1m</dfn>
+	Group Type: <dfn value export for="AV1MultiFrameSampleGroupEntry">av1m</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
@@ -328,7 +328,7 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 ### Definition ### {#metadatasamplegroupentry-definition}
 
 <pre class="def">
-	Group Type: <dfn noexport>av1M</dfn>
+	Group Type: <dfn value noexport for="AV1MetadataSampleGroupEntry">av1M</dfn>
 	Container:  Sample Group Description Box ('sgpd')
 	Mandatory:  No
 	Quantity:   Zero or more.
