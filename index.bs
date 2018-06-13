@@ -218,6 +218,8 @@ AV1 Sample Format {#sampleformat}
 For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the following constraints:
 - the sample data SHALL be a sequence of [=OBU=]s forming a [=Temporal Unit=],
 - each OBU SHALL follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. Each OBU SHALL have the [=obu_has_size_field=] set to 1 except for the last OBU in the sample, for which [=obu_has_size_field=] MAY be set to 0, in which case it is assumed to fill the remaining of the sample,
+
+NOTE: When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either set the [=obu_has_size_field=] to 1 for some OBUs if not already set and add the length field, or use the length-delimited bitstream format as defined in Annex B of [=AV1=].
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
 - OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
 
