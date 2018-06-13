@@ -24,21 +24,22 @@ Custom Warning Text: This specification is still at draft stage and should not b
 </div>
 
 <pre class="anchors">
-url: http://iso.org; spec: ISOBMFF; type: dfn;
+url: http://iso.org/#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
-url: http://iso.org; spec: ISOBMFF; type: property;
+url: http://iso.org/#; spec: ISOBMFF; type: property;
 	text: colr
 	text: pasp
 	text: stsd
 	text: bitr
 	text: ctts
 	text: sgpd
+	text: nclx
 
-url: http://iso.org; spec: RFC6381; type: property;
+url: http://iso.org/#; spec: RFC6381; type: property;
 	text: codecs
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: AV1 bitstream
 	text: OBU
 	text: Key Frame
@@ -53,14 +54,14 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
 	text: Key Frame Dependent Random Access Point
 	text: Low Overhead Bitstream Format
 
-url: http://iso.org; spec: CMAF; type: dfn;
+url: http://iso.org/#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 
-url: http://iso.org; spec: CENC; type: property;
+url: http://iso.org/#; spec: CENC; type: property;
 	text: cbcs
 	text: cenc
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: max_frame_width_minus_1
 	text: max_frame_height_minus_1
 	text: obu_has_size_field
@@ -71,6 +72,8 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf; spec: AV1; type: dfn;
 	text: timing_info
 	text: buffer_removal_delay
 	text: seq_level_idx
+	text: open_bitstream_unit
+	text: timing_info_present_flag
 </pre>
 
 Bitstream features overview {#bitstream-overview}
@@ -103,18 +106,18 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-If the 'av01' brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
+If the [=av01=] brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
 
 ### Definition ### {#av1sampleentry-definition}
 
-<pre class='elementdef'>
-	Sample Entry Type: av01
-	Container: Sample Description Box ('stsd')
-	Mandatory: Yes
-	Quantity: One or more.
+<pre class="def">
+	Sample Entry Type: <dfn export>av01</dfn>
+	Container:         Sample Description Box ('stsd')
+	Mandatory:         Yes
+	Quantity:          One or more.
 </pre>
 
 ### Description ### {#av1sampleentry-description}
@@ -131,17 +134,17 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 ### Semantics ### {#av1sampleentry-semantics}
 
-The <dfn>width</dfn> and <dfn>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
+The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
 
 As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box SHALL be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
 
-The <dfn>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
+The <dfn noexport>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
 
 NOTE: Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.
 
-The <dfn>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
+The <dfn noexport>config</dfn> field SHALL contain an [=AV1CodecConfigurationBox=] that applies to the samples associated with this sample entry.
 
-NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a [=AV1ConfigurationBox=] with different characteristics.
+NOTE: Multiple instances of [=AV1SampleEntry=] may be required when the track contains samples requiring a [=AV1CodecConfigurationBox=] with different characteristics.
 
 Optional boxes not specifically mentioned here can be present, in particular those indicated in the definition of the [=VisualSampleEntry=] in [[ISOBMFF]].
 
@@ -150,11 +153,11 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Definition ### {#av1codecconfigurationbox-definition}
 
-<pre class='elementdef'>
-	Box Type: av1C
+<pre class="def">
+	Box Type:  <dfn export>av1C</dfn>
 	Container: AV1 Sample Entry ('av01')
 	Mandatory: Yes
-	Quantity: Exactly One
+	Quantity:  Exactly One
 </pre>
 
 
@@ -184,7 +187,7 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
+The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
 - From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
@@ -206,7 +209,7 @@ The presentation times of AV1 samples are given by the ISOBMFF structures. The [
 
 If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
 
-Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationRecord=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
+Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
 AV1 Sample Format {#sampleformat}
 ---------------------------------
@@ -246,11 +249,11 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 
 ### Definition ### {#forwardkeyframesamplegroupentry-definition}
 
-<pre class='elementdef'>
-	Group Type: av1f
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+<pre class="def">
+	Group Type: <dfn export>av1f</dfn>
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 ### Description ### {#forwardkeyframesamplegroupentry-description}
@@ -268,18 +271,18 @@ class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') 
 
 ### Semantics ### {#forwardkeyframesamplegroupentry-semantics}
 
-The <dfn>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
+The <dfn export>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
 
 AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ----------------------------------------------------------------
 
 ### Definition ### {#multiframesamplegroupentry-definition}
 
-<pre class='elementdef'>
-	Group Type: av1m
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+<pre class="def">
+	Group Type: <dfn value export for="AV1MultiFrameSampleGroupEntry">av1m</dfn>
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
@@ -300,11 +303,11 @@ AV1 S-Frame sample group entry {#sframeamplegroupentry}
 
 ### Definition ### {#sframeamplegroupentry-definition}
 
-<pre class='elementdef'>
-	Group Type: av1s
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+<pre class="def">
+	Group Type: <dfn export>av1s</dfn>
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
@@ -324,11 +327,11 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Definition ### {#metadatasamplegroupentry-definition}
 
-<pre class='elementdef'>
-	Group Type: av1M
-	Container: Sample Group Description Box ('sgpd')
-	Mandatory: No
-	Quantity: Zero or more.
+<pre class="def">
+	Group Type: <dfn value noexport for="AV1MetadataSampleGroupEntry">av1M</dfn>
+	Container:  Sample Group Description Box ('sgpd')
+	Mandatory:  No
+	Quantity:   Zero or more.
 </pre>
 
 
@@ -346,7 +349,7 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn>metadata_type</dfn> used by one OBU in the sample.
+<dfn export>metadata_type</dfn> used by one OBU in the sample.
 
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
