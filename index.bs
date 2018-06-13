@@ -106,7 +106,7 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-If the [=av01=] brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
+If the <dfn value export for="ISOBMFF Brand">av01</dfn> brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
@@ -114,7 +114,7 @@ AV1 Sample Entry {#av1sampleentry-section}
 ### Definition ### {#av1sampleentry-definition}
 
 <pre class="def">
-	Sample Entry Type: <dfn export>av01</dfn>
+	Sample Entry Type: <dfn value export for="AV1SampleEntry">av01</dfn>
 	Container:         Sample Description Box ('stsd')
 	Mandatory:         Yes
 	Quantity:          One or more.

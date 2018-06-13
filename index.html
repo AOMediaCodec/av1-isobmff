@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 3f684c5a8b9e82482490404d25c7ed75e25b2c98" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="8f73d4ce346d190e673f14a341769c7c4d6f0bb8" name="document-revision">
+  <meta content="829063cc7de3b58e71e00f67ab1a8ee73f2dc8ea" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1524,10 +1524,10 @@ pre .property::before, pre .property::after {
    <h3 class="heading settled" data-level="2.1" id="general-requirement"><span class="secno">2.1. </span><span class="content">General requirement</span><a class="self-link" href="#general-requirement"></a></h3>
    <p>A file conformant to this specification SHALL conform to the normative requirements of <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.2" id="basic-brand"><span class="secno">2.2. </span><span class="content">Brand</span><a class="self-link" href="#basic-brand"></a></h3>
-   <p>If the <a data-link-type="dfn" href="#av01" id="ref-for-av01">av01</a> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
+   <p>If the <dfn class="css" data-dfn-for="ISOBMFF Brand" data-dfn-type="value" data-export="" id="valdef-isobmff-brand-av01">av01<a class="self-link" href="#valdef-isobmff-brand-av01"></a></dfn> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
    <h3 class="heading settled" data-level="2.3" id="av1sampleentry-section"><span class="secno">2.3. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.3.1" id="av1sampleentry-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
-<pre class="def">Sample Entry Type: <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="av01">av01</dfn>
+<pre class="def">Sample Entry Type: <dfn data-dfn-for="AV1SampleEntry" data-dfn-type="value" data-export="" id="valdef-av1sampleentry-av01">av01<a class="self-link" href="#valdef-av1sampleentry-av01"></a></dfn>
 Container:         Sample Description Box ('stsd')
 Mandatory:         Yes
 Quantity:          One or more.
@@ -1956,7 +1956,12 @@ Quantity:   Zero or more.
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#av01">av01</a><span>, in §2.3.1</span>
+   <li>
+    av01
+    <ul>
+     <li><a href="#valdef-av1sampleentry-av01">value for AV1SampleEntry</a><span>, in §2.3.1</span>
+     <li><a href="#valdef-isobmff-brand-av01">value for ISOBMFF Brand</a><span>, in §2.2</span>
+    </ul>
    <li><a href="#av1c">av1C</a><span>, in §2.4.1</span>
    <li><a href="#av1codecconfigurationbox">AV1CodecConfigurationBox</a><span>, in §2.4.2</span>
    <li><a href="#av1f">av1f</a><span>, in §2.6.1</span>
@@ -2574,12 +2579,6 @@ Quantity:   Zero or more.
    <dt id="biblio-rfc6381">[RFC6381]
    <dd>R. Gellens; D. Singer; P. Frojdh. <a href="https://tools.ietf.org/html/rfc6381">The 'Codecs' and 'Profiles' Parameters for "Bucket" Media Types</a>. August 2011. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc6381">https://tools.ietf.org/html/rfc6381</a>
   </dl>
-  <aside class="dfn-panel" data-for="av01">
-   <b><a href="#av01">#av01</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-av01">2.2. Brand</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="av1sampleentry">
    <b><a href="#av1sampleentry">#av1sampleentry</a></b><b>Referenced in:</b>
    <ul>
