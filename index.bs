@@ -54,6 +54,7 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn
 	text: Tile Group OBU
 	text: Frame OBU
 	text: Tile List OBU
+	text: Metadata
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Random Access Point
@@ -408,7 +409,7 @@ This section specifies how [=AV1 bitstreams=] are encrypted, in particular how t
 Sample Encryption {#sample-encryption}
 --------------------------------------
 
-When encrypting OBUs, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter=], [=Sequence Header=], Metadata (except for those requiring protection), [=Frame Header=] OBUs SHALL be unencrypted.
+When encrypting OBUs, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter=], [=Sequence Header=], [=Metadata=] (except for those requiring protection), [=Frame Header=] OBUs SHALL be unencrypted.
 
 [=Tile Group OBUs=], [=Frame OBUs=] and [=Tile List OBUs=] SHALL be encrypted using subsample encryption, with [=BytesOfProtectedData=] spanning all complete 16-byte blocks in the data. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
 
