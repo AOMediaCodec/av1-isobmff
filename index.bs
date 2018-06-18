@@ -42,6 +42,7 @@ url: http://iso.org/#; spec: RFC6381; type: property;
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: AV1 bitstream
 	text: OBU
+	text: OBU Header
 	text: Key Frame
 	text: Intra-only Frame
 	text: S Frame
@@ -49,6 +50,10 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn
 	text: Temporal Unit
 	text: Frame Header
 	text: Sequence Header
+	text: Temporal Delimiter
+	text: Tile Group OBU
+	text: Frame OBU
+	text: Tile List OBU
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Random Access Point
@@ -57,14 +62,16 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn
 url: http://iso.org/#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 
-url: http://iso.org/#; spec: CENC; type: property;
+url: http://iso.org/#; spec: CENC; type: dfn;
 	text: cbcs
 	text: cenc
+	text: BytesOfProtectedData
 
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: max_frame_width_minus_1
 	text: max_frame_height_minus_1
 	text: obu_has_size_field
+	text: obu_size
 	text: show_frame
 	text: show_existing_frame
 	text: initial_display_delay_minus1
@@ -396,16 +403,16 @@ ISSUE: The content of table above needs to be discussed once the profiles and le
 Common Encryption {#cenc}
 =========================
 
-This section specifies how [=AV1 bitstreams=] are encrypted, in particular how to partition [=AV1 samples=] into clear and encrypted subsamples. [=CMAF AV1 Tracks=] and non-segmented AV1 files SHALL use [[!CENC]]. Both 'cenc' and 'cbcs' scheme types are permitted.
+This section specifies how [=AV1 bitstreams=] are encrypted, in particular how to partition [=AV1 samples=] into clear and encrypted subsamples. [=CMAF AV1 Tracks=] and non-segmented AV1 files SHALL use [[!CENC]]. Both <code>[=cenc=]</code> and <code>[=cbcs=]</code> scheme types are permitted.
 
 Sample Encryption {#sample-encryption}
 --------------------------------------
 
-When encrypting OBUs, all OBU headers SHALL be unencrypted. Additionally, Temporal Delimiter, [=Sequence Header=], Metadata (except for those requiring protection), [=Frame Header=] OBUs SHALL be unencrypted.
+When encrypting OBUs, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter=], [=Sequence Header=], Metadata (except for those requiring protection), [=Frame Header=] OBUs SHALL be unencrypted.
 
-Tile Groups OBU SHALL be encrypted using subsample encryption, with bytesOfProtectedData spanning all complete 16-byte blocks in the Tile Group OBU data.This is illustrated in Figure #1 and Figure #2.
+[=Tile Group OBUs=], [=Frame OBUs=] and [=Tile List OBUs=] SHALL be encrypted using subsample encryption, with [=BytesOfProtectedData=] spanning all complete 16-byte blocks in the data. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
 
-For the 'cenc' scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
+For the <code>[=cenc=]</code> scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
 
 <figure>
 	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
