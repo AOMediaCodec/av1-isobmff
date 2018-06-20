@@ -28,61 +28,91 @@ url: http://iso.org/#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
 url: http://iso.org/#; spec: ISOBMFF; type: property;
-	text: colr
-	text: pasp
-	text: stsd
 	text: bitr
+	text: colr
 	text: ctts
-	text: sgpd
 	text: nclx
+	text: pasp
+	text: sgpd
+	text: stsd
 
 url: http://iso.org/#; spec: RFC6381; type: property;
 	text: codecs
 
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
 	text: AV1 bitstream
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#syntax-structures; spec: AV1; type: dfn;
 	text: OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#obu-header-syntax; spec: AV1; type: dfn;
 	text: OBU Header
-	text: Key Frame
-	text: Intra-only Frame
-	text: S Frame
-	text: Inter Frame
-	text: Temporal Unit
-	text: Frame Header
-	text: Sequence Header
-	text: Temporal Delimiter
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#frame-header-obu-syntax; spec: AV1; type: dfn;
+	text: Frame Header OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#sequence-header-obu-syntax; spec: AV1; type: dfn;
+	text: Sequence Header OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#temporal-delimiter-obu-syntax; spec: AV1; type: dfn;
+	text: Temporal Delimiter OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#tile-group-obu-syntax; spec: AV1; type: dfn;
 	text: Tile Group OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#frame-obu-syntax; spec: AV1; type: dfn;
 	text: Frame OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#tile-list-obu-syntax; spec: AV1; type: dfn;
 	text: Tile List OBU
-	text: Metadata
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#metadata-obu-syntax; spec: AV1; type: dfn;
+	text: Metadata OBU
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#random-access-decoding; spec: AV1; type: dfn;
 	text: Random Access Point
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#random-access-decoding; spec: AV1; type: dfn;
 	text: Delayed Random Access Point
-	text: Key Frame Dependent Random Access Point
+	text: Key Frame Dependent Recovery Point
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#terms-and-definitions; spec: AV1; type: dfn
+	text: Inter Frame
+	text: Intra-only Frame
+	text: Key Frame
+	text: S Frame
+	text: Temporal Unit
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#low-overhead-bitstream-format; spec: AV1; type: dfn
 	text: Low Overhead Bitstream Format
 
 url: http://iso.org/#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 
 url: http://iso.org/#; spec: CENC; type: dfn;
+	text: BytesOfProtectedData
 	text: cbcs
 	text: cenc
-	text: BytesOfProtectedData
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#; spec: AV1; type: dfn;
-	text: max_frame_width_minus_1
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#timing-info-syntax; spec: AV1; type: dfn
+	text: timing_info
+
+url: http://av1-spec.argondesign.com/av1-spec/av1-spec.html#contents; spec: AV1; type: dfn;
 	text: max_frame_height_minus_1
+	text: max_frame_width_minus_1
 	text: obu_has_size_field
 	text: obu_size
-	text: show_frame
-	text: show_existing_frame
-	text: initial_display_delay_minus1
-	text: frame_presentation_delay
-	text: timing_info
-	text: buffer_removal_delay
+	text: open_bitstream_unit
 	text: seq_level_idx
 	text: seq_tier
-	text: open_bitstream_unit
+	text: show_existing_frame
+	text: show_frame
 	text: timing_info_present_flag
+	<!-- Note: The following terms are part of the buffer model and not yet included in the AV1 bitstream text-->
+	text: buffer_removal_delay
+	text: frame_presentation_delay
+	text: initial_display_delay_minus1
+
 </pre>
 
 Bitstream features overview {#bitstream-overview}
@@ -99,7 +129,7 @@ Frames carried in Temporal Units may have coding dependencies on frames carried 
 
 Key Frames with the [=show_frame=] flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Points=] in [[!AV1]].
 
-Key Frames with the [=show_frame=] flag set to 0 are called [=Delayed Random Access Points=]. [=Delayed Random Access Points=] have the additional property that if a future [=Key Frame Dependent Random Access Point=] exists, all frames following that [=Key Frame Dependent Random Access Point=] can be decoded. A [=Key Frame Dependent Random Access Point=] is a frame with [=show_existing_frame=] set to 1 which refers to a previous [=Delayed Random Access Points=].
+Key Frames with the [=show_frame=] flag set to 0 are called [=Delayed Random Access Points=]. [=Delayed Random Access Points=] have the additional property that if a future [=Key Frame Dependent Recovery Point=] exists, all frames following that [=Key Frame Dependent Recovery Point=] can be decoded. A [=Key Frame Dependent Recovery Point=] is a frame with [=show_existing_frame=] set to 1 which refers to a previous [=Delayed Random Access Points=].
 
 Basic Encapsulation Scheme {#basic-encapsulation}
 =================================================
@@ -143,7 +173,7 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 ### Semantics ### {#av1sampleentry-semantics}
 
-The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header=] applying to the samples associated with this sample entry.
+The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header OBU=] applying to the samples associated with this sample entry.
 
 As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box SHALL be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
 
@@ -206,17 +236,17 @@ OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Ove
 
 The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
-The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
+The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
 - construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,
-- set the first [=initial_display_delay_minus1=] field of each [=Sequence Header=] to the number of frames contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
+- set the first [=initial_display_delay_minus1=] field of each [=Sequence Header OBU=] to the number of frames contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
 - set the [=frame_presentation_delay=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise)
 - apply the display model verification algorithm.
 
 When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
 
-The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header=], the [=frame_presentation_delay=] and [=buffer_removal_delay=] fields of the [=Frame Headers=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
+The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_delay=] and [=buffer_removal_delay=] fields of the [=Frame Header OBU=]s, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
-If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header=].
+If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header OBU=].
 
 Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
@@ -233,11 +263,11 @@ NOTE: When extracting OBUs from an ISOBMFF file, and depending on the capabiliti
 
 If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in [[!AV1]], i.e. satisfy the following constraints:
 - Its first frame is a [=Key Frame=] that has [=show_frame=] flag set to 1,
-- It contains a [=Sequence Header=] before the first [=Frame Header=].
+- It contains a [=Sequence Header OBU=] before the first [=Frame Header OBU=].
 
 NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.
 
-NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header=].
+NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header OBU=].
 
 [=Intra-only frames=] SHOULD be signaled using the sample_depends_on flag set to 2.
 
@@ -269,7 +299,7 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 
 ### Description ### {#forwardkeyframesamplegroupentry-description}
 
-The <dfn>AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain a [=Delayed Random Access Point=] that are followed at a given distance in the bitstream by a [=Key Frame Dependent Random Access Point=].
+The <dfn>AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain a [=Delayed Random Access Point=] that are followed at a given distance in the bitstream by a [=Key Frame Dependent Recovery Point=].
 
 
 ### Syntax ### {#forwardkeyframesamplegroupentry-syntax}
@@ -282,7 +312,7 @@ class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') 
 
 ### Semantics ### {#forwardkeyframesamplegroupentry-semantics}
 
-The <dfn export>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Random Access Point=]. 0 means the next sample.
+The <dfn export>fwd_distance</dfn> field indicates the number of samples between this sample and the next sample containing the associated [=Key Frame Dependent Recovery Point=]. 0 means the next sample.
 
 AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 ----------------------------------------------------------------
@@ -409,9 +439,9 @@ This section specifies how [=AV1 bitstreams=] are encrypted, in particular how t
 Sample Encryption {#sample-encryption}
 --------------------------------------
 
-When encrypting OBUs, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter=], [=Sequence Header=], [=Metadata=] (except for those requiring protection), [=Frame Header=] OBUs SHALL be unencrypted.
+When encrypting [=OBU=]s, all [=OBU Header=]s and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter OBU=]s, [=Sequence Header OBU=]s, [=Metadata OBU=]s (except for those requiring protection), [=Frame Header OBU=]s SHALL be unencrypted.
 
-[=Tile Group OBUs=], [=Frame OBUs=] and [=Tile List OBUs=] SHALL be encrypted using subsample encryption, with [=BytesOfProtectedData=] spanning all complete 16-byte blocks in the data. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
+[=Tile Group OBU=]s, [=Frame OBU=]s and [=Tile List OBU=]s SHALL be encrypted using subsample encryption, with [=BytesOfProtectedData=] spanning all complete 16-byte blocks in the data. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
 
 For the <code>[=cenc=]</code> scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.
 
@@ -436,19 +466,19 @@ DASH and other applications require defined values for the 'Codecs' parameter sp
 
 All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.
 
-The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the [=Sequence Header=].
+The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the [=Sequence Header OBU=].
 
-The level parameter value SHALL equal the first level value indicated by [=seq_level_idx=] in the [=Sequence Header=].
+The level parameter value SHALL equal the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=].
 
-The tier parameter value SHALL be equal to <code>M</code> when the first [=seq_tier=] value in the [=Sequence Header=] is equal to 0, and <code>H</code> when it is equal to 1.
+The tier parameter value SHALL be equal to <code>M</code> when the first [=seq_tier=] value in the [=Sequence Header OBU=] is equal to 0, and <code>H</code> when it is equal to 1.
 
-The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in [[AV1]] derived from the [=Sequence Header=].
+The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in [[AV1]] derived from the [=Sequence Header OBU=].
 
-The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the [=Sequence Header=].
+The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the [=Sequence Header OBU=].
 
 The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.
 
-The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
+The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header OBU=], if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.
 
 For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, level 4, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
 
