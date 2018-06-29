@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="0db4e9c70895581e502376b9456386389b79fe61" name="document-revision">
+  <meta content="78e9f37c2eb7bffcb9e7f462afaf26f37c68a0fa" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1491,7 +1491,7 @@ pre .property::before, pre .property::after {
      </ol>
     <li><a href="#cmaf"><span class="secno">3</span> <span class="content">CMAF AV1 track format and CMAF media profiles</span></a>
     <li>
-     <a href="#cenc"><span class="secno">4</span> <span class="content">Common Encryption</span></a>
+     <a href="#CommonEncryption"><span class="secno">4</span> <span class="content">Common Encryption</span></a>
      <ol class="toc">
       <li><a href="#sample-encryption"><span class="secno">4.1</span> <span class="content">Sample Encryption</span></a>
      </ol>
@@ -1709,7 +1709,7 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.</p>
    </ul>
-   <p>When encrypted, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turns relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions given in the “Common Encryption” Section below.</p>
+   <p>When encrypted, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turns relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
    <p>The following brands are defined for <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a>:</p>
    <table border="1">
     <thead>
@@ -1756,12 +1756,15 @@ Quantity:   Zero or more.
       <td>CMAF File Brand
    </table>
    <p class="issue" id="issue-e789b68e"><a class="self-link" href="#issue-e789b68e"></a> The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.</p>
-   <h2 class="heading settled" data-level="4" id="cenc"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#cenc"></a></h2>
-   <p>This section specifies how <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑦⑦">AV1 bitstreams</a> are encrypted, in particular how to partition <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample①">AV1 samples</a> into clear and encrypted subsamples. <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files SHALL use <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Both <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑦⑧">cenc</a></code> and <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑦⑨">cbcs</a></code> scheme types are permitted.</p>
+   <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
+   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be encrypted. If encrypted, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. In particular, both <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑦⑦">cenc</a></code> and <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑦⑧">cbcs</a></code> scheme types are permitted.</p>
    <h3 class="heading settled" data-level="4.1" id="sample-encryption"><span class="secno">4.1. </span><span class="content">Sample Encryption</span><a class="self-link" href="#sample-encryption"></a></h3>
-   <p>When encrypting OBUs, all <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⓪">OBU Headers</a> and associated <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧①">obu_size</a> fields SHALL be unencrypted. Additionally, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧②">Temporal Delimiter</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧③">Sequence Header</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧④">Metadata</a> (except for those requiring protection), <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑤">Frame Header</a> OBUs SHALL be unencrypted.</p>
-   <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑥">Tile Group OBUs</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑦">Frame OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑧">Tile List OBUs</a> SHALL be encrypted using subsample encryption, with <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑧⑨">BytesOfProtectedData</a> spanning all complete 16-byte blocks in the data. This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⓪">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨①">OBU Header</a>.</p>
-   <p>For the <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑨②">cenc</a></code> scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that frame.</p>
+   <p>When encrypting AV1 samples, subsample encryption SHALL be used. Full sample encryption SHALL NOT be used. Pattern encryption MAY be used as permitted in <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>.</p>
+   <p>Within encrypted samples, all <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑦⑨">OBU Headers</a> and associated <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⓪">obu_size</a> fields SHALL be unencrypted. Additionally, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧①">Temporal Delimiter</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧②">Sequence Header</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧③">Metadata</a> (except for those requiring protection), <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧④">Frame Header</a> OBUs (including with a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑤">Frame OBU</a>) SHALL be unencrypted. <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑥">Tile Group OBUs</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑦">Frame OBUs</a> (except the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑧">Frame Header</a> part) and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑧⑨">Tile List OBUs</a> MAY be encrypted. This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⓪">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨①">OBU Header</a>.</p>
+   <p>As permitted by <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, multiple unencrypted OBUs MAY be described by a single subsample. Also, mutiple subsamples MAY be used to describe the data of a single OBU.</p>
+   <p>When an OBU is encrypted, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑨②">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks in the OBU data that is permitted to be encrypted.</p>
+   <p>For the <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑨③">cenc</a></code> scheme type, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted.</p>
+   <p>For the <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑨④">cbcs</a></code> scheme type, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑨⑤">BytesOfProtectedData</a> SHALL start on the first complete byte of OBU data that is permitted to be encrypted (i.e. after the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑥">OBU Header</a>, <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑦">obu_size</a>, possible <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑧">Frame Header</a> OBU and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑨">byte_alignment</a>), and end on the end of the last complete 16-byte block of slice data in the video NAL unit. Partial blocks at the end of OBUs, if any, SHALL be left unencrypted as specified in <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>.</p>
    <figure>
      <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
     <figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
@@ -1771,18 +1774,18 @@ Quantity:   Zero or more.
     <figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑨③">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⓪⓪">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
-   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨④">Sequence Header</a>.</p>
-   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑤">seq_level_idx</a> in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑥">Sequence Header</a>.</p>
-   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑦">seq_tier</a> value in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑧">Sequence Header</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
-   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-⑨⑨">Sequence Header</a>.</p>
-   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪⓪">Sequence Header</a>.</p>
+   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪①">Sequence Header</a>.</p>
+   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪②">seq_level_idx</a> in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪③">Sequence Header</a>.</p>
+   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪④">seq_tier</a> value in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪⑤">Sequence Header</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
+   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪⑥">Sequence Header</a>.</p>
+   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪⑦">Sequence Header</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.</p>
-   <p>The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪①">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
+   <p>The colorPrimaries, transferCharacteristics, matrixCoefficients and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#" id="termref-for-①⓪⑧">Sequence Header</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
    <p>For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, level 4, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
    <p>The parameters sample entry 4CC, profile, level, tier, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.</p>
@@ -1999,8 +2002,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2015,8 +2017,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2031,8 +2032,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2047,8 +2047,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2063,8 +2062,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2079,8 +2077,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2095,8 +2092,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2111,8 +2107,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2127,8 +2122,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2143,8 +2137,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2159,8 +2152,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2175,8 +2167,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2191,8 +2182,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2207,8 +2197,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2223,8 +2212,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2239,8 +2227,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2255,8 +2242,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2271,8 +2257,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2287,8 +2272,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2303,8 +2287,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2319,8 +2302,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2335,8 +2317,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2351,8 +2332,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2367,8 +2347,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2383,8 +2362,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2399,8 +2377,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2415,8 +2392,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2431,8 +2407,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2447,8 +2422,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2463,8 +2437,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2479,8 +2452,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2495,8 +2467,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2511,8 +2482,22 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">2.6.4. Semantics</a>
     <li><a href="#termref-for-">2.8.2. Description</a>
-    <li><a href="#termref-for-">4. Common Encryption</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
+    <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#">https://aomediacodec.github.io/av1-spec/av1-spec.pdf#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">1. Bitstream features overview</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a> <a href="#termref-for-">(18)</a>
+    <li><a href="#termref-for-">2. Basic Encapsulation Scheme</a>
+    <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
+    <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a>
+    <li><a href="#termref-for-">2.6.2. Description</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">2.6.4. Semantics</a>
+    <li><a href="#termref-for-">2.8.2. Description</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a> <a href="#termref-for-">(13)</a> <a href="#termref-for-">(14)</a> <a href="#termref-for-">(15)</a> <a href="#termref-for-">(16)</a> <a href="#termref-for-">(17)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
    </ul>
   </aside>
@@ -2524,7 +2509,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2536,7 +2521,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2548,7 +2533,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2560,7 +2545,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2572,7 +2557,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2584,7 +2569,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2596,7 +2581,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2608,7 +2593,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2620,7 +2605,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2632,7 +2617,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2644,7 +2629,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4.1. Sample Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2655,64 +2640,65 @@ Quantity:   Zero or more.
     <ul>
      <li><span class="dfn-paneled" id="term-for-" style="color:initial">av1 bitstream</span>
      <li><span class="dfn-paneled" id="term-for-①" style="color:initial">buffer_removal_delay</span>
-     <li><span class="dfn-paneled" id="term-for-②" style="color:initial">delayed random access point</span>
-     <li><span class="dfn-paneled" id="term-for-③" style="color:initial">frame header</span>
-     <li><span class="dfn-paneled" id="term-for-④" style="color:initial">frame obu</span>
-     <li><span class="dfn-paneled" id="term-for-⑤" style="color:initial">frame_presentation_delay</span>
-     <li><span class="dfn-paneled" id="term-for-⑥" style="color:initial">initial_display_delay_minus1</span>
-     <li><span class="dfn-paneled" id="term-for-⑦" style="color:initial">inter frame</span>
-     <li><span class="dfn-paneled" id="term-for-⑧" style="color:initial">intra-only frame</span>
-     <li><span class="dfn-paneled" id="term-for-⑨" style="color:initial">key frame</span>
-     <li><span class="dfn-paneled" id="term-for-①⓪" style="color:initial">key frame dependent random access point</span>
-     <li><span class="dfn-paneled" id="term-for-①①" style="color:initial">low overhead bitstream format</span>
-     <li><span class="dfn-paneled" id="term-for-①②" style="color:initial">max_frame_height_minus_1</span>
-     <li><span class="dfn-paneled" id="term-for-①③" style="color:initial">max_frame_width_minus_1</span>
-     <li><span class="dfn-paneled" id="term-for-①④" style="color:initial">metadata</span>
-     <li><span class="dfn-paneled" id="term-for-①⑤" style="color:initial">obu</span>
-     <li><span class="dfn-paneled" id="term-for-①⑥" style="color:initial">obu header</span>
-     <li><span class="dfn-paneled" id="term-for-①⑦" style="color:initial">obu_has_size_field</span>
-     <li><span class="dfn-paneled" id="term-for-①⑧" style="color:initial">obu_size</span>
-     <li><span class="dfn-paneled" id="term-for-①⑨" style="color:initial">open_bitstream_unit</span>
-     <li><span class="dfn-paneled" id="term-for-②⓪" style="color:initial">random access point</span>
-     <li><span class="dfn-paneled" id="term-for-②①" style="color:initial">s frame</span>
-     <li><span class="dfn-paneled" id="term-for-②②" style="color:initial">seq_level_idx</span>
-     <li><span class="dfn-paneled" id="term-for-②③" style="color:initial">seq_tier</span>
-     <li><span class="dfn-paneled" id="term-for-②④" style="color:initial">sequence header</span>
-     <li><span class="dfn-paneled" id="term-for-②⑤" style="color:initial">show_existing_frame</span>
-     <li><span class="dfn-paneled" id="term-for-②⑥" style="color:initial">show_frame</span>
-     <li><span class="dfn-paneled" id="term-for-②⑦" style="color:initial">temporal delimiter</span>
-     <li><span class="dfn-paneled" id="term-for-②⑧" style="color:initial">temporal unit</span>
-     <li><span class="dfn-paneled" id="term-for-②⑨" style="color:initial">tile group obu</span>
-     <li><span class="dfn-paneled" id="term-for-③⓪" style="color:initial">tile list obu</span>
-     <li><span class="dfn-paneled" id="term-for-③①" style="color:initial">timing_info</span>
-     <li><span class="dfn-paneled" id="term-for-③②" style="color:initial">timing_info_present_flag</span>
+     <li><span class="dfn-paneled" id="term-for-②" style="color:initial">byte_alignment</span>
+     <li><span class="dfn-paneled" id="term-for-③" style="color:initial">delayed random access point</span>
+     <li><span class="dfn-paneled" id="term-for-④" style="color:initial">frame header</span>
+     <li><span class="dfn-paneled" id="term-for-⑤" style="color:initial">frame obu</span>
+     <li><span class="dfn-paneled" id="term-for-⑥" style="color:initial">frame_presentation_delay</span>
+     <li><span class="dfn-paneled" id="term-for-⑦" style="color:initial">initial_display_delay_minus1</span>
+     <li><span class="dfn-paneled" id="term-for-⑧" style="color:initial">inter frame</span>
+     <li><span class="dfn-paneled" id="term-for-⑨" style="color:initial">intra-only frame</span>
+     <li><span class="dfn-paneled" id="term-for-①⓪" style="color:initial">key frame</span>
+     <li><span class="dfn-paneled" id="term-for-①①" style="color:initial">key frame dependent random access point</span>
+     <li><span class="dfn-paneled" id="term-for-①②" style="color:initial">low overhead bitstream format</span>
+     <li><span class="dfn-paneled" id="term-for-①③" style="color:initial">max_frame_height_minus_1</span>
+     <li><span class="dfn-paneled" id="term-for-①④" style="color:initial">max_frame_width_minus_1</span>
+     <li><span class="dfn-paneled" id="term-for-①⑤" style="color:initial">metadata</span>
+     <li><span class="dfn-paneled" id="term-for-①⑥" style="color:initial">obu</span>
+     <li><span class="dfn-paneled" id="term-for-①⑦" style="color:initial">obu header</span>
+     <li><span class="dfn-paneled" id="term-for-①⑧" style="color:initial">obu_has_size_field</span>
+     <li><span class="dfn-paneled" id="term-for-①⑨" style="color:initial">obu_size</span>
+     <li><span class="dfn-paneled" id="term-for-②⓪" style="color:initial">open_bitstream_unit</span>
+     <li><span class="dfn-paneled" id="term-for-②①" style="color:initial">random access point</span>
+     <li><span class="dfn-paneled" id="term-for-②②" style="color:initial">s frame</span>
+     <li><span class="dfn-paneled" id="term-for-②③" style="color:initial">seq_level_idx</span>
+     <li><span class="dfn-paneled" id="term-for-②④" style="color:initial">seq_tier</span>
+     <li><span class="dfn-paneled" id="term-for-②⑤" style="color:initial">sequence header</span>
+     <li><span class="dfn-paneled" id="term-for-②⑥" style="color:initial">show_existing_frame</span>
+     <li><span class="dfn-paneled" id="term-for-②⑦" style="color:initial">show_frame</span>
+     <li><span class="dfn-paneled" id="term-for-②⑧" style="color:initial">temporal delimiter</span>
+     <li><span class="dfn-paneled" id="term-for-②⑨" style="color:initial">temporal unit</span>
+     <li><span class="dfn-paneled" id="term-for-③⓪" style="color:initial">tile group obu</span>
+     <li><span class="dfn-paneled" id="term-for-③①" style="color:initial">tile list obu</span>
+     <li><span class="dfn-paneled" id="term-for-③②" style="color:initial">timing_info</span>
+     <li><span class="dfn-paneled" id="term-for-③③" style="color:initial">timing_info_present_flag</span>
     </ul>
    <li>
     <a data-link-type="biblio">[CENC]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-③③" style="color:initial">bytesofprotecteddata</span>
-     <li><span class="dfn-paneled" id="term-for-③④" style="color:initial">cbcs</span>
-     <li><span class="dfn-paneled" id="term-for-③⑤" style="color:initial">cenc</span>
+     <li><span class="dfn-paneled" id="term-for-③④" style="color:initial">bytesofprotecteddata</span>
+     <li><span class="dfn-paneled" id="term-for-③⑤" style="color:initial">cbcs</span>
+     <li><span class="dfn-paneled" id="term-for-③⑥" style="color:initial">cenc</span>
     </ul>
    <li>
     <a data-link-type="biblio">[CMAF]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-③⑥" style="color:initial">cmaf video track</span>
+     <li><span class="dfn-paneled" id="term-for-③⑦" style="color:initial">cmaf video track</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ISOBMFF]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-③⑦" style="color:initial">bitr</span>
-     <li><span class="dfn-paneled" id="term-for-③⑧" style="color:initial">colr</span>
-     <li><span class="dfn-paneled" id="term-for-③⑨" style="color:initial">ctts</span>
-     <li><span class="dfn-paneled" id="term-for-④⓪" style="color:initial">nclx</span>
-     <li><span class="dfn-paneled" id="term-for-④①" style="color:initial">pasp</span>
-     <li><span class="dfn-paneled" id="term-for-④②" style="color:initial">visualsampleentry</span>
+     <li><span class="dfn-paneled" id="term-for-③⑧" style="color:initial">bitr</span>
+     <li><span class="dfn-paneled" id="term-for-③⑨" style="color:initial">colr</span>
+     <li><span class="dfn-paneled" id="term-for-④⓪" style="color:initial">ctts</span>
+     <li><span class="dfn-paneled" id="term-for-④①" style="color:initial">nclx</span>
+     <li><span class="dfn-paneled" id="term-for-④②" style="color:initial">pasp</span>
+     <li><span class="dfn-paneled" id="term-for-④③" style="color:initial">visualsampleentry</span>
     </ul>
    <li>
     <a data-link-type="biblio">[RFC6381]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-④③" style="color:initial">codecs</span>
+     <li><span class="dfn-paneled" id="term-for-④④" style="color:initial">codecs</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2764,7 +2750,6 @@ Quantity:   Zero or more.
    <b><a href="#av1-sample">#av1-sample</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-av1-sample">2.3.2. Description</a>
-    <li><a href="#ref-for-av1-sample①">4. Common Encryption</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="av1forwardkeyframesamplegroupentry">
