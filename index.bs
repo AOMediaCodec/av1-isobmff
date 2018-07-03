@@ -227,7 +227,7 @@ The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may b
 - From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bistream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
-NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the metadata is applicable to all the associated samples.
+NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the [=metadata OBU=] is applicable to all the associated samples.
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
@@ -264,7 +264,7 @@ If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by settin
 
 NOTE: Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.
 
-NOTE: Other types of OBUs such as metadata could be present before the [=Sequence Header OBU=].
+NOTE: Other types of OBUs such as [=metadata OBUs=] could be present before the [=Sequence Header OBU=].
 
 [=Intra-only frames=] SHOULD be signaled using the sample_depends_on flag set to 2.
 
@@ -278,7 +278,7 @@ Unlike many video standards, AV1 does not distinguish the display order from the
 
 When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
-Metadata OBUs may be carried in sample data. In this case, the [=AV1MetadataSampleGroupEntry=] SHOULD be used. If the metadata OBUs are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.
+[=Metadata OBUs=] may be carried in sample data. In this case, the [=AV1MetadataSampleGroupEntry=] SHOULD be used. If the [=metadata OBUs=] are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.
 
 Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.
 
@@ -375,7 +375,7 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Description ### {#metadatasamplegroupentry-description}
 
-The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain metadata OBUs of the given type.
+The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=] of the given type.
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
@@ -401,7 +401,7 @@ If a [=CMAF Video Track=] signals one of the brands defined below, it is called 
     - level
     - color_config()
 - the 'colr' and 'pasp' boxes SHALL be present
-- for HDR profiles, metadata of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
+- for HDR profiles, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
 
 When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]], which in turns relies on [[CENC]], with the provisions given in the “Common Encryption” Section below.
 
