@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
+  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="e5113be3ef80c2cf8825455dd0e0ebcaab55c078" name="document-revision">
+  <meta content="956263e2631c13e5db1e7cb85221cc0fa4ff3c87" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1576,9 +1576,9 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>The <dfn data-dfn-type="dfn" data-export="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:</p>
    <ul>
     <li data-md="">
-     <p>From any sync sample, an AV1 bistream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox③">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.</p>
+     <p>From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox③">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.</p>
     <li data-md="">
-     <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bistream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox④">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
+     <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bitstream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox④">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the <a data-link-type="dfn" href="http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47">metadata OBU</a> is applicable to all the associated samples.</p>
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑧">open_bitstream_unit</a> <a data-link-type="dfn" href="http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
