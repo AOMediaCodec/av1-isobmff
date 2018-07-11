@@ -42,46 +42,46 @@ url: http://iso.org/#; spec: RFC6381; type: property;
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1; spec: AV1; type: dfn;
 	text: AV1 bitstream
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
 	text: OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
 	text: OBU Header
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
 	text: Frame Header OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
 	text: Sequence Header OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Temporal Delimiter OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=72; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72; spec: AV1; type: dfn;
 	text: Tile Group OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Frame OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Tile List OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
 	text: Metadata OBU
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Recovery Point
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
 	text: Inter Frame
 	text: Intra-only Frame
 	text: Key Frame
 	text: S Frame
 	text: Temporal Unit
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
 	text: Low Overhead Bitstream Format
 
 url: http://iso.org/#; spec: CMAF; type: dfn;
@@ -92,10 +92,10 @@ url: http://iso.org/#; spec: CENC; type: dfn;
 	text: cbcs
 	text: cenc
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
 	text: timing_info
 
-url: http://av1-spec.argondesign.com/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
 	text: max_frame_height_minus_1
 	text: max_frame_width_minus_1
 	text: obu_has_size_field
