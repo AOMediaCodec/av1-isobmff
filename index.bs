@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
-Date: 2018-07-11
+Date: 2018-07-18
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
@@ -446,7 +446,7 @@ When an OBU is encrypted, [=BytesOfProtectedData=] SHALL span all complete 16-by
 
 For AES-CTR based scheme types, such as <code>[=cenc=]</code>, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted.
 
-For AES-CBC based scheme types, such as  <code>[=cbcs=]</code>, [=BytesOfProtectedData=] SHALL start on the first complete byte of OBU data that is permitted to be encrypted (i.e. after the [=OBU Header=], [=obu_size=], possible [=Frame Header OBU=] and [=byte_alignment=]), and end on the end of the last complete 16-byte block of slice data in the video NAL unit. Partial blocks at the end of OBUs, if any, SHALL be left unencrypted as specified in [[!CENC]].
+For AES-CBC based scheme types, such as  <code>[=cbcs=]</code>, [=BytesOfProtectedData=] SHALL start on the first complete byte of OBU data that is permitted to be encrypted (i.e. after the [=OBU Header=], [=obu_size=], possible [=Frame Header OBU=] and [=byte_alignment=]), and end on the end of the last complete 16-byte block of data in the OBU. Partial blocks at the end of OBUs, if any, SHALL be left unencrypted as specified in [[!CENC]].
 
 <figure>
 	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
