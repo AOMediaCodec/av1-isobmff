@@ -5,7 +5,7 @@ URL: https://AOMediaCodec.github.io/av1-isobmff
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
-Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
+Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
 Date: 2018-07-18
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
@@ -86,6 +86,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; typ
 
 url: http://iso.org/#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
+	text: cmfc
 
 url: http://iso.org/#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
@@ -142,7 +143,7 @@ A file conformant to this specification SHALL conform to the normative requireme
 Brand {#basic-brand}
 --------------------
 
-If the <dfn value export for="ISOBMFF Brand">av01</dfn> brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
+If the <dfn value export for="ISOBMFF Brand">av01</dfn> brand is present in the <code>FileTypeBox</code>, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
@@ -389,44 +390,24 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 
 <dfn export>metadata_type</dfn> used by one OBU in the sample.
 
-CMAF AV1 track format and CMAF media profiles {#cmaf}
+CMAF AV1 track format {#cmaf}
 =====================================================
 
-[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for encrypted files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
+[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for encrypted files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
 
-If a [=CMAF Video Track=] signals one of the brands defined below, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
+If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
 - it SHALL use an [=AV1SampleEntry=]
 - it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:
-    - profile
-    - level
-    - color_config()
+    - <code>seq_profile</code>
+    - <code>still_picture</code>
+    - the first value of <code>seq_level_idx</code>
+    - <code>color_config</code>
 - the 'colr' and 'pasp' boxes SHALL be present
-- for HDR profiles, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
+- for HDR content, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
 
-When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]], which in turns relies on [[CENC]], with the provisions specified in [[#CommonEncryption]].
+When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turns relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
 
-The following brands are defined for [=CMAF AV1 Tracks=]:
-
-<table border="1">
-<thead>
-<tr>
-<th>Profile</th><th>Level</th><th>color primaries</th><th>transfer characteristics</th><th>matrix coefficients</th><th>Max Frame Height</th><th>Max Frame Width</th><th>Max Frame Rate</th><th>CMAF File Brand</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Main</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
-</tr>
-<tr>
-<td>High</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
-</tr>
-<tr>
-<td>Professional</td><td>Level</td><td>color primaries</td><td>transfer characteristics</td><td>matrix coefficients</td><td>Max Frame Height</td><td>Max Frame Width</td><td>Max Frame Rate</td><td>CMAF File Brand</td>
-</tr>
-</tbody>
-</table>
-
-ISSUE: The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.
+NOTE: This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.
 
 Common Encryption {#CommonEncryption}
 =========================
