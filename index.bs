@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
-Date: 2018-07-18
+Date: 2018-07-23
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
@@ -223,11 +223,11 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
+The <dfn export>configOBUs</dfn> field contains one or more OBUs. The [=Sequence Header OBU=] MUST be present. Any other OBU MAY be present provided that the following procedures produce compliant AV1 bitstreams:
 - From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
-NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the [=metadata OBU=] is applicable to all the associated samples.
+NOTE: The configOBUs field is expected to contain only [=Sequence Header OBU=] and [=metadata OBU=]. The [=metadata OBU=] SHALL be present only when it is applicable to all the associated samples.
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
