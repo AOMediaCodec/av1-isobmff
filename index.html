@@ -1611,7 +1611,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
     <li data-md="">
-     <p>OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.</p>
+     <p>OBUs of type OBU_TEMPORAL_DELIMITER, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.</p>
    </ul>
    <p>If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>, i.e. satisfy the following constraints:</p>
    <ul>

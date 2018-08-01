@@ -256,7 +256,7 @@ For tracks using the [=AV1SampleEntry=], an <dfn>AV1 Sample</dfn> has the follow
 
 NOTE: When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either set the [=obu_has_size_field=] to 1 for some OBUs if not already set and add the length field, or use the length-delimited bitstream format as defined in Annex B of [=AV1=].
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
-- OBUs of type OBU_TD, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
+- OBUs of type OBU_TEMPORAL_DELIMITER, OBU_PADDING or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
 
 If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in [[!AV1]], i.e. satisfy the following constraints:
 - Its first frame is a [=Key Frame=] that has [=show_frame=] flag set to 1,
