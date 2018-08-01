@@ -78,7 +78,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; typ
 	text: Inter Frame
 	text: Intra-only Frame
 	text: Key Frame
-	text: S Frame
+	text: Switch Frame
 	text: Temporal Unit
 
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
@@ -122,7 +122,7 @@ Temporal Units are processed by a decoder in the order given by the bitstream. E
 
 NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
 
-Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=S Frames=] and frames with a [=show_existing_frame=] flag set to 1.
+Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=Switch Frames=] and frames with a [=show_existing_frame=] flag set to 1.
 
 Key Frames with the [=show_frame=] flag set to 1 have the additional property that after decoding the Key Frame, all frames can be decoded. They are called [=Random Access Points=] in [[!AV1]].
 
@@ -270,9 +270,9 @@ NOTE: Other types of OBUs such as [=metadata OBUs=] could be present before the 
 
 [=Delayed Random Access Points=] SHOULD be signaled using sample groups and the [=AV1ForwardKeyFrameSampleGroupEntry=].
 
-[=S Frames=] SHOULD be signaled using sample groups and the [=AV1SFrameSampleGroupEntry=].
+[=Switch Frames=] SHOULD be signaled using sample groups and the [=AV1SwitchFrameSampleGroupEntry=].
 
-Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using [=S Frames=], those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
+Additionally, if a file contains multiple tracks which are alternative representations of the same content, in particular using [=Switch Frames=], those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
 
 Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In tracks using the [=AV1SampleEntry=], the 'ctts' box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.
 
@@ -336,10 +336,10 @@ class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
 }
 ```
 
-AV1 S-Frame sample group entry {#sframeamplegroupentry}
+AV1 Switch Frame sample group entry {#switchframeamplegroupentry}
 -------------------------------------------------------
 
-### Definition ### {#sframeamplegroupentry-definition}
+### Definition ### {#switchframeamplegroupentry-definition}
 
 <pre class="def">
 	Group Type: <dfn export>av1s</dfn>
@@ -349,14 +349,14 @@ AV1 S-Frame sample group entry {#sframeamplegroupentry}
 </pre>
 
 
-### Description ### {#sframeamplegroupentry-description}
+### Description ### {#switchframeamplegroupentry-description}
 
-The <dfn>AV1SFrameSampleGroupEntry</dfn> documents samples that start with an [=S Frame=].
+The <dfn>AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with a [=Switch Frame=].
 
-### Syntax ### {#sframeamplegroupentry-syntax}
+### Syntax ### {#switchframeamplegroupentry-syntax}
 
 ```
-class AV1SFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
+class AV1SwitchFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
 }
 ```
 
