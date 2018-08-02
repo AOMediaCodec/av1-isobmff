@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="4ad67866996e5bcb0bf1db3a6df16edb81a9c2ec" name="document-revision">
+  <meta content="a522c403d8100b8402f86c23ba33d222146bf5fd" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1474,11 +1474,11 @@ pre .property::before, pre .property::after {
         <li><a href="#multiframesamplegroupentry-syntax"><span class="secno">2.7.3</span> <span class="content">Syntax</span></a>
        </ol>
       <li>
-       <a href="#switchframeamplegroupentry"><span class="secno">2.8</span> <span class="content">AV1 Switch Frame sample group entry</span></a>
+       <a href="#switchframesamplegroupentry"><span class="secno">2.8</span> <span class="content">AV1 Switch Frame sample group entry</span></a>
        <ol class="toc">
-        <li><a href="#switchframeamplegroupentry-definition"><span class="secno">2.8.1</span> <span class="content">Definition</span></a>
-        <li><a href="#switchframeamplegroupentry-description"><span class="secno">2.8.2</span> <span class="content">Description</span></a>
-        <li><a href="#switchframeamplegroupentry-syntax"><span class="secno">2.8.3</span> <span class="content">Syntax</span></a>
+        <li><a href="#switchframesamplegroupentry-definition"><span class="secno">2.8.1</span> <span class="content">Definition</span></a>
+        <li><a href="#switchframesamplegroupentry-description"><span class="secno">2.8.2</span> <span class="content">Description</span></a>
+        <li><a href="#switchframesamplegroupentry-syntax"><span class="secno">2.8.3</span> <span class="content">Syntax</span></a>
        </ol>
       <li>
        <a href="#metadatasamplegroupentry"><span class="secno">2.9</span> <span class="content">AV1 Metadata sample group entry</span></a>
@@ -1590,7 +1590,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>set the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①①">initial_display_delay_minus_1</a> field of each <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②">Sequence Header OBU</a> to the number of frames contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
     <li data-md="">
-     <p>set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①②">frame_presentation_time</a> field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise)</p>
+     <p>set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①②">frame_presentation_time</a> field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),</p>
     <li data-md="">
      <p>apply the display model verification algorithm.</p>
    </ul>
@@ -1604,7 +1604,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>the sample data SHALL be a sequence of <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39②">OBUs</a> forming a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑤">Temporal Unit</a>,</p>
     <li data-md="">
-     <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remaining of the sample,</p>
+     <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remainder of the sample,</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">obu_has_size_field</a> to 1 for some OBUs if not already set and add the length field, or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>.</p>
    <ul>
@@ -1659,16 +1659,16 @@ Quantity:   Zero or more.
 <pre>class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
 }
 </pre>
-   <h3 class="heading settled" data-level="2.8" id="switchframeamplegroupentry"><span class="secno">2.8. </span><span class="content">AV1 Switch Frame sample group entry</span><a class="self-link" href="#switchframeamplegroupentry"></a></h3>
-   <h4 class="heading settled" data-level="2.8.1" id="switchframeamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#switchframeamplegroupentry-definition"></a></h4>
-<pre class="def">Group Type: <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="av1s">av1s</dfn>
+   <h3 class="heading settled" data-level="2.8" id="switchframesamplegroupentry"><span class="secno">2.8. </span><span class="content">AV1 Switch Frame sample group entry</span><a class="self-link" href="#switchframesamplegroupentry"></a></h3>
+   <h4 class="heading settled" data-level="2.8.1" id="switchframesamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#switchframesamplegroupentry-definition"></a></h4>
+<pre class="def">Group Type: <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="av1s">av1s</dfn>
 Container:  Sample Group Description Box ('sgpd')
 Mandatory:  No
 Quantity:   Zero or more.
 </pre>
-   <h4 class="heading settled" data-level="2.8.2" id="switchframeamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#switchframeamplegroupentry-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13①⓪">Switch Frame</a>.</p>
-   <h4 class="heading settled" data-level="2.8.3" id="switchframeamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#switchframeamplegroupentry-syntax"></a></h4>
+   <h4 class="heading settled" data-level="2.8.2" id="switchframesamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#switchframesamplegroupentry-description"></a></h4>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13①⓪">Switch Frame</a>.</p>
+   <h4 class="heading settled" data-level="2.8.3" id="switchframesamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#switchframesamplegroupentry-syntax"></a></h4>
 <pre>class AV1SwitchFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
 }
 </pre>
@@ -2196,14 +2196,6 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=206①⓪">2.6.4. Semantics</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-page=13">
-   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-page=13">1. Bitstream features overview</a> <a href="#ref-for-page=13①">(2)</a> <a href="#ref-for-page=13②">(3)</a> <a href="#ref-for-page=13③">(4)</a> <a href="#ref-for-page=13④">(5)</a>
-    <li><a href="#ref-for-page=13⑤">2.5. AV1 Sample Format</a> <a href="#ref-for-page=13⑥">(2)</a> <a href="#ref-for-page=13⑦">(3)</a> <a href="#ref-for-page=13⑧">(4)</a> <a href="#ref-for-page=13⑨">(5)</a>
-    <li><a href="#ref-for-page=13①⓪">2.8.2. Description</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2</a><b>Referenced in:</b>
    <ul>
@@ -2256,6 +2248,14 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2①⑥">2.5. AV1 Sample Format</a> <a href="#ref-for-page=2①⑦">(2)</a> <a href="#ref-for-page=2①⑧">(3)</a> <a href="#ref-for-page=2①⑨">(4)</a> <a href="#ref-for-page=2②⓪">(5)</a>
     <li><a href="#ref-for-page=2②①">4.1. Sample Encryption</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-page=13">
+   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-page=13">1. Bitstream features overview</a> <a href="#ref-for-page=13①">(2)</a> <a href="#ref-for-page=13②">(3)</a> <a href="#ref-for-page=13③">(4)</a> <a href="#ref-for-page=13④">(5)</a>
+    <li><a href="#ref-for-page=13⑤">2.5. AV1 Sample Format</a> <a href="#ref-for-page=13⑥">(2)</a> <a href="#ref-for-page=13⑦">(3)</a> <a href="#ref-for-page=13⑧">(4)</a> <a href="#ref-for-page=13⑨">(5)</a>
+    <li><a href="#ref-for-page=13①⓪">2.8.2. Description</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=46">
