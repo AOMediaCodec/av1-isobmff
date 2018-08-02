@@ -440,7 +440,7 @@ When encrypting [=OBUs=], all [=OBU Headers=] and associated [=obu_size=] fields
 
 Within encrypted samples, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], [=Metadata OBUs=] (except for those requiring protection), [=Frame Header OBUs=] (including with a [=Frame OBU=]) SHALL be unencrypted. [=Tile Group OBUs=], [=Frame OBUs=] (except the [=Frame Header OBU=] part) and [=Tile List OBUs=] MAY be encrypted. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
 
-As permitted by [[!CENC]], multiple unencrypted OBUs MAY be described by a single subsample. Also, mutiple subsamples MAY be used to describe the data of a single OBU.
+As permitted by [[!CENC]], multiple unencrypted OBUs MAY be described by a single subsample. Also, multiple subsamples MAY be used to describe the data of a single OBU.
 
 When an OBU is encrypted, [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks in the OBU data that is permitted to be encrypted.
 
