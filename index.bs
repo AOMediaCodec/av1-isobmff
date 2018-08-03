@@ -172,7 +172,12 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header OBU=] applying to the samples associated with this sample entry.
 
-As specified in [[!ISOBMFF]], the width and height in the [=VisualSampleEntry=] are specified in square pixels. If the video pixels are not square, then a 'pasp' box SHALL be included and the track header width and height SHOULD match the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 after the 'pasp' ratio has been applied.
+
+The width and height in the TrackHeaderBox SHOULD equal the maximum RenderWidth and RenderHeight values of all the frames associated with this sample entry, respectively called MaxRenderWidth and MaxRenderHeight. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that 
+```
+hSpacing/vSpacing = MaxRenderWidth*(max_frame_height_minus_1+1)/
+                        ((max_frame_width_minus_1+1)*MaxRenderHeight).
+```
 
 The <dfn noexport>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). The value "\012AOM Coding" is RECOMMENDED; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
 
