@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="e9d7fd7b14c898248d10546883c48570b1d5e67e" name="document-revision">
+  <meta content="6bb5bd7fcd336b194c2fd5812733e01f5b79dad8" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1609,7 +1609,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remainder of the sample,</p>
    </ul>
-   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">obu_has_size_field</a> to 1 for some OBUs if not already set and add the length field, or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>.</p>
+   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either: set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">obu_has_size_field</a> to 1 for some OBUs if not already set, add the size field in this case, and add <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46">Temporal Delimiter OBU</a>; or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>. If encryption is used, similar operations MAY have to be done before or after decryption depending on the demuxer/decryptor/decoder architecture.</p>
    <ul>
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
@@ -2264,7 +2264,8 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=46">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=46">4.1. Sample Encryption</a> <a href="#ref-for-page=46①">(2)</a>
+    <li><a href="#ref-for-page=46">2.5. AV1 Sample Format</a>
+    <li><a href="#ref-for-page=46①">4.1. Sample Encryption</a> <a href="#ref-for-page=46②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
