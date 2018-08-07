@@ -403,7 +403,7 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - the first value of <code>seq_level_idx</code>
     - <code>color_config</code>
 - the 'colr' and 'pasp' boxes SHALL be present
-- for HDR content, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
+- for HDR content, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV SHOULD be present.
 
 When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turns relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
 
