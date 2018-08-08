@@ -215,11 +215,18 @@ The <dfn>AV1CodecConfigurationBox</dfn> contains decoder configuration informati
 ### Syntax ### {#av1codecconfigurationbox-syntax}
 
 ```
-class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
+class AV1CodecConfigurationBox extends FullBox('av1C', version = 1, 0){
   AV1CodecConfigurationRecord av1Config;
 }
 
 aligned (8) class AV1CodecConfigurationRecord {
+  unsigned int (5) reserved = 0;
+  unsigned int (1) initial_presentation_delay_present;
+  if (initial_presentation_delay_present) {
+    unsigned int (4) initial_presentation_delay_minus_one;
+  } else {
+    unsigned int (4) reserved;
+  }
   unsigned int (1) sequence_parameters_present;
   if (sequence_parameters_present) {
     unsigned int (3) seq_profile;
@@ -227,9 +234,8 @@ aligned (8) class AV1CodecConfigurationRecord {
     unsigned int (5) seq_level_idx_0;
     unsigned int (1) seq_tier_0;
     unsigned int (4) bit_depth;
-    unsigned int (1) monochrome;
   } else {
-    unsigned int (15) reserved;
+    unsigned int (14) reserved = 0;
   }
   unsigned int (8)[] configOBUs;
 }
@@ -245,14 +251,25 @@ NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and O
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
-The <dfn export>sequence_parameters_present</dfn> field indicates the presence of the parameters [=seq_profile=], [=still_picture=], [=seq_level_idx_0=], [=seq_tier_0=], [=bit_depth=], and [=monochrome=] fields from the AV1 [=Sequence Header OBU=].
+The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
+
+The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
+- construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,
+- set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
+- set the [=frame_presentation_time=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),
+- apply the display model verification algorithm.
+
+When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
+
+The <dfn export>sequence_parameters_present</dfn> field indicates the presence of the parameters [=seq_profile=], [=still_picture=], [=seq_level_idx_0=], [=seq_tier_0=], and [=bit_depth=] fields from the AV1 [=Sequence Header OBU=].
 
 - <dfn>seq_profile</dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
 - <dfn>still_picture</dfn> indicates the value of the still_picture field found in the [=Sequence Header OBU=] and SHALL be equal to the value from the [=Sequence Header OBU=].
 - <dfn>seq_level_idx_0</dfn> indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=].
 - <dfn>seq_tier_0</dfn> indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=].
 - <dfn>bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.
-- <dfn>monochrome</dfn> indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
+
+When the AV1CodecConfigurationRecord indicates that fields from the [=Sequence Header OBU=] are present via [=sequence_parameters_present=], and a [=Sequence Header OBU=] is present within the configOBUs, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord sequence parameters.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
