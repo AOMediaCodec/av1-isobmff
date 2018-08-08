@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="9a9dedba39b1a2b960572a5fdfe6b5d19cd01919" name="document-revision">
+  <meta content="c2f164deb29f674b4512c2428171413259dcad57" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1573,7 +1573,7 @@ aligned (8) class AV1CodecConfigurationRecord {
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
   } else {
-    unsigned int (4) reserved;
+    unsigned int (4) reserved = 0;
   }
   unsigned int (1) sequence_parameters_present;
   if (sequence_parameters_present) {

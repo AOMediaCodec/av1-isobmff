@@ -225,7 +225,7 @@ aligned (8) class AV1CodecConfigurationRecord {
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
   } else {
-    unsigned int (4) reserved;
+    unsigned int (4) reserved = 0;
   }
   unsigned int (1) sequence_parameters_present;
   if (sequence_parameters_present) {
