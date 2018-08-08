@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="c2f164deb29f674b4512c2428171413259dcad57" name="document-revision">
+  <meta content="f9d6560d5e6d71fb33e9c593f885109377b7c8c4" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1563,12 +1563,12 @@ Quantity:  Exactly One
    <h4 class="heading settled" data-level="2.4.2" id="av1codecconfigurationbox-description"><span class="secno">2.4.2. </span><span class="content">Description</span><a class="self-link" href="#av1codecconfigurationbox-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains decoder configuration information that SHALL be valid for every sample that references the sample entry.</p>
    <h4 class="heading settled" data-level="2.4.3" id="av1codecconfigurationbox-syntax"><span class="secno">2.4.3. </span><span class="content">Syntax</span><a class="self-link" href="#av1codecconfigurationbox-syntax"></a></h4>
-<pre>class AV1CodecConfigurationBox extends FullBox('av1C', version = 1, 0){
-  AV1CodecConfigurationRecord av1Config;
+<pre>class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
+  AV1CodecConfigurationRecordv1 av1Config;
 }
 
-aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (5) reserved = 0;
+aligned (8) class AV1CodecConfigurationRecordv1 {
+  unsigned int (4) reserved = 0;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -1589,6 +1589,7 @@ aligned (8) class AV1CodecConfigurationRecord {
 }
 </pre>
    <h4 class="heading settled" data-level="2.4.4" id="av1codecconfigurationbox-semantics"><span class="secno">2.4.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1codecconfigurationbox-semantics"></a></h4>
+   <p>Previous versions of this specification defined AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord is deprecated.</p>
    <p>The <dfn data-dfn-type="dfn" data-export="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:</p>
    <ul>
     <li data-md="">
@@ -1624,7 +1625,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md="">
      <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="bit_depth">bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.</p>
    </ul>
-   <p>When the AV1CodecConfigurationRecord indicates that fields from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a> are present via <a data-link-type="dfn" href="#sequence_parameters_present" id="ref-for-sequence_parameters_present">sequence_parameters_present</a>, and a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①③">Sequence Header OBU</a> is present within the configOBUs, the values present in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①④">Sequence Header OBU</a> contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord sequence parameters.</p>
+   <p>When the AV1CodecConfigurationRecordv1 indicates that fields from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a> are present via <a data-link-type="dfn" href="#sequence_parameters_present" id="ref-for-sequence_parameters_present">sequence_parameters_present</a>, and a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①③">Sequence Header OBU</a> is present within the configOBUs, the values present in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①④">Sequence Header OBU</a> contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1 sequence parameters.</p>
    <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①③">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑤">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑥">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
    <p>If a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-③">colr</a> box is present in the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-④">VisualSampleEntry</a> with a colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑤">nclx</a>, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑦">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑥">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑧">Sequence Header OBU</a>.</p>
    <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑦">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox⑤">AV1CodecConfigurationBox</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>

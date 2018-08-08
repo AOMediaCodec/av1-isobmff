@@ -215,12 +215,12 @@ The <dfn>AV1CodecConfigurationBox</dfn> contains decoder configuration informati
 ### Syntax ### {#av1codecconfigurationbox-syntax}
 
 ```
-class AV1CodecConfigurationBox extends FullBox('av1C', version = 1, 0){
-  AV1CodecConfigurationRecord av1Config;
+class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
+  AV1CodecConfigurationRecordv1 av1Config;
 }
 
-aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (5) reserved = 0;
+aligned (8) class AV1CodecConfigurationRecordv1 {
+  unsigned int (4) reserved = 0;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -242,6 +242,8 @@ aligned (8) class AV1CodecConfigurationRecord {
 ```
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
+
+Previous versions of this specification defined AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord is deprecated.
 
 The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
 - From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
@@ -269,7 +271,7 @@ The <dfn export>sequence_parameters_present</dfn> field indicates the presence o
 - <dfn>seq_tier_0</dfn> indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=].
 - <dfn>bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.
 
-When the AV1CodecConfigurationRecord indicates that fields from the [=Sequence Header OBU=] are present via [=sequence_parameters_present=], and a [=Sequence Header OBU=] is present within the configOBUs, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord sequence parameters.
+When the AV1CodecConfigurationRecordv1 indicates that fields from the [=Sequence Header OBU=] are present via [=sequence_parameters_present=], and a [=Sequence Header OBU=] is present within the configOBUs, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1 sequence parameters.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
