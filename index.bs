@@ -29,12 +29,19 @@ url: http://iso.org/#; spec: ISOBMFF; type: dfn;
 
 url: http://iso.org/#; spec: ISOBMFF; type: property;
 	text: bitr
+	text: clap
+	text: clli
 	text: colr
 	text: ctts
+	text: mdcv
 	text: nclx
 	text: pasp
 	text: sgpd
 	text: stsd
+
+url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
+	text: SmDm
+	text: CoLL
 
 url: http://iso.org/#; spec: RFC6381; type: property;
 	text: codecs
@@ -283,15 +290,19 @@ The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may b
 - From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
-NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the [=metadata OBU=] is applicable to all the associated samples.
+NOTE: The configOBUs field is expected to contain only one [=Sequence Header OBU=] and zero or more [=Metadata OBUs=] when applicable to all the associated samples.
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
-If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header OBU=].
+The sample entry SHOULD contain a 'colr' box with a colour_type set to 'nclx'. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header OBU=]. When configOBUs does not contain a [=Sequence Header OBU=], this box with colour_type set to 'nclx' SHALL be present.
 
-When configOBUs does not contain a [=Sequence Header OBU=] a 'colr' box SHALL be present in the [=VisualSampleEntry=] with colour_type set to 'nclx'.
+The CleanApertureBox 'clap' SHOULD not be present.
+
+For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present, and their values SHALL match the values of contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).
+
+NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical payload to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>.
 
 Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
@@ -449,9 +460,8 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - <code>seq_profile</code>
     - <code>still_picture</code>
     - the first value of <code>seq_level_idx</code>
+    - the first value of <code>seq_tier</code>
     - <code>color_config</code>
-- the 'colr' and 'pasp' boxes SHALL be present
-- for HDR content, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV SHOULD be present.
 
 When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turns relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
 
