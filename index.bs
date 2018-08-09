@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as a set of [[!CMAF]] Media profiles based on [[!AV1]].
-Date: 2018-07-18
+Date: 2018-08-09
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
@@ -104,6 +104,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type
 	text: obu_has_size_field
 	text: obu_size
 	text: open_bitstream_unit
+	text: seq_profile
 	text: seq_level_idx
 	text: seq_tier
 	text: show_existing_frame
@@ -113,6 +114,10 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type
 	text: byte_alignment
 	text: frame_presentation_time
 	text: initial_display_delay_minus_1
+	text: still_picture
+	text: mono_chrome
+	text: subsampling_x
+	text: subsampling_y
 </pre>
 
 Bitstream features overview {#bitstream-overview}
@@ -175,9 +180,9 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header OBU=] applying to the samples associated with this sample entry.
 
-The width and height in the TrackHeaderBox SHOULD equal the maximum RenderWidth and RenderHeight values of all the frames associated with this sample entry, respectively called MaxRenderWidth and MaxRenderHeight. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that 
+The width and height in the TrackHeaderBox SHOULD equal the maximum RenderWidth and RenderHeight values of all the frames associated with this sample entry, respectively called MaxRenderWidth and MaxRenderHeight. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that
 ```
-hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1)/
+hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
                               ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
 ```
 
@@ -213,16 +218,31 @@ The <dfn>AV1CodecConfigurationBox</dfn> contains decoder configuration informati
 
 ```
 class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
-  AV1CodecConfigurationRecord av1Config;
+  AV1CodecConfigurationRecordv1 av1Config;
 }
 
-aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (3) reserved = 0;
+aligned (8) class AV1CodecConfigurationRecordv1 {
+  unsigned int (4) reserved = 0;
+  unsigned int (3) version = 1;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
   } else {
-    unsigned int (4) reserved;
+    unsigned int (4) reserved = 0;
+  }
+  unsigned int (1) sequence_parameters_present;
+  if (sequence_parameters_present) {
+    unsigned int (3) seq_profile;
+    unsigned int (1) still_picture;
+    unsigned int (5) seq_level_idx_0;
+    unsigned int (1) seq_tier_0;
+    unsigned int (4) bit_depth;
+    unsigned int (1) monochrome;
+    unsigned int (1) chroma_subsampling_x;
+    unsigned int (1) chroma_subsampling_y;
+    unsigned int (2) chroma_sample_position;
+  } else {
+    unsigned int (19) reserved = 0;
   }
   unsigned int (8)[] configOBUs;
 }
@@ -230,13 +250,9 @@ aligned (8) class AV1CodecConfigurationRecord {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
-- From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
-- From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
+Previous versions of this specification defined v0 of the AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord v0 is deprecated.
 
-NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the [=metadata OBU=] is applicable to all the associated samples.
-
-OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
+The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.
 
 The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
@@ -270,9 +286,33 @@ But if the frames were grouped as follows:
 </div>
 
 
+The <dfn export>sequence_parameters_present</dfn> field indicates the presence of  parameters from the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
+
+- <dfn export>seq_profile</dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
+- <dfn export>still_picture</dfn> indicates the value of the still_picture field found in the [=Sequence Header OBU=] and SHALL be equal to the value from the [=Sequence Header OBU=].
+- <dfn export>seq_level_idx_0</dfn> indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=].
+- <dfn export>seq_tier_0</dfn> indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=].
+- <dfn export>bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.
+- <dfn export>monochrome</dfn> indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
+- <dfn export>chroma_subsampling_x</dfn> indicates the [=subsampling_x=] value from the [=Sequence Header OBU=].
+- <dfn export>chroma_subsampling_y</dfn> indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
+- <dfn export>chroma_sample_position</dfn> indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
+
+When the AV1CodecConfigurationRecordv1 indicates that fields from the [=Sequence Header OBU=] are present via [=sequence_parameters_present=], and a [=Sequence Header OBU=] is present within the configOBUs, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1 sequence parameters.
+
+The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
+- From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
+- From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
+
+NOTE: The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the [=metadata OBU=] is applicable to all the associated samples.
+
+OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
+
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
 If a 'colr' box is present in the [=VisualSampleEntry=] with a colour_type set to 'nclx', the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the 'colr' box shall match the color_range flag in the [=Sequence Header OBU=].
+
+When configOBUs does not contain a [=Sequence Header OBU=] a 'colr' box SHALL be present in the [=VisualSampleEntry=] with colour_type set to 'nclx'.
 
 Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
