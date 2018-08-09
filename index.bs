@@ -89,8 +89,11 @@ url: http://iso.org/#; spec: CMAF; type: dfn;
 
 url: http://iso.org/#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
+	text: BytesOfClearData
 	text: cbcs
 	text: cenc
+	text: cbc1
+	text: cens
 
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
 	text: timing_info
@@ -419,7 +422,7 @@ class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
 CMAF AV1 track format and CMAF media profiles {#cmaf}
 =====================================================
 
-[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for encrypted files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
+[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. [[CMAF]] also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.
 
 If a [=CMAF Video Track=] signals one of the brands defined below, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
 - it SHALL use an [=AV1SampleEntry=]
@@ -431,7 +434,7 @@ If a [=CMAF Video Track=] signals one of the brands defined below, it is called 
 - the 'colr' and 'pasp' boxes SHALL be present
 - for HDR profiles, [=metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.
 
-When encrypted, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]], which in turns relies on [[CENC]], with the provisions specified in [[#CommonEncryption]].
+When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[CMAF]], which in turns relies on [[CENC]], with the provisions specified in [[#CommonEncryption]].
 
 The following brands are defined for [=CMAF AV1 Tracks=]:
 
@@ -459,22 +462,39 @@ ISSUE: The content of table above needs to be discussed once the profiles and le
 Common Encryption {#CommonEncryption}
 =========================
 
-[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be encrypted. If encrypted, they SHALL conform to [[!CENC]]. In particular, both <code>[=cenc=]</code> and <code>[=cbcs=]</code> scheme types are permitted.
+[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to [[!CENC]].
 
-Sample Encryption {#sample-encryption}
+When the protected scheme <code>[=cenc=]</code> or <code>[=cbc1=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
+
+When the protected scheme <code>[=cens=]</code> or <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption.
+
+General Subsample Encryption constraints {#subsample-encryption}
 --------------------------------------
 
-When encrypting [=OBUs=], all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], [=Metadata OBUs=] (except for those requiring protection), [=Frame Header OBUs=] SHALL be unencrypted.
+Within protected samples, the following constraints apply:
+- Protected samples SHALL be exactly spanned by one or more contiguous subsamples.
+- all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
+- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] SHALL be unprotected.
+- [=Metadata OBUs=] MAY be protected.
+- [=Tile Group OBUs=], [=Frame OBUs=], and [=Tile List OBUs=] SHALL be protected.
+- Within [=Tile Group OBUs=] or [=Frame OBUs=], only the bytes after <code>byte_alignment</code> in the <code>tile_group_obu</code> structure SHALL be protected.
+- Within [=Tile List OBUs=], only the <code>coded_tile_data</code> part SHALL be protected.
+- [=BytesOfProtectedData=] size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.
+- A protected OBU SHOULD be spanned by a single subsample. However, when the protected OBU data size is larger than the maximum size of a single [=BytesOfProtectedData=] field, then the OBU MAY be spanned by additional subsamples with [=BytesOfClearData=] size equal to zero.
+- Multiple unprotected OBUs SHOULD be spanned by a single subsample clear range, but a large clear range MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
 
-Within encrypted samples, all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unencrypted. Additionally, [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], [=Metadata OBUs=] (except for those requiring protection), [=Frame Header OBUs=] (including with a [=Frame OBU=]) SHALL be unencrypted. [=Tile Group OBUs=], [=Frame OBUs=] (except the [=Frame Header OBU=] part) and [=Tile List OBUs=] MAY be encrypted. This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
-
-As permitted by [[!CENC]], multiple unencrypted OBUs MAY be described by a single subsample. Also, multiple subsamples MAY be used to describe the data of a single OBU.
-
-When an OBU is encrypted, [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks in the OBU data that is permitted to be encrypted.
-
+Subsample encryption using AES-CTR {#ctr-subsample-encryption}
+--------------------------------------
 For AES-CTR based scheme types, such as <code>[=cenc=]</code>, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted.
 
-For AES-CBC based scheme types, such as  <code>[=cbcs=]</code>, [=BytesOfProtectedData=] SHALL start on the first complete byte of OBU data that is permitted to be encrypted (i.e. after the [=OBU Header=], [=obu_size=], possible [=Frame Header OBU=] and [=byte_alignment=]), and end on the end of the last complete 16-byte block of data in the OBU. Partial blocks at the end of OBUs, if any, SHALL be left unencrypted as specified in [[!CENC]].
+Subsample encryption using AES-CBC {#cbc-subsample-encryption}
+--------------------------------------
+For AES-CBC based scheme types, such as <code>[=cbcs=]</code>, [=BytesOfProtectedData=] SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected.
+
+Illustration {#subsample-encryption-illustration}
+------------------
+
+This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
 
 <figure>
 	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
@@ -485,6 +505,8 @@ For AES-CBC based scheme types, such as  <code>[=cbcs=]</code>, [=BytesOfProtect
 	<img alt="Subsample-based AV1 encryption" src="images/subsample-encryption-type.svg">
 	<figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
 </figure>
+
+
 
 Codecs Parameter String {#codecsparam}
 ======================================
