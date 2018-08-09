@@ -31,6 +31,7 @@ url: http://iso.org/#; spec: ISOBMFF; type: property;
 	text: bitr
 	text: colr
 	text: ctts
+	text: iso6
 	text: nclx
 	text: pasp
 	text: sgpd
@@ -141,16 +142,19 @@ Basic Encapsulation Scheme {#basic-encapsulation}
 
 This section describes the basic data structures used to signal encapsulation of [=AV1 bitstreams=] in [[!ISOBMFF]] containers.
 
-General requirement {#general-requirement}
---------------------
+General Requirements & Brands {#brands}
+-----------------------------
 
-A file conformant to this specification SHALL conform to the normative requirements of [[!ISOBMFF]].
+A file conformant to this specification satisfies the following:
+- It SHALL conform to the normative requirements of [[!ISOBMFF]]
+- It SHALL have the <dfn value export for="ISOBMFF Brand">av01</dfn> brand among the compatible brands array of the FileTypeBox
+- It SHALL contain at least one track using an [=AV1SampleEntry=]
+- It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as 'iso6'
+- It MAY indicate CMAF brands as specified in [[#cmaf]]
+- It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification.
 
+Readers SHALL support the structures required by the <code>'iso6'</code> brand and MAY support structures required by further ISOBMFF structural brands.
 
-Brand {#basic-brand}
---------------------
-
-If the <dfn value export for="ISOBMFF Brand">av01</dfn> brand is present in the FileTypeBox, the file SHALL contain at least one track using an [=AV1SampleEntry=].
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
