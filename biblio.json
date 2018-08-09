@@ -2,7 +2,7 @@
 	"AV1": {
 		"href": "http://aomediacodec.github.io/av1-spec/av1-spec.pdf",
 		"title": "AV1 Bitstream & Decoding Process Specification",
-		"status": "LS",
+		"status": "Standard",
 		"publisher": "AOM"
 	},
 	"CMAF": {
