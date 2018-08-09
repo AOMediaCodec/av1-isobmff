@@ -223,7 +223,7 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 
 aligned (8) class AV1CodecConfigurationRecordv1 {
   unsigned int (4) reserved = 0;
-  unsigned int (3) version;
+  unsigned int (3) version = 1;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
