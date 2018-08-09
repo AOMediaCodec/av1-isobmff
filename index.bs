@@ -264,7 +264,7 @@ The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number o
 
 When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
 
-The <dfn export>sequence_parameters_present</dfn> field indicates the presence of  parameters from the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
+The <dfn export>sequence_parameters_present</dfn> field indicates the presence of parameters from the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
 
 - <dfn export>seq_profile</dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
 - <dfn export>still_picture</dfn> indicates the value of the still_picture field found in the [=Sequence Header OBU=] and SHALL be equal to the value from the [=Sequence Header OBU=].

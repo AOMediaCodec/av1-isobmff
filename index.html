@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
+  <meta content="Bikeshed version 3f684c5a8b9e82482490404d25c7ed75e25b2c98" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="8c656f30fe9a126377ffc4bae5a20df34c882fcc" name="document-revision">
+  <meta content="d2efcffb480d5575057cd7037da1a4d1f8b20c41" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1569,7 +1569,7 @@ Quantity:  Exactly One
 
 aligned (8) class AV1CodecConfigurationRecordv1 {
   unsigned int (4) reserved = 0;
-  unsigned int (3) version;
+  unsigned int (3) version = 1;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -1609,18 +1609,18 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
      <p>apply the display model verification algorithm.</p>
    </ul>
    <p>When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, <a data-link-type="dfn" href="#initial_presentation_delay_present" id="ref-for-initial_presentation_delay_present">initial_presentation_delay_present</a> SHALL be set to 0.</p>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="sequence_parameters_present">sequence_parameters_present</dfn> field indicates the presence of the parameters <a data-link-type="dfn" href="#seq_profile" id="ref-for-seq_profile">seq_profile</a>, <a data-link-type="dfn" href="#still_picture" id="ref-for-still_picture">still_picture</a>, <a data-link-type="dfn" href="#seq_level_idx_0" id="ref-for-seq_level_idx_0">seq_level_idx_0</a>, <a data-link-type="dfn" href="#seq_tier_0" id="ref-for-seq_tier_0">seq_tier_0</a>, and <a data-link-type="dfn" href="#bit_depth" id="ref-for-bit_depth">bit_depth</a> fields from the AV1 <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a>.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="sequence_parameters_present">sequence_parameters_present</dfn> field indicates the presence of parameters from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a>, either present in the configOBUs field or in the associated samples.</p>
    <ul>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="seq_profile">seq_profile</dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑤">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="seq_profile">seq_profile<a class="self-link" href="#seq_profile"></a></dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑤">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="still_picture">still_picture</dfn> indicates the value of the still_picture field found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑥">Sequence Header OBU</a> and SHALL be equal to the value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑦">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="still_picture">still_picture<a class="self-link" href="#still_picture"></a></dfn> indicates the value of the still_picture field found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑥">Sequence Header OBU</a> and SHALL be equal to the value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑦">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="seq_level_idx_0">seq_level_idx_0</dfn> indicates the value of seq_level_idx[0] found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑧">Sequence Header OBU</a> and SHALL be equal to the value of seq_level_idx[0] in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑨">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="seq_level_idx_0">seq_level_idx_0<a class="self-link" href="#seq_level_idx_0"></a></dfn> indicates the value of seq_level_idx[0] found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑧">Sequence Header OBU</a> and SHALL be equal to the value of seq_level_idx[0] in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑨">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="seq_tier_0">seq_tier_0</dfn> indicates the value of seq_tier[0] found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⓪">Sequence Header OBU</a> and SHALL be equal to the value of seq_tier[0] in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①①">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="seq_tier_0">seq_tier_0<a class="self-link" href="#seq_tier_0"></a></dfn> indicates the value of seq_tier[0] found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⓪">Sequence Header OBU</a> and SHALL be equal to the value of seq_tier[0] in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①①">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="bit_depth">bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="bit_depth">bit_depth<a class="self-link" href="#bit_depth"></a></dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.</p>
     <li data-md="">
      <p><dfn data-dfn-type="dfn" data-export="" id="monochrome">monochrome<a class="self-link" href="#monochrome"></a></dfn> indicates the value of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①①">mono_chrome</a> flag from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a>.</p>
     <li data-md="">
@@ -2739,36 +2739,6 @@ Quantity:   Zero or more.
    <b><a href="#sequence_parameters_present">#sequence_parameters_present</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sequence_parameters_present">2.4.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="seq_profile">
-   <b><a href="#seq_profile">#seq_profile</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-seq_profile">2.4.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="still_picture">
-   <b><a href="#still_picture">#still_picture</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-still_picture">2.4.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="seq_level_idx_0">
-   <b><a href="#seq_level_idx_0">#seq_level_idx_0</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-seq_level_idx_0">2.4.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="seq_tier_0">
-   <b><a href="#seq_tier_0">#seq_tier_0</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-seq_tier_0">2.4.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="bit_depth">
-   <b><a href="#bit_depth">#bit_depth</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-bit_depth">2.4.4. Semantics</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="chroma_sample_position">
