@@ -552,7 +552,7 @@ All the other fields (including their leading '.') are optional, mutually inclus
 <td>mono_chrome</td><td>0</td>
 </tr>
 <tr>
-<td>chromaSubsampling</td><td>112 (4:2:0 colocated with luma (0,0))</td>
+<td>chromaSubsampling</td><td>110 (4:2:0)</td>
 </tr>
 <tr>
 <td>colorPrimaries</td><td>1 (ITU-R BT.709)</td>
