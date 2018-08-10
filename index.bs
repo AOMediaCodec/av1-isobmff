@@ -222,8 +222,9 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 }
 
 aligned (8) class AV1CodecConfigurationRecordv1 {
-  unsigned int (4) reserved = 0;
+  unsigned int (12) reserved = 0;
   unsigned int (3) version = 1;
+  unsigned int (3) seq_profile;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -232,7 +233,6 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
   }
   unsigned int (1) sequence_parameters_present;
   if (sequence_parameters_present) {
-    unsigned int (3) seq_profile;
     unsigned int (1) still_picture;
     unsigned int (5) seq_level_idx_0;
     unsigned int (1) seq_tier_0;
@@ -242,7 +242,7 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     unsigned int (1) chroma_subsampling_y;
     unsigned int (2) chroma_sample_position;
   } else {
-    unsigned int (19) reserved = 0;
+    unsigned int (16) reserved = 0;
   }
   unsigned int (8)[] configOBUs;
 }
@@ -253,6 +253,8 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
 Previous versions of this specification defined v0 of the AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord v0 is deprecated.
 
 The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.
+
+The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
 
 The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
@@ -266,7 +268,6 @@ When smooth presentation can be guaranteed after decoding the first sample, the 
 
 The <dfn export>sequence_parameters_present</dfn> field indicates the presence of parameters from the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
 
-- <dfn export>seq_profile</dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
 - <dfn export>still_picture</dfn> indicates the value of the still_picture field found in the [=Sequence Header OBU=] and SHALL be equal to the value from the [=Sequence Header OBU=].
 - <dfn export>seq_level_idx_0</dfn> indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=].
 - <dfn export>seq_tier_0</dfn> indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=].
