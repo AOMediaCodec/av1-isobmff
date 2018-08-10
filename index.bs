@@ -322,7 +322,7 @@ NOTE: Other types of OBUs such as [=metadata OBUs=] could be present before the 
 
 Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using [=Switch Frames=], those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. 'bitr').
 
-Unlike many video standards, AV1 does not distinguish the display order from the decoding order, but achieves similar effects by grouping multiple frames within a sample. Therefore, composition offsets are not used. In tracks using the [=AV1SampleEntry=], the 'ctts' box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.
+In tracks using the [=AV1SampleEntry=], the 'ctts' box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.
 
 When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the [=AV1MultiFrameSampleGroupEntry=].
 
