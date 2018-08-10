@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="aed74e38c083047080029442c3a2a6c14c5f6e21" name="document-revision">
+  <meta content="506b30001aa3785d3651be4217debafd323cd2e7" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1544,7 +1544,7 @@ Quantity:          One or more.
 </pre>
    <h4 class="heading settled" data-level="2.3.4" id="av1sampleentry-semantics"><span class="secno">2.3.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1sampleentry-semantics"></a></h4>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="width">width<a class="self-link" href="#width"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="height">height<a class="self-link" href="#height"></a></dfn> fields of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-">VisualSampleEntry</a> SHALL equal the values of <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2④">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑤">max_frame_height_minus_1</a> + 1 of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41">Sequence Header OBU</a> applying to the samples associated with this sample entry.</p>
-   <p>The width and height in the TrackHeaderBox SHOULD equal, respectively, the maximum RenderWidth and RenderHeight values of all the frames associated with this sample entry, respectively called MaxRenderWidth and MaxRenderHeight. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑥">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑦">max_frame_height_minus_1</a> + 1 values of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①">Sequence Header OBU</a>, a PixelAspectRatioBox box SHALL be present in the sample entry and set such that</p>
+   <p>The width and height in the TrackHeaderBox SHOULD equal, respectively, the maximum RenderWidth, called MaxRenderWidth, and the maximum RenderHeight, called MaxRenderHeight, of all the frames associated with this sample entry. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑥">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑦">max_frame_height_minus_1</a> + 1 values of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①">Sequence Header OBU</a>, a PixelAspectRatioBox box SHALL be present in the sample entry and set such that</p>
 <pre>hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
                               ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
 </pre>
