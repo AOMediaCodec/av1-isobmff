@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="cb0827942e71228cd4c6935c5638a65220600568" name="document-revision">
+  <meta content="6c517d60c55c6d777630d774112af09dccd87b1e" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1598,7 +1598,7 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
    <p>Previous versions of this specification defined v0 of the AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord v0 is deprecated.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="version">version<a class="self-link" href="#version"></a></dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.</p>
    <p>The <dfn data-dfn-type="dfn" data-export="" id="marker">marker<a class="self-link" href="#marker"></a></dfn> field SHALL be set to 1.</p>
-   <p class="note" role="note"><span>NOTE:</span> The marker bit ensures that tje bit pattern of the first byte of the AV1CodecConfigurationRecordv1 cannot be mistaken for an <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40">OBU Header</a> byte.</p>
+   <p class="note" role="note"><span>NOTE:</span> The marker bit ensures that the bit pattern of the first byte of the AV1CodecConfigurationRecordv1 cannot be mistaken for an <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40">OBU Header</a> byte.</p>
    <p>The <dfn data-dfn-type="dfn" data-export="" id="seq_profile">seq_profile<a class="self-link" href="#seq_profile"></a></dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②">Sequence Header OBU</a>.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_present">initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
