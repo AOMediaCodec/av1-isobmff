@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="f4610cddce6d6c0851f4ae27a26c0576f36184dc" name="document-revision">
+  <meta content="d38ac7c45e30c7e4f0827aa5240c11de3bd73e72" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1402,7 +1402,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-09">9 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-10">10 August 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1616,15 +1616,30 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md="">
-     <p>construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,</p>
+     <p>construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples referring to that sample entry,</p>
     <li data-md="">
-     <p>set the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">initial_display_delay_minus_1</a> field of each <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a> to the number of frames contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
+     <p>set the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">initial_display_delay_minus_1</a> field of each <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a> to the number of frames minus one contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
     <li data-md="">
      <p>set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⓪">frame_presentation_time</a> field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),</p>
     <li data-md="">
-     <p>apply the display model verification algorithm.</p>
+     <p>apply the decoder model specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> to this hypothetical bitstream using the first operating point. If <code>buffer_removal_time</code> information is present in bitstream for this operating point, the decoding schedule mode SHALL be applied, otherwise the resource availability mode SHALL be applied.</p>
    </ul>
-   <p>When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, <a data-link-type="dfn" href="#initial_presentation_delay_present" id="ref-for-initial_presentation_delay_present">initial_presentation_delay_present</a> SHALL be set to 0.</p>
+   <p>If an ISOBMFF writer cannot verify the above procedure, <a data-link-type="dfn" href="#initial_presentation_delay_present" id="ref-for-initial_presentation_delay_present">initial_presentation_delay_present</a> SHALL be set to 0.</p>
+   <p class="note" role="note"><span>NOTE:</span> With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.</p>
+   <p class="note" role="note"><span>NOTE:</span> Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_presentation_delay_minus_one</code> if considered separately, the sample entry would signal the larger value.</p>
+   <div class="example" id="example-47df76f1">
+    <a class="self-link" href="#example-47df76f1"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①①">initial_display_delay_minus_1</a> can be illustrated by considering the following example: 
+<pre>a b c d e f g h
+</pre>
+    where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①②">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows: 
+<pre>[a] [b c d] [e] [f] [g] [h]
+</pre>
+    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to insure that <code>c</code> is decoded.
+But if the frames were grouped as follows: 
+<pre>[a] [b] [c] [d e f] [g] [h]
+</pre>
+    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to insure that <code>c</code> is decoded. 
+   </div>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="sequence_parameters_present">sequence_parameters_present</dfn> field indicates the presence of parameters from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑤">Sequence Header OBU</a>, either present in the configOBUs field or in the associated samples.</p>
    <ul>
     <li data-md="">
@@ -1636,11 +1651,11 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     <li data-md="">
      <p><dfn data-dfn-type="dfn" data-export="" id="bit_depth">bit_depth<a class="self-link" href="#bit_depth"></a></dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.</p>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-export="" id="monochrome">monochrome<a class="self-link" href="#monochrome"></a></dfn> indicates the value of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①①">mono_chrome</a> flag from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="monochrome">monochrome<a class="self-link" href="#monochrome"></a></dfn> indicates the value of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①③">mono_chrome</a> flag from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-export="" id="chroma_subsampling_x">chroma_subsampling_x<a class="self-link" href="#chroma_subsampling_x"></a></dfn> indicates the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①②">subsampling_x</a> value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①③">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="chroma_subsampling_x">chroma_subsampling_x<a class="self-link" href="#chroma_subsampling_x"></a></dfn> indicates the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">subsampling_x</a> value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①③">Sequence Header OBU</a>.</p>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-export="" id="chroma_subsampling_y">chroma_subsampling_y<a class="self-link" href="#chroma_subsampling_y"></a></dfn> indicates the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①③">subsampling_y</a> value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①④">Sequence Header OBU</a>.</p>
+     <p><dfn data-dfn-type="dfn" data-export="" id="chroma_subsampling_y">chroma_subsampling_y<a class="self-link" href="#chroma_subsampling_y"></a></dfn> indicates the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">subsampling_y</a> value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①④">Sequence Header OBU</a>.</p>
     <li data-md="">
      <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="chroma_sample_position">chroma_sample_position</dfn> indicates the <a data-link-type="dfn" href="#chroma_sample_position" id="ref-for-chroma_sample_position">chroma_sample_position</a> value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑤">Sequence Header OBU</a>.</p>
    </ul>
@@ -1653,8 +1668,8 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
      <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bitstream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox④">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only one <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑨">Sequence Header OBU</a> and zero or more <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47">Metadata OBUs</a> when applicable to all the associated samples.</p>
-   <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
-   <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
+   <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
+   <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⓪">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
    <p>The sample entry SHOULD contain a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑤">colr</a> box with a colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑥">nclx</a>. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②②">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑦">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a>. When configOBUs does not contain a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a>, this box with colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑧">nclx</a> SHALL be present.</p>
    <p>The CleanApertureBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑨">clap</a> SHOULD not be present.</p>
    <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①①">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
@@ -1666,9 +1681,9 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     <li data-md="">
      <p>the sample data SHALL be a sequence of <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39②">OBUs</a> forming a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑤">Temporal Unit</a>,</p>
     <li data-md="">
-     <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⓪">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②①">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remainder of the sample,</p>
+     <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②①">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②②">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②③">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remainder of the sample,</p>
    </ul>
-   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either: set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②②">obu_has_size_field</a> to 1 for some OBUs if not already set, add the size field in this case, and add <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46">Temporal Delimiter OBU</a>; or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>. If encryption is used, similar operations MAY have to be done before or after decryption depending on the demuxer/decryptor/decoder architecture.</p>
+   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either: set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②④">obu_has_size_field</a> to 1 for some OBUs if not already set, add the size field in this case, and add <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46">Temporal Delimiter OBU</a>; or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>. If encryption is used, similar operations MAY have to be done before or after decryption depending on the demuxer/decryptor/decoder architecture.</p>
    <ul>
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
@@ -1678,7 +1693,7 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
    <p>If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>, i.e. satisfy the following constraints:</p>
    <ul>
     <li data-md="">
-     <p>Its first frame is a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑥">Key Frame</a> that has <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②③">show_frame</a> flag set to 1,</p>
+     <p>Its first frame is a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑥">Key Frame</a> that has <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑤">show_frame</a> flag set to 1,</p>
     <li data-md="">
      <p>It contains a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a> before the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49①">Frame Header OBU</a>.</p>
    </ul>
@@ -1769,6 +1784,8 @@ Quantity:   Zero or more.
        <p>the first value of <code>seq_tier</code></p>
       <li data-md="">
        <p><code>color_config</code></p>
+      <li data-md="">
+       <p><code>initial_presentation_delay_minus_one</code></p>
      </ul>
    </ul>
    <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
@@ -1783,7 +1800,7 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>Protected samples SHALL be exactly spanned by one or more contiguous subsamples.</p>
     <li data-md="">
-     <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②④">obu_size</a> fields SHALL be unprotected.</p>
+     <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑦">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
     <li data-md="">
@@ -1806,7 +1823,7 @@ Quantity:   Zero or more.
    <h3 class="heading settled" data-level="4.3" id="cbc-subsample-encryption"><span class="secno">4.3. </span><span class="content">Subsample encryption using AES-CBC</span><a class="self-link" href="#cbc-subsample-encryption"></a></h3>
     For AES-CBC based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-③⓪">cbcs</a></code>, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-③①">BytesOfProtectedData</a> SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected. 
    <h3 class="heading settled" data-level="4.4" id="subsample-encryption-illustration"><span class="secno">4.4. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
-   <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑤">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40②">OBU Header</a>.</p>
+   <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40②">OBU Header</a>.</p>
    <figure>
      <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
     <figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
@@ -1822,8 +1839,8 @@ Quantity:   Zero or more.
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
    <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑧">Sequence Header OBU</a>.</p>
-   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a>.</p>
-   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③⓪">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
+   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a>.</p>
+   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑨">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③⓪">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
    <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③①">Sequence Header OBU</a>.</p>
    <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③②">Sequence Header OBU</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.</p>
@@ -2057,11 +2074,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=206">
@@ -2092,11 +2109,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2104,11 +2121,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
@@ -2157,11 +2174,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2169,11 +2186,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=47">
@@ -2190,11 +2207,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=39">
@@ -2218,11 +2235,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2230,11 +2247,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2242,11 +2259,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=206">
@@ -2263,11 +2280,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2275,11 +2292,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=41">
@@ -2297,11 +2314,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2309,11 +2326,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2321,11 +2338,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2333,11 +2350,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
@@ -2386,11 +2403,11 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=2">1. Bitstream features overview</a> <a href="#ref-for-page=2①">(2)</a> <a href="#ref-for-page=2②">(3)</a> <a href="#ref-for-page=2③">(4)</a>
     <li><a href="#ref-for-page=2④">2.2.4. Semantics</a> <a href="#ref-for-page=2⑤">(2)</a> <a href="#ref-for-page=2⑥">(3)</a> <a href="#ref-for-page=2⑦">(4)</a>
-    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a>
-    <li><a href="#ref-for-page=2①⑨">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②⓪">(2)</a> <a href="#ref-for-page=2②①">(3)</a> <a href="#ref-for-page=2②②">(4)</a> <a href="#ref-for-page=2②③">(5)</a>
-    <li><a href="#ref-for-page=2②④">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑤">4.4. Illustration</a>
-    <li><a href="#ref-for-page=2②⑥">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑦">(2)</a>
+    <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
+    <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
+    <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=2②⑦">4.4. Illustration</a>
+    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
@@ -2800,7 +2817,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="initial_presentation_delay_minus_one">
    <b><a href="#initial_presentation_delay_minus_one">#initial_presentation_delay_minus_one</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-initial_presentation_delay_minus_one">2.3.4. Semantics</a>
+    <li><a href="#ref-for-initial_presentation_delay_minus_one">2.3.4. Semantics</a> <a href="#ref-for-initial_presentation_delay_minus_one①">(2)</a> <a href="#ref-for-initial_presentation_delay_minus_one②">(3)</a> <a href="#ref-for-initial_presentation_delay_minus_one③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="sequence_parameters_present">

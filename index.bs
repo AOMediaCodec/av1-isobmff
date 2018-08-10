@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2018-08-09
+Date: 2018-08-10
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
@@ -275,12 +275,34 @@ The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be e
 The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
 The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
-- construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples,
-- set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
+- construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples referring to that sample entry,
+- set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames minus one contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
 - set the [=frame_presentation_time=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),
-- apply the display model verification algorithm.
+- apply the decoder model specified in [[!AV1]] to this hypothetical bitstream using the first operating point. If <code>buffer_removal_time</code> information is present in bitstream for this operating point, the decoding schedule mode SHALL be applied, otherwise the resource availability mode SHALL be applied.
 
-When smooth presentation can be guaranteed after decoding the first sample, the value 0 SHALL be used. If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
+If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
+
+NOTE: With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.
+
+NOTE: Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_presentation_delay_minus_one</code> if considered separately, the sample entry would signal the larger value.
+
+<div class=example>
+The difference between [=initial_presentation_delay_minus_one=] and [=initial_display_delay_minus_1=] can be illustrated by considering the following example:
+```
+a b c d e f g h
+```
+where letters correspond to frames. Assume that <code>[=initial_display_delay_minus_1=]</code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows:
+```
+[a] [b c d] [e] [f] [g] [h]
+```
+<code>[=initial_presentation_delay_minus_one=]</code> would be 1 because it takes presentation of 2 samples to insure that <code>c</code> is decoded.
+But if the frames were grouped as follows:
+```
+[a] [b] [c] [d e f] [g] [h]
+```
+<code>[=initial_presentation_delay_minus_one=]</code> would be 2 because it takes presentation of 3 samples to insure that <code>c</code> is decoded.
+</div>
+
 
 The <dfn export>sequence_parameters_present</dfn> field indicates the presence of parameters from the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
 
@@ -471,6 +493,7 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - the first value of <code>seq_level_idx</code>
     - the first value of <code>seq_tier</code>
     - <code>color_config</code>
+    - <code>initial_presentation_delay_minus_one</code>
 
 When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turn relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
 
