@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
+  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="ee7526440be95a357ebe62fc555a916dc59437db" name="document-revision">
+  <meta content="d38ac7c45e30c7e4f0827aa5240c11de3bd73e72" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1402,7 +1402,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-09">9 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-10">10 August 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1580,8 +1580,10 @@ Quantity:  Exactly One
 }
 
 aligned (8) class AV1CodecConfigurationRecordv1 {
-  unsigned int (4) reserved = 0;
+  unsigned int (1) marker = 1;
   unsigned int (3) version = 1;
+  unsigned int (3) seq_profile;
+  unsigned int (3) reserved = 0;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -1590,7 +1592,6 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
   }
   unsigned int (1) sequence_parameters_present;
   if (sequence_parameters_present) {
-    unsigned int (3) seq_profile;
     unsigned int (1) still_picture;
     unsigned int (5) seq_level_idx_0;
     unsigned int (1) seq_tier_0;
@@ -1600,21 +1601,24 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     unsigned int (1) chroma_subsampling_y;
     unsigned int (2) chroma_sample_position;
   } else {
-    unsigned int (19) reserved = 0;
+    unsigned int (16) reserved = 0;
   }
   unsigned int (8)[] configOBUs;
 }
 </pre>
    <h4 class="heading settled" data-level="2.3.4" id="av1codecconfigurationbox-semantics"><span class="secno">2.3.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1codecconfigurationbox-semantics"></a></h4>
    <p>Previous versions of this specification defined v0 of the AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord v0 is deprecated.</p>
+   <p>The <dfn data-dfn-type="dfn" data-export="" id="marker">marker<a class="self-link" href="#marker"></a></dfn> field SHALL be set to 1.</p>
+   <p class="note" role="note"><span>NOTE:</span> The marker bit ensures that the bit pattern of the first byte of the AV1CodecConfigurationRecordv1 cannot be mistaken for an <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40">OBU Header</a> byte.</p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="version">version<a class="self-link" href="#version"></a></dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.</p>
+   <p>The <dfn data-dfn-type="dfn" data-export="" id="seq_profile">seq_profile<a class="self-link" href="#seq_profile"></a></dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②">Sequence Header OBU</a>.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_present">initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.</p>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②">Sequence Header OBU</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md="">
      <p>construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples referring to that sample entry,</p>
     <li data-md="">
-     <p>set the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">initial_display_delay_minus_1</a> field of each <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③">Sequence Header OBU</a> to the number of frames minus one contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
+     <p>set the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">initial_display_delay_minus_1</a> field of each <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a> to the number of frames minus one contained in the first <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a> + 1 samples,</p>
     <li data-md="">
      <p>set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⓪">frame_presentation_time</a> field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),</p>
     <li data-md="">
@@ -1636,10 +1640,8 @@ But if the frames were grouped as follows:
 </pre>
     <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to insure that <code>c</code> is decoded. 
    </div>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="sequence_parameters_present">sequence_parameters_present</dfn> field indicates the presence of parameters from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41④">Sequence Header OBU</a>, either present in the configOBUs field or in the associated samples.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export="" id="sequence_parameters_present">sequence_parameters_present</dfn> field indicates the presence of parameters from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑤">Sequence Header OBU</a>, either present in the configOBUs field or in the associated samples.</p>
    <ul>
-    <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-export="" id="seq_profile">seq_profile<a class="self-link" href="#seq_profile"></a></dfn> indicates the AV1 profile and SHALL be equal to the seq_profile value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑤">Sequence Header OBU</a>.</p>
     <li data-md="">
      <p><dfn data-dfn-type="dfn" data-export="" id="still_picture">still_picture<a class="self-link" href="#still_picture"></a></dfn> indicates the value of the still_picture field found in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑥">Sequence Header OBU</a> and SHALL be equal to the value from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41⑦">Sequence Header OBU</a>.</p>
     <li data-md="">
@@ -1798,7 +1800,7 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>Protected samples SHALL be exactly spanned by one or more contiguous subsamples.</p>
     <li data-md="">
-     <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
+     <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑦">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
     <li data-md="">
@@ -1821,7 +1823,7 @@ Quantity:   Zero or more.
    <h3 class="heading settled" data-level="4.3" id="cbc-subsample-encryption"><span class="secno">4.3. </span><span class="content">Subsample encryption using AES-CBC</span><a class="self-link" href="#cbc-subsample-encryption"></a></h3>
     For AES-CBC based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-③⓪">cbcs</a></code>, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-③①">BytesOfProtectedData</a> SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected. 
    <h3 class="heading settled" data-level="4.4" id="subsample-encryption-illustration"><span class="secno">4.4. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
-   <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Header</a>.</p>
+   <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40②">OBU Header</a>.</p>
    <figure>
      <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
     <figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
@@ -2049,6 +2051,7 @@ Quantity:   Zero or more.
    <li><a href="#height">height</a><span>, in §2.2.4</span>
    <li><a href="#initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a><span>, in §2.3.4</span>
    <li><a href="#initial_presentation_delay_present">initial_presentation_delay_present</a><span>, in §2.3.4</span>
+   <li><a href="#marker">marker</a><span>, in §2.3.4</span>
    <li><a href="#metadata_type">metadata_type</a><span>, in §2.8.4</span>
    <li><a href="#monochrome">monochrome</a><span>, in §2.3.4</span>
    <li><a href="#seq_level_idx_0">seq_level_idx_0</a><span>, in §2.3.4</span>
@@ -2222,8 +2225,9 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=40">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=40">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=40①">4.4. Illustration</a>
+    <li><a href="#ref-for-page=40">2.3.4. Semantics</a>
+    <li><a href="#ref-for-page=40①">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=40②">4.4. Illustration</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
