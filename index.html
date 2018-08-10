@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="47a0f28c5f164351235867fce9de13006b1c9e9b" name="document-revision">
+  <meta content="e45744b41de85d8c3cf4faddff91f065ba08ad69" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1429,7 +1429,7 @@ pre .property::before, pre .property::after {
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This document specifies the storage format for <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> bitstreams in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> tracks as well as a set of <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> Media profiles based on <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>.</p>
+   <p>This document specifies the storage format for <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> bitstreams in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> tracks as well as in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> files.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
@@ -1489,7 +1489,7 @@ pre .property::before, pre .property::after {
         <li><a href="#metadatasamplegroupentry-semantics"><span class="secno">2.9.4</span> <span class="content">Semantics</span></a>
        </ol>
      </ol>
-    <li><a href="#cmaf"><span class="secno">3</span> <span class="content">CMAF AV1 track format and CMAF media profiles</span></a>
+    <li><a href="#cmaf"><span class="secno">3</span> <span class="content">CMAF AV1 track format</span></a>
     <li>
      <a href="#CommonEncryption"><span class="secno">4</span> <span class="content">Common Encryption</span></a>
      <ol class="toc">
@@ -1527,7 +1527,7 @@ pre .property::before, pre .property::after {
    <h3 class="heading settled" data-level="2.1" id="general-requirement"><span class="secno">2.1. </span><span class="content">General requirement</span><a class="self-link" href="#general-requirement"></a></h3>
    <p>A file conformant to this specification SHALL conform to the normative requirements of <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a>.</p>
    <h3 class="heading settled" data-level="2.2" id="basic-brand"><span class="secno">2.2. </span><span class="content">Brand</span><a class="self-link" href="#basic-brand"></a></h3>
-   <p>If the <dfn class="css" data-dfn-for="ISOBMFF Brand" data-dfn-type="value" data-export="" id="valdef-isobmff-brand-av01">av01<a class="self-link" href="#valdef-isobmff-brand-av01"></a></dfn> brand is present in the FileTypeBox, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
+   <p>If the <dfn class="css" data-dfn-for="ISOBMFF Brand" data-dfn-type="value" data-export="" id="valdef-isobmff-brand-av01">av01<a class="self-link" href="#valdef-isobmff-brand-av01"></a></dfn> brand is present in the <code>FileTypeBox</code>, the file SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>.</p>
    <h3 class="heading settled" data-level="2.3" id="av1sampleentry-section"><span class="secno">2.3. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.3.1" id="av1sampleentry-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
 <pre class="def">Sample Entry Type: <dfn data-dfn-for="AV1SampleEntry" data-dfn-type="value" data-export="" id="valdef-av1sampleentry-av01">av01<a class="self-link" href="#valdef-av1sampleentry-av01"></a></dfn>
@@ -1638,12 +1638,14 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     <li data-md="">
      <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bitstream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox④">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
    </ul>
-   <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only OBU_SEQUENCE_HEADER and OBU_METADATA when the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47">metadata OBU</a> is applicable to all the associated samples.</p>
+   <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only one <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑨">Sequence Header OBU</a> and zero or more <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47">Metadata OBUs</a> when applicable to all the associated samples.</p>
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
-   <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑨">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
-   <p>If a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-③">colr</a> box is present in the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-④">VisualSampleEntry</a> with a colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑤">nclx</a>, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑥">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②②">Sequence Header OBU</a>.</p>
-   <p>When configOBUs does not contain a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a> a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑦">colr</a> box SHALL be present in the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-⑧">VisualSampleEntry</a> with colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑨">nclx</a>.</p>
-   <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⓪">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox⑤">AV1CodecConfigurationBox</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
+   <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
+   <p>The sample entry SHOULD contain a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-③">colr</a> box with a colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-④">nclx</a>. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②②">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑤">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a>. When configOBUs does not contain a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a>, this box with colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑥">nclx</a> SHALL be present.</p>
+   <p>The CleanApertureBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑦">clap</a> SHOULD not be present.</p>
+   <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑧">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑨">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
+   <p class="note" role="note"><span>NOTE:</span> The MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①①">clli</a> have identical payload to the SMPTE2086MasteringDisplayMetadataBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①②">SmDm</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①③">CoLL</a>, except that they are of type <code>Box</code> and not <code>FullBox</code>.</p>
+   <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①④">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox⑤">AV1CodecConfigurationBox</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
    <h3 class="heading settled" data-level="2.5" id="sampleformat"><span class="secno">2.5. </span><span class="content">AV1 Sample Format</span><a class="self-link" href="#sampleformat"></a></h3>
    <p>For tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry②">AV1SampleEntry</a>, an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1-sample">AV1 Sample</dfn> has the following constraints:</p>
    <ul>
@@ -1664,17 +1666,17 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
     <li data-md="">
      <p>Its first frame is a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑥">Key Frame</a> that has <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②③">show_frame</a> flag set to 1,</p>
     <li data-md="">
-     <p>It contains a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a> before the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49①">Frame Header OBU</a>.</p>
+     <p>It contains a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a> before the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49①">Frame Header OBU</a>.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.</p>
-   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47①">metadata OBUs</a> could be present before the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a>.</p>
+   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47②">metadata OBUs</a> could be present before the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBU</a>.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑦">Intra-only frames</a> SHOULD be signaled using the sample_depends_on flag set to 2.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206⑦">Delayed Random Access Points</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry①">AV1ForwardKeyFrameSampleGroupEntry</a>.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑧">Switch Frames</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1switchframesamplegroupentry" id="ref-for-av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</a>.</p>
-   <p>Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑨">Switch Frames</a>, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①①">bitr</a>).</p>
-   <p>In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①②">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
+   <p>Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑨">Switch Frames</a>, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⑤">bitr</a>).</p>
+   <p>In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⑥">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
    <p>When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the <a data-link-type="dfn" href="#av1multiframesamplegroupentry" id="ref-for-av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a>.</p>
-   <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47②">Metadata OBUs</a> may be carried in sample data. In this case, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> SHOULD be used. If the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47③">metadata OBUs</a> are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.</p>
+   <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47③">Metadata OBUs</a> may be carried in sample data. In this case, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> SHOULD be used. If the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47④">metadata OBUs</a> are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.</p>
    <p>Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.</p>
    <h3 class="heading settled" data-level="2.6" id="forwardkeyframesamplegroupentry"><span class="secno">2.6. </span><span class="content">AV1 Forward Key Frame sample group entry</span><a class="self-link" href="#forwardkeyframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.6.1" id="forwardkeyframesamplegroupentry-definition"><span class="secno">2.6.1. </span><span class="content">Definition</span><a class="self-link" href="#forwardkeyframesamplegroupentry-definition"></a></h4>
@@ -1726,7 +1728,7 @@ Mandatory:  No
 Quantity:   Zero or more.
 </pre>
    <h4 class="heading settled" data-level="2.9.2" id="metadatasamplegroupentry-description"><span class="secno">2.9.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47④">metadata OBUs</a> of the given type.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑤">metadata OBUs</a> of the given type.</p>
    <h4 class="heading settled" data-level="2.9.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.9.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
 <pre>class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
   unsigned int (16) metadata_type;
@@ -1734,9 +1736,9 @@ Quantity:   Zero or more.
 </pre>
    <h4 class="heading settled" data-level="2.9.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.9.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
    <p><dfn data-dfn-type="dfn" data-export="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> used by one OBU in the sample.</p>
-   <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format and CMAF media profiles</span><a class="self-link" href="#cmaf"></a></h2>
-   <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> also relies on the signaling of CMAF Media Profiles. This document specifies CMAF Media Profiles and associated brands for AV1 bitstreams in CMAF-compliant files.</p>
-   <p>If a <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①③">CMAF Video Track</a> signals one of the brands defined below, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
+   <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format</span><a class="self-link" href="#cmaf"></a></h2>
+   <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑦">cmfc</a></code> in the <code>FileTypeBox</code>.</p>
+   <p>If a <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑧">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
    <ul>
     <li data-md="">
      <p>it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry④">AV1SampleEntry</a></p>
@@ -1744,68 +1746,23 @@ Quantity:   Zero or more.
      <p>it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:</p>
      <ul>
       <li data-md="">
-       <p>profile</p>
+       <p><code>seq_profile</code></p>
       <li data-md="">
-       <p>level</p>
+       <p><code>still_picture</code></p>
       <li data-md="">
-       <p>color_config()</p>
+       <p>the first value of <code>seq_level_idx</code></p>
+      <li data-md="">
+       <p>the first value of <code>seq_tier</code></p>
+      <li data-md="">
+       <p><code>color_config</code></p>
      </ul>
-    <li data-md="">
-     <p>the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①④">colr</a> and <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⑤">pasp</a> boxes SHALL be present</p>
-    <li data-md="">
-     <p>for HDR profiles, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑤">metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV should be present.</p>
    </ul>
    <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
-   <p>The following brands are defined for <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a>:</p>
-   <table border="1">
-    <thead>
-     <tr>
-      <th>Profile
-      <th>Level
-      <th>color primaries
-      <th>transfer characteristics
-      <th>matrix coefficients
-      <th>Max Frame Height
-      <th>Max Frame Width
-      <th>Max Frame Rate
-      <th>CMAF File Brand
-    <tbody>
-     <tr>
-      <td>Main
-      <td>Level
-      <td>color primaries
-      <td>transfer characteristics
-      <td>matrix coefficients
-      <td>Max Frame Height
-      <td>Max Frame Width
-      <td>Max Frame Rate
-      <td>CMAF File Brand
-     <tr>
-      <td>High
-      <td>Level
-      <td>color primaries
-      <td>transfer characteristics
-      <td>matrix coefficients
-      <td>Max Frame Height
-      <td>Max Frame Width
-      <td>Max Frame Rate
-      <td>CMAF File Brand
-     <tr>
-      <td>Professional
-      <td>Level
-      <td>color primaries
-      <td>transfer characteristics
-      <td>matrix coefficients
-      <td>Max Frame Height
-      <td>Max Frame Width
-      <td>Max Frame Rate
-      <td>CMAF File Brand
-   </table>
-   <p class="issue" id="issue-e789b68e"><a class="self-link" href="#issue-e789b68e"></a> The content of table above needs to be discussed once the profiles and levels definition in the AV1 bitstream specification is finalized.</p>
+   <p class="note" role="note"><span>NOTE:</span> This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
-   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track②">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>.</p>
-   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑥">cenc</a></code> or <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑦">cbc1</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
-   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑧">cens</a></code> or <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑨">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption.</p>
+   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>.</p>
+   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑨">cenc</a></code> or <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⓪">cbc1</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
+   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②①">cens</a></code> or <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②②">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption.</p>
    <h3 class="heading settled" data-level="4.1" id="subsample-encryption"><span class="secno">4.1. </span><span class="content">General Subsample Encryption constraints</span><a class="self-link" href="#subsample-encryption"></a></h3>
    <p>Within protected samples, the following constraints apply:</p>
    <ul>
@@ -1814,7 +1771,7 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②④">obu_size</a> fields SHALL be unprotected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑦">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑥">Metadata OBUs</a> MAY be protected.</p>
     <li data-md="">
@@ -1824,16 +1781,16 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121①">Tile List OBUs</a>, only the <code>coded_tile_data</code> part SHALL be protected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⓪">BytesOfProtectedData</a> size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.</p>
+     <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②③">BytesOfProtectedData</a> size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.</p>
     <li data-md="">
-     <p>A protected OBU SHOULD be spanned by a single subsample. However, when the protected OBU data size is larger than the maximum size of a single <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②①">BytesOfProtectedData</a> field, then the OBU MAY be spanned by additional subsamples with <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②②">BytesOfClearData</a> size equal to zero.</p>
+     <p>A protected OBU SHOULD be spanned by a single subsample. However, when the protected OBU data size is larger than the maximum size of a single <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②④">BytesOfProtectedData</a> field, then the OBU MAY be spanned by additional subsamples with <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">BytesOfClearData</a> size equal to zero.</p>
     <li data-md="">
-     <p>Multiple unprotected OBUs SHOULD be spanned by a single subsample clear range, but a large clear range MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②③">BytesOfProtectedData</a>.</p>
+     <p>Multiple unprotected OBUs SHOULD be spanned by a single subsample clear range, but a large clear range MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑥">BytesOfProtectedData</a>.</p>
    </ul>
    <h3 class="heading settled" data-level="4.2" id="ctr-subsample-encryption"><span class="secno">4.2. </span><span class="content">Subsample encryption using AES-CTR</span><a class="self-link" href="#ctr-subsample-encryption"></a></h3>
-    For AES-CTR based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②④">cenc</a></code>, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted. 
+    For AES-CTR based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑦">cenc</a></code>, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted. 
    <h3 class="heading settled" data-level="4.3" id="cbc-subsample-encryption"><span class="secno">4.3. </span><span class="content">Subsample encryption using AES-CBC</span><a class="self-link" href="#cbc-subsample-encryption"></a></h3>
-    For AES-CBC based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">cbcs</a></code>, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑥">BytesOfProtectedData</a> SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected. 
+    For AES-CBC based scheme types, such as <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">cbcs</a></code>, <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑨">BytesOfProtectedData</a> SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected. 
    <h3 class="heading settled" data-level="4.4" id="subsample-encryption-illustration"><span class="secno">4.4. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
    <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑤">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Header</a>.</p>
    <figure>
@@ -1845,18 +1802,18 @@ Quantity:   Zero or more.
     <figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-②⑦">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-③⓪">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
-   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑦">Sequence Header OBU</a>.</p>
-   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑧">Sequence Header OBU</a>.</p>
-   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
-   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③⓪">Sequence Header OBU</a>.</p>
-   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③①">Sequence Header OBU</a>.</p>
+   <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑧">Sequence Header OBU</a>.</p>
+   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a>.</p>
+   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③⓪">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
+   <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③①">Sequence Header OBU</a>.</p>
+   <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③②">Sequence Header OBU</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.</p>
-   <p>The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③②">Sequence Header OBU</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
+   <p>The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③③">Sequence Header OBU</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
    <p>For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, level 3.0, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling, ITU-R BT.2100 color primaries, ITU-R BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
    <p>The parameters sample entry 4CC, profile, level, tier, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.</p>
@@ -2207,10 +2164,9 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=47">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=47">2.4.4. Semantics</a>
-    <li><a href="#ref-for-page=47①">2.5. AV1 Sample Format</a> <a href="#ref-for-page=47②">(2)</a> <a href="#ref-for-page=47③">(3)</a>
-    <li><a href="#ref-for-page=47④">2.9.2. Description</a>
-    <li><a href="#ref-for-page=47⑤">3. CMAF AV1 track format and CMAF media profiles</a>
+    <li><a href="#ref-for-page=47">2.4.4. Semantics</a> <a href="#ref-for-page=47①">(2)</a>
+    <li><a href="#ref-for-page=47②">2.5. AV1 Sample Format</a> <a href="#ref-for-page=47③">(2)</a> <a href="#ref-for-page=47④">(3)</a>
+    <li><a href="#ref-for-page=47⑤">2.9.2. Description</a>
     <li><a href="#ref-for-page=47⑥">4.1. General Subsample Encryption constraints</a>
    </ul>
   </aside>
@@ -2314,10 +2270,10 @@ Quantity:   Zero or more.
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-page=41">2.3.4. Semantics</a> <a href="#ref-for-page=41①">(2)</a>
-    <li><a href="#ref-for-page=41②">2.4.4. Semantics</a> <a href="#ref-for-page=41③">(2)</a> <a href="#ref-for-page=41④">(3)</a> <a href="#ref-for-page=41⑤">(4)</a> <a href="#ref-for-page=41⑥">(5)</a> <a href="#ref-for-page=41⑦">(6)</a> <a href="#ref-for-page=41⑧">(7)</a> <a href="#ref-for-page=41⑨">(8)</a> <a href="#ref-for-page=41①⓪">(9)</a> <a href="#ref-for-page=41①①">(10)</a> <a href="#ref-for-page=41①②">(11)</a> <a href="#ref-for-page=41①③">(12)</a> <a href="#ref-for-page=41①④">(13)</a> <a href="#ref-for-page=41①⑤">(14)</a> <a href="#ref-for-page=41①⑥">(15)</a> <a href="#ref-for-page=41①⑦">(16)</a> <a href="#ref-for-page=41①⑧">(17)</a> <a href="#ref-for-page=41①⑨">(18)</a> <a href="#ref-for-page=41②⓪">(19)</a> <a href="#ref-for-page=41②①">(20)</a> <a href="#ref-for-page=41②②">(21)</a> <a href="#ref-for-page=41②③">(22)</a>
-    <li><a href="#ref-for-page=41②④">2.5. AV1 Sample Format</a> <a href="#ref-for-page=41②⑤">(2)</a>
-    <li><a href="#ref-for-page=41②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=41②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=41②⑧">(2)</a> <a href="#ref-for-page=41②⑨">(3)</a> <a href="#ref-for-page=41③⓪">(4)</a> <a href="#ref-for-page=41③①">(5)</a> <a href="#ref-for-page=41③②">(6)</a>
+    <li><a href="#ref-for-page=41②">2.4.4. Semantics</a> <a href="#ref-for-page=41③">(2)</a> <a href="#ref-for-page=41④">(3)</a> <a href="#ref-for-page=41⑤">(4)</a> <a href="#ref-for-page=41⑥">(5)</a> <a href="#ref-for-page=41⑦">(6)</a> <a href="#ref-for-page=41⑧">(7)</a> <a href="#ref-for-page=41⑨">(8)</a> <a href="#ref-for-page=41①⓪">(9)</a> <a href="#ref-for-page=41①①">(10)</a> <a href="#ref-for-page=41①②">(11)</a> <a href="#ref-for-page=41①③">(12)</a> <a href="#ref-for-page=41①④">(13)</a> <a href="#ref-for-page=41①⑤">(14)</a> <a href="#ref-for-page=41①⑥">(15)</a> <a href="#ref-for-page=41①⑦">(16)</a> <a href="#ref-for-page=41①⑧">(17)</a> <a href="#ref-for-page=41①⑨">(18)</a> <a href="#ref-for-page=41②⓪">(19)</a> <a href="#ref-for-page=41②①">(20)</a> <a href="#ref-for-page=41②②">(21)</a> <a href="#ref-for-page=41②③">(22)</a> <a href="#ref-for-page=41②④">(23)</a>
+    <li><a href="#ref-for-page=41②⑤">2.5. AV1 Sample Format</a> <a href="#ref-for-page=41②⑥">(2)</a>
+    <li><a href="#ref-for-page=41②⑦">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=41②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=41②⑨">(2)</a> <a href="#ref-for-page=41③⓪">(3)</a> <a href="#ref-for-page=41③①">(4)</a> <a href="#ref-for-page=41③②">(5)</a> <a href="#ref-for-page=41③③">(6)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2425,9 +2381,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2439,9 +2395,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2453,9 +2409,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2467,9 +2423,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2481,9 +2437,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2495,9 +2451,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2509,9 +2465,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2523,9 +2479,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2537,9 +2493,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2551,9 +2507,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2565,9 +2521,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2579,9 +2535,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2593,9 +2549,9 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
@@ -2607,14 +2563,68 @@ Quantity:   Zero or more.
    <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
-    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
     <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
-    <li><a href="#termref-for-">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
     <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
     <li><a href="#termref-for-">4.3. Subsample encryption using AES-CBC</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
+    <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
+    <li><a href="#termref-for-">4.3. Subsample encryption using AES-CBC</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">5. Codecs Parameter String</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
+    <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
+    <li><a href="#termref-for-">4.3. Subsample encryption using AES-CBC</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">5. Codecs Parameter String</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="http://iso.org/#">http://iso.org/#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">2.3.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a>
+    <li><a href="#termref-for-">2.5. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.2. Subsample encryption using AES-CTR</a>
+    <li><a href="#termref-for-">4.3. Subsample encryption using AES-CBC</a> <a href="#termref-for-">(2)</a>
+    <li><a href="#termref-for-">5. Codecs Parameter String</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="https://www.webmproject.org/vp9/mp4/#">https://www.webmproject.org/vp9/mp4/#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-">
+   <a href="https://www.webmproject.org/vp9/mp4/#">https://www.webmproject.org/vp9/mp4/#</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#termref-for-">2.4.4. Semantics</a> <a href="#termref-for-">(2)</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -2673,21 +2683,30 @@ Quantity:   Zero or more.
     <a data-link-type="biblio">[CMAF]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-⑥" style="color:initial">cmaf video track</span>
+     <li><span class="dfn-paneled" id="term-for-⑦" style="color:initial">cmfc</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ISOBMFF]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-⑦" style="color:initial">bitr</span>
-     <li><span class="dfn-paneled" id="term-for-⑧" style="color:initial">colr</span>
-     <li><span class="dfn-paneled" id="term-for-⑨" style="color:initial">ctts</span>
-     <li><span class="dfn-paneled" id="term-for-①⓪" style="color:initial">nclx</span>
-     <li><span class="dfn-paneled" id="term-for-①①" style="color:initial">pasp</span>
-     <li><span class="dfn-paneled" id="term-for-①②" style="color:initial">visualsampleentry</span>
+     <li><span class="dfn-paneled" id="term-for-⑧" style="color:initial">bitr</span>
+     <li><span class="dfn-paneled" id="term-for-⑨" style="color:initial">clap</span>
+     <li><span class="dfn-paneled" id="term-for-①⓪" style="color:initial">clli</span>
+     <li><span class="dfn-paneled" id="term-for-①①" style="color:initial">colr</span>
+     <li><span class="dfn-paneled" id="term-for-①②" style="color:initial">ctts</span>
+     <li><span class="dfn-paneled" id="term-for-①③" style="color:initial">mdcv</span>
+     <li><span class="dfn-paneled" id="term-for-①④" style="color:initial">nclx</span>
+     <li><span class="dfn-paneled" id="term-for-①⑤" style="color:initial">visualsampleentry</span>
     </ul>
    <li>
     <a data-link-type="biblio">[RFC6381]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-①③" style="color:initial">codecs</span>
+     <li><span class="dfn-paneled" id="term-for-①⑥" style="color:initial">codecs</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[vp9]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-①⑦" style="color:initial">coll</span>
+     <li><span class="dfn-paneled" id="term-for-①⑧" style="color:initial">smdm</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2712,7 +2731,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-av1sampleentry">2.2. Brand</a>
     <li><a href="#ref-for-av1sampleentry①">2.3.4. Semantics</a>
     <li><a href="#ref-for-av1sampleentry②">2.5. AV1 Sample Format</a> <a href="#ref-for-av1sampleentry③">(2)</a>
-    <li><a href="#ref-for-av1sampleentry④">3. CMAF AV1 track format and CMAF media profiles</a>
+    <li><a href="#ref-for-av1sampleentry④">3. CMAF AV1 track format</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="av1codecconfigurationbox">
@@ -2787,8 +2806,8 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="cmaf-av1-track">
    <b><a href="#cmaf-av1-track">#cmaf-av1-track</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-cmaf-av1-track">3. CMAF AV1 track format and CMAF media profiles</a> <a href="#ref-for-cmaf-av1-track①">(2)</a>
-    <li><a href="#ref-for-cmaf-av1-track②">4. Common Encryption</a>
+    <li><a href="#ref-for-cmaf-av1-track">3. CMAF AV1 track format</a>
+    <li><a href="#ref-for-cmaf-av1-track①">4. Common Encryption</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
