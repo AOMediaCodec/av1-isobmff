@@ -241,24 +241,21 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
   unsigned int (3) seq_profile;
   unsigned int (5) seq_level_idx_0;
   unsigned int (1) seq_tier_0;
-  unsigned int (5) reserved = 0;
+  unsigned int (6) reserved = 0;
+  unsigned int (1) high_bitdepth;
+  unsigned int (1) twelve_bit;
+  unsigned int (1) monochrome;
+  unsigned int (1) chroma_subsampling_x;
+  unsigned int (1) chroma_subsampling_y;
+  unsigned int (2) chroma_sample_position;
+
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
   } else {
     unsigned int (4) reserved = 0;
   }
-  unsigned int (1) color_parameters_present;
-  if (color_parameters_present) {
-    unsigned int (1) high_bitdepth;
-    unsigned int (1) twelve_bit;
-    unsigned int (1) monochrome;
-    unsigned int (1) chroma_subsampling_x;
-    unsigned int (1) chroma_subsampling_y;
-    unsigned int (2) chroma_sample_position;
-  } else {
-    unsigned int (7) reserved = 0;
-  }
+
   unsigned int (8)[] configOBUs;
 }
 ```
@@ -278,6 +275,18 @@ The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be e
 The <dfn export>seq_level_idx_0</dfn> field indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=].
 
 The <dfn export>seq_tier_0</dfn> field indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=].
+
+The <dfn export>high_bitdepth</dfn> field indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
+
+The <dfn export>twelve_bit</dfn> field indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=].
+
+The <dfn export>monochrome</dfn> field indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
+
+The <dfn export>chroma_subsampling_x</dfn> field indicates the [=subsampling_x=] value from the [=Sequence Header OBU=].
+
+The <dfn export>chroma_subsampling_y</dfn> field indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
+
+The <dfn export>chroma_sample_position</dfn> field indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
 
 The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
@@ -310,17 +319,6 @@ But if the frames were grouped as follows:
 <code>[=initial_presentation_delay_minus_one=]</code> would be 2 because it takes presentation of 3 samples to insure that <code>c</code> is decoded.
 </div>
 
-The <dfn export>color_parameters_present</dfn> field indicates the presence of parameters from the <code>color_config( )</code> stored within the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
-
-- <dfn export>high_bitdepth</dfn> indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
-- <dfn export>twelve_bit</dfn> indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=].
-- <dfn export>monochrome</dfn> indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
-- <dfn export>chroma_subsampling_x</dfn> indicates the [=subsampling_x=] value from the [=Sequence Header OBU=].
-- <dfn export>chroma_subsampling_y</dfn> indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
-- <dfn export>chroma_sample_position</dfn> indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
-
-When the AV1CodecConfigurationRecordv1 indicates that fields from the [=Sequence Header OBU=] are present via [=color_parameters_present=], and a [=Sequence Header OBU=] is present within the configOBUs, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1 color parameters.
-
 The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
 - From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
@@ -328,6 +326,8 @@ The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may b
 NOTE: The configOBUs field is expected to contain only one [=Sequence Header OBU=] and zero or more [=Metadata OBUs=] when applicable to all the associated samples.
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
+
+When a [=Sequence Header OBU=] is contained within the configOBUs of the AV1CodecConfigurationRecordv1, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
