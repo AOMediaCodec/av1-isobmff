@@ -108,26 +108,28 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; typ
 	text: timing_info
 
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
+	text: buffer_removal_time
+	text: byte_alignment
+	text: color_config
+	text: frame_presentation_time
+	text: high_bitdepth
+	text: initial_display_delay_minus_1
 	text: max_frame_height_minus_1
 	text: max_frame_width_minus_1
+	text: mono_chrome
 	text: obu_has_size_field
 	text: obu_size
 	text: open_bitstream_unit
-	text: seq_profile
 	text: seq_level_idx
+	text: seq_profile
 	text: seq_tier
 	text: show_existing_frame
 	text: show_frame
-	text: timing_info_present_flag
-	text: buffer_removal_time
-	text: byte_alignment
-	text: frame_presentation_time
-	text: initial_display_delay_minus_1
 	text: still_picture
-	text: mono_chrome
 	text: subsampling_x
 	text: subsampling_y
-	text: color_config
+	text: timing_info_present_flag
+	text: twelve_bit
 </pre>
 
 Bitstream features overview {#bitstream-overview}
@@ -235,12 +237,11 @@ class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
 
 aligned (8) class AV1CodecConfigurationRecordv1 {
   unsigned int (1) marker = 1;
-  unsigned int (3) version = 1;
+  unsigned int (4) version = 1;
   unsigned int (3) seq_profile;
-  unsigned int (1) still_picture;
   unsigned int (5) seq_level_idx_0;
   unsigned int (1) seq_tier_0;
-  unsigned int (3) reserved = 0;
+  unsigned int (5) reserved = 0;
   unsigned int (1) initial_presentation_delay_present;
   if (initial_presentation_delay_present) {
     unsigned int (4) initial_presentation_delay_minus_one;
@@ -249,13 +250,14 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
   }
   unsigned int (1) color_parameters_present;
   if (color_parameters_present) {
+    unsigned int (1) high_bitdepth;
+    unsigned int (1) twelve_bit;
     unsigned int (1) monochrome;
-    unsigned int (4) bit_depth;
     unsigned int (1) chroma_subsampling_x;
     unsigned int (1) chroma_subsampling_y;
     unsigned int (2) chroma_sample_position;
   } else {
-    unsigned int (9) reserved = 0;
+    unsigned int (7) reserved = 0;
   }
   unsigned int (8)[] configOBUs;
 }
@@ -272,8 +274,6 @@ NOTE: The marker bit ensures that the bit pattern of the first byte of the AV1Co
 The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.
 
 The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
-
-The <dfn export>still_picture</dfn> field indicates the value of the still_picture field found in the [=Sequence Header OBU=] and SHALL be equal to the value from the [=Sequence Header OBU=].
 
 The <dfn export>seq_level_idx_0</dfn> field indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=].
 
@@ -312,8 +312,9 @@ But if the frames were grouped as follows:
 
 The <dfn export>color_parameters_present</dfn> field indicates the presence of parameters from the <code>color_config( )</code> stored within the [=Sequence Header OBU=], either present in the configOBUs field or in the associated samples.
 
+- <dfn export>high_bitdepth</dfn> indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
+- <dfn export>twelve_bit</dfn> indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=].
 - <dfn export>monochrome</dfn> indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
-- <dfn export>bit_depth</dfn> indicates the bit depth of pixel components within the output samples from the AV1 bitstream. The value MUST be 8, 10, or 12.
 - <dfn export>chroma_subsampling_x</dfn> indicates the [=subsampling_x=] value from the [=Sequence Header OBU=].
 - <dfn export>chroma_subsampling_y</dfn> indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
 - <dfn export>chroma_sample_position</dfn> indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
