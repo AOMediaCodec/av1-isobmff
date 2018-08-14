@@ -509,11 +509,11 @@ NOTE: This document does not specify at this stage any CMAF Media Profile or ass
 Common Encryption {#CommonEncryption}
 =========================
 
-[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to [[!CENC]].
+[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to [[!CENC]]. Only the <code>[=cenc=]</code> and <code>[=cbcs=]</code> protection modes are supported.
 
-When the protected scheme <code>[=cenc=]</code> or <code>[=cbc1=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
+When the protected scheme <code>[=cenc=]</code>, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
 
-When the protected scheme <code>[=cens=]</code> or <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption.
+When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. In particular, pattern encryption with <code>crypt_byte_block</code> = 1 and <code>skip_byte_block</code> = 0 SHALL be supported.
 
 General Subsample Encryption constraints {#subsample-encryption}
 --------------------------------------
@@ -524,18 +524,14 @@ Within protected samples, the following constraints apply:
 - [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected.
-- Within [=Tile Group OBUs=] or [=Frame OBUs=], only the bytes after <code>byte_alignment</code> in the <code>tile_group_obu</code> structure SHALL be protected.
-- [=BytesOfProtectedData=] size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.
-- A protected OBU SHOULD be spanned by a single subsample. However, when the protected OBU data size is larger than the maximum size of a single [=BytesOfProtectedData=] field, then the OBU MAY be spanned by additional subsamples with [=BytesOfClearData=] size equal to zero.
-- Multiple unprotected OBUs SHOULD be spanned by a single subsample clear range, but a large clear range MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
 
-Subsample encryption using AES-CTR {#ctr-subsample-encryption}
---------------------------------------
-For AES-CTR based scheme types, such as <code>[=cenc=]</code>, the encrypted bytes of each OBU within the sample SHALL be block-aligned so that the counter state can be computed for each OBU within the sample. Block alignment is achieved by adjusting the size of the unencrypted bytes that precede the encrypted bytes for that OBU. In other words, partial blocks are not permitted.
+- Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with [=BytesOfProtectedData=] set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.
 
-Subsample encryption using AES-CBC {#cbc-subsample-encryption}
---------------------------------------
-For AES-CBC based scheme types, such as <code>[=cbcs=]</code>, [=BytesOfProtectedData=] SHALL start on the first complete byte of OBU data that is permitted to be protected, and end on the end of the last complete 16-byte block of data in the OBU. In other words, partial blocks at the end of OBUs, if any, SHALL be left unprotected.
+- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
+
+- Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
+    - A subsample SHALL be created for each tile.
+    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.
 
 Illustration {#subsample-encryption-illustration}
 ------------------
