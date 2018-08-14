@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2018-08-13
+Date: 2018-08-14
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
@@ -137,6 +137,8 @@ Bitstream features overview {#bitstream-overview}
 An [=AV1 bitstream=] is composed of a sequence of [=OBUs=], grouped into [=Temporal Units=].
 
 OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OBU, followed by an optional length field and by an optional payload, whose presence and content depend on the OBU type. Depending on its type, an OBU can carry configuration information, metadata, or coded video data.
+
+NOTE: [=Tile List OBUs=] defined in the [[!AV1]] specification are not supported in the current version of this specification. A future version of the specification may do so.
 
 Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
 
@@ -352,6 +354,7 @@ NOTE: When extracting OBUs from an ISOBMFF file, and depending on the capabiliti
 
 - OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,
 - OBUs of type OBU_TEMPORAL_DELIMITER, OBU_PADDING, or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.
+- OBUs of type OBU_TILE_LIST SHALL NOT be used.
 
 If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in [[!AV1]], i.e. satisfy the following constraints:
 - Its first frame is a [=Key Frame=] that has [=show_frame=] flag set to 1,
@@ -520,9 +523,8 @@ Within protected samples, the following constraints apply:
 - all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
 - [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
-- [=Tile Group OBUs=], [=Frame OBUs=], and [=Tile List OBUs=] SHALL be protected.
+- [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected.
 - Within [=Tile Group OBUs=] or [=Frame OBUs=], only the bytes after <code>byte_alignment</code> in the <code>tile_group_obu</code> structure SHALL be protected.
-- Within [=Tile List OBUs=], only the <code>coded_tile_data</code> part SHALL be protected.
 - [=BytesOfProtectedData=] size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.
 - A protected OBU SHOULD be spanned by a single subsample. However, when the protected OBU data size is larger than the maximum size of a single [=BytesOfProtectedData=] field, then the OBU MAY be spanned by additional subsamples with [=BytesOfClearData=] size equal to zero.
 - Multiple unprotected OBUs SHOULD be spanned by a single subsample clear range, but a large clear range MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].

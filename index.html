@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
+  <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="b8f9a50308dabd223d3021bcd1ff793435543f74" name="document-revision">
+  <meta content="77da7418a43fc10417b0e90c3c2041cbfafdb0d3" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1402,7 +1402,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-13">13 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-14">14 August 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1516,6 +1516,7 @@ pre .property::before, pre .property::after {
    <h2 class="heading settled" data-level="1" id="bitstream-overview"><span class="secno">1. </span><span class="content">Bitstream features overview</span><a class="self-link" href="#bitstream-overview"></a></h2>
     An <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1" id="ref-for-page=1">AV1 bitstream</a> is composed of a sequence of <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39">OBUs</a>, grouped into <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13">Temporal Units</a>. 
    <p>OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OBU, followed by an optional length field and by an optional payload, whose presence and content depend on the OBU type. Depending on its type, an OBU can carry configuration information, metadata, or coded video data.</p>
+   <p class="note" role="note"><span>NOTE:</span> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121">Tile List OBUs</a> defined in the <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> specification are not supported in the current version of this specification. A future version of the specification may do so.</p>
    <p>Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).</p>
    <p class="note" role="note"><span>NOTE:</span> The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.</p>
    <p>Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13①">Key Frames</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13②">Intra-only Frames</a>. Frames that cannot be decoded independently are of three categories: <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13③">Inter Frames</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13④">Switch Frames</a>, and frames with a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2">show_existing_frame</a> flag set to 1.</p>
@@ -1675,6 +1676,8 @@ But if the frames were grouped as follows:
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
     <li data-md="">
      <p>OBUs of type OBU_TEMPORAL_DELIMITER, OBU_PADDING, or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used.</p>
+    <li data-md="">
+     <p>OBUs of type OBU_TILE_LIST SHALL NOT be used.</p>
    </ul>
    <p>If an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by setting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>, i.e. satisfy the following constraints:</p>
    <ul>
@@ -1792,11 +1795,9 @@ Quantity:   Zero or more.
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑥">Metadata OBUs</a> MAY be protected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121">Tile List OBUs</a> SHALL be protected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBUs</a> SHALL be protected.</p>
     <li data-md="">
      <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72①">Tile Group OBUs</a> or <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Frame OBUs</a>, only the bytes after <code>byte_alignment</code> in the <code>tile_group_obu</code> structure SHALL be protected.</p>
-    <li data-md="">
-     <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121①">Tile List OBUs</a>, only the <code>coded_tile_data</code> part SHALL be protected.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">BytesOfProtectedData</a> size SHALL be a multiple of 16 bytes to avoid partial cipher blocks in subsamples.</p>
     <li data-md="">
@@ -2374,7 +2375,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=121">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=121">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=121①">(2)</a>
+    <li><a href="#ref-for-page=121">1. Bitstream features overview</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=45">
