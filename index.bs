@@ -233,11 +233,11 @@ The <dfn>AV1CodecConfigurationBox</dfn> contains decoder configuration informati
 ### Syntax ### {#av1codecconfigurationbox-syntax}
 
 ```
-class AV1CodecConfigurationBox extends FullBox('av1C', version = 0, 0){
-  AV1CodecConfigurationRecordv1 av1Config;
+class AV1CodecConfigurationBox extends Box('av1C'){
+  AV1CodecConfigurationRecord av1Config;
 }
 
-aligned (8) class AV1CodecConfigurationRecordv1 {
+aligned (8) class AV1CodecConfigurationRecord {
   unsigned int (1) marker = 1;
   unsigned int (7) version = 1;
   unsigned int (3) seq_profile;
@@ -264,13 +264,11 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
 
 ### Semantics ### {#av1codecconfigurationbox-semantics}
 
-Previous versions of this specification defined v0 of the AV1CodecConfigurationRecord. Use of AV1CodecConfigurationRecord v0 is deprecated.
-
 The <dfn export>marker</dfn> field SHALL be set to 1.
 
-NOTE: The marker bit ensures that the bit pattern of the first byte of the AV1CodecConfigurationRecordv1 cannot be mistaken for an [=OBU Header=] byte.
+NOTE: The marker bit ensures that the bit pattern of the first byte of the AV1CodecConfigurationRecord cannot be mistaken for an [=OBU Header=] byte.
 
-The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfigurationRecordv1. The value SHALL be set to 1 for AV1CodecConfigurationRecordv1.
+The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfigurationRecord. The value SHALL be set to 1 for AV1CodecConfigurationRecord.
 
 The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].
 
@@ -329,7 +327,7 @@ NOTE: The configOBUs field is expected to contain only one [=Sequence Header OBU
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
 
-When a [=Sequence Header OBU=] is contained within the configOBUs of the AV1CodecConfigurationRecordv1, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecordv1.
+When a [=Sequence Header OBU=] is contained within the configOBUs of the AV1CodecConfigurationRecord, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord.
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.
 
