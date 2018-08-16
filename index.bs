@@ -323,6 +323,8 @@ The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may b
 - From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.
 - From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.
 
+Additionally, the configOBUs field SHALL contain at most one [=Sequence Header OBU=] and if present, it SHALL be the first OBU.
+
 NOTE: The configOBUs field is expected to contain only one [=Sequence Header OBU=] and zero or more [=Metadata OBUs=] when applicable to all the associated samples.
 
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.
