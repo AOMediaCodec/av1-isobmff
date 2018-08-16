@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="394d26f92113a662c65d2420f1943d6a312ef9ef" name="document-revision">
+  <meta content="c4d022c608e5d46519a058bc01bc465070fa74b7" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1631,18 +1631,18 @@ aligned (8) class AV1CodecConfigurationRecordv1 {
    <p>If an ISOBMFF writer cannot verify the above procedure, <a data-link-type="dfn" href="#initial_presentation_delay_present" id="ref-for-initial_presentation_delay_present">initial_presentation_delay_present</a> SHALL be set to 0.</p>
    <p class="note" role="note"><span>NOTE:</span> With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.</p>
    <p class="note" role="note"><span>NOTE:</span> Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_presentation_delay_minus_one</code> if considered separately, the sample entry would signal the larger value.</p>
-   <div class="example" id="example-47df76f1">
-    <a class="self-link" href="#example-47df76f1"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">initial_display_delay_minus_1</a> can be illustrated by considering the following example: 
+   <div class="example" id="example-27bde372">
+    <a class="self-link" href="#example-27bde372"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">initial_display_delay_minus_1</a> can be illustrated by considering the following example: 
 <pre>a b c d e f g h
 </pre>
     where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows: 
 <pre>[a] [b c d] [e] [f] [g] [h]
 </pre>
-    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to insure that <code>c</code> is decoded.
+    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
 But if the frames were grouped as follows: 
 <pre>[a] [b] [c] [d e f] [g] [h]
 </pre>
-    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to insure that <code>c</code> is decoded. 
+    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded. 
    </div>
    <p>The <dfn data-dfn-type="dfn" data-export="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:</p>
    <ul>
@@ -1779,7 +1779,7 @@ Quantity:   Zero or more.
    <p class="note" role="note"><span>NOTE:</span> This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
    <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Only the <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②①">cenc</a></code> and <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②②">cbcs</a></code> protection modes are supported.</p>
-   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②③">cenc</a></code>, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
+   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②④">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. In particular, pattern encryption with <code>crypt_byte_block</code> = 1 and <code>skip_byte_block</code> = 0 SHALL be supported.</p>
    <h3 class="heading settled" data-level="4.1" id="subsample-encryption"><span class="secno">4.1. </span><span class="content">General Subsample Encryption constraints</span><a class="self-link" href="#subsample-encryption"></a></h3>
    <p>Within protected samples, the following constraints apply:</p>
@@ -1804,7 +1804,7 @@ Quantity:   Zero or more.
       <li data-md="">
        <p>A subsample SHALL be created for each tile.</p>
       <li data-md="">
-       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.</p>
+       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.</p>
      </ul>
    </ul>
    <h3 class="heading settled" data-level="4.2" id="subsample-encryption-illustration"><span class="secno">4.2. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
