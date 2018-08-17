@@ -6,15 +6,15 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2018-08-14
+Date: 2018-08-16
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
 Warning: Custom
-Custom Warning Title: Warning
-Custom Warning Text: This specification is still at draft stage and should not be referenced other than as a working draft.
+Custom Warning Title: Release Candidate
+Custom Warning Text: This document is the release candidate for the first version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
 </pre>
 
 <div boilerplate='copyright'>
@@ -164,9 +164,9 @@ A file conformant to this specification satisfies the following:
 - It SHALL contain at least one track using an [=AV1SampleEntry=]
 - It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as 'iso6'
 - It MAY indicate CMAF brands as specified in [[#cmaf]]
-- It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification.
+- It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification
 
-Readers SHALL support the structures required by the <code>'iso6'</code> brand and MAY support structures required by further ISOBMFF structural brands.
+Parsers SHALL support the structures required by the <code>'iso6'</code> brand and MAY support structures required by further ISOBMFF structural brands.
 
 AV1 Sample Entry {#av1sampleentry-section}
 ----------------------------------
