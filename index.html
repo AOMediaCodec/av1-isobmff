@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="b8f71b6e2b299ac5052961c625a14b6bd6fecda8" name="document-revision">
+  <meta content="cb924c22a55622c0d5d217b4d9713aaefb9dd8e1" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1402,7 +1402,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-14">14 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-16">16 August 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1416,8 +1416,8 @@ pre .property::before, pre .property::after {
    </div>
    <div data-fill-with="warning">
     <details class="annoying-warning" open="">
-     <summary>Warning</summary>
-     <p>This specification is still at draft stage and should not be referenced other than as a working draft.</p>
+     <summary>Release Candidate</summary>
+     <p>This document is the release candidate for the first version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.</p>
     </details>
    </div>
    <p class="copyright" data-fill-with="copyright">
@@ -1536,9 +1536,9 @@ pre .property::before, pre .property::after {
     <li data-md="">
      <p>It MAY indicate CMAF brands as specified in <a href="#cmaf">§3 CMAF AV1 track format</a></p>
     <li data-md="">
-     <p>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification.</p>
+     <p>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</p>
    </ul>
-   <p>Readers SHALL support the structures required by the <code><a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①">iso6</a></code> brand and MAY support structures required by further ISOBMFF structural brands.</p>
+   <p>Parsers SHALL support the structures required by the <code><a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①">iso6</a></code> brand and MAY support structures required by further ISOBMFF structural brands.</p>
    <h3 class="heading settled" data-level="2.2" id="av1sampleentry-section"><span class="secno">2.2. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.2.1" id="av1sampleentry-definition"><span class="secno">2.2.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
 <pre class="def">Sample Entry Type: <dfn data-dfn-for="AV1SampleEntry" data-dfn-type="value" data-export="" id="valdef-av1sampleentry-av01">av01<a class="self-link" href="#valdef-av1sampleentry-av01"></a></dfn>
@@ -1830,7 +1830,7 @@ Quantity:   Zero or more.
    <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③①">Sequence Header OBU</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.</p>
    <p>The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③②">Sequence Header OBU</a>, if color_description_present_flag is set to 1, otherwise they SHOULD not be set, defaulting to the values below. The videoFullRangeFlag is represented by a single digit.</p>
-   <p>For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 profile 0, level 3.0, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling co-located with (0, 0) luma sample, ITU-R BT.2100 color primaries, ITU-R BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
+   <p>For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 Main Profile, level 3.0, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling co-located with (0, 0) luma sample, ITU-R BT.2100 color primaries, ITU-R BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.</p>
    <p>The parameters sample entry 4CC, profile, level, tier, and bitDepth are all mandatory fields. If any of these fields are empty, or not within their allowed range, the processing device SHOULD treat it as an error.</p>
    <p>All the other fields (including their leading '.') are optional, mutually inclusive (all or none) fields. If not specified then the values listed in the table below are assumed.</p>
    <table class="def">
@@ -1854,7 +1854,7 @@ Quantity:   Zero or more.
       <td>videoFullRangeFlag
       <td>0 (studio swing representation)
    </table>
-   <p>The string codecs="av01.0.01M.08" in this case would represent AV1 profile 0, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.</p>
+   <p>The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.</p>
    <p>If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.</p>
   </main>
   <div data-fill-with="conformance">
