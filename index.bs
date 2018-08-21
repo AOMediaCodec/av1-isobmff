@@ -140,9 +140,9 @@ OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OB
 
 NOTE: [=Tile List OBUs=] defined in the [[!AV1]] specification are not supported in the current version of this specification. A future version of the specification may do so.
 
-Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
+Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented.
 
-NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
+NOTE: The AV1 specification defines scalability features, allowing frames from multiple layers or operating points to be present in a single temporal unit. This version of storage in ISOBMFF supports the simple storage of scalable streams in a single track, but does not specify advanced tools for example for multi-track support or layer extraction. A future version of the specification may do so.
 
 Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=Switch Frames=], and frames with a [=show_existing_frame=] flag set to 1.
 
