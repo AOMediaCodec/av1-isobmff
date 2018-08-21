@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="cb924c22a55622c0d5d217b4d9713aaefb9dd8e1" name="document-revision">
+  <meta content="b021ff4e77fe87e0a6cb4b33708162a4e2d216aa" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1744,14 +1744,19 @@ Mandatory:  No
 Quantity:   Zero or more.
 </pre>
    <h4 class="heading settled" data-level="2.8.2" id="metadatasamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑤">metadata OBUs</a> of the given type.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑤">metadata OBUs</a>. The <code>grouping_type_parameter</code> can be used to identify samples containing <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑥">metadata OBUs</a> of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑦">metadata OBUs</a> for which the <code>metadata_type</code> is unknown.</p>
    <h4 class="heading settled" data-level="2.8.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
 <pre>class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
-  unsigned int (16) metadata_type;
+}
+</pre>
+   <p>For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:</p>
+<pre>{
+   unsigned int (16) reserved = 0;
+   unsigned int (16) metadata_type;
 }
 </pre>
    <h4 class="heading settled" data-level="2.8.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.8.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
-   <p><dfn data-dfn-type="dfn" data-export="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> used by one OBU in the sample.</p>
+   <p><dfn data-dfn-type="dfn" data-export="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> is as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>.</p>
    <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format</span><a class="self-link" href="#cmaf"></a></h2>
    <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑨">cmfc</a></code> in the <code>FileTypeBox</code>.</p>
    <p>If a <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⓪">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
@@ -1791,7 +1796,7 @@ Quantity:   Zero or more.
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑥">Metadata OBUs</a> MAY be protected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑧">Metadata OBUs</a> MAY be protected.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBUs</a> SHALL be protected.</p>
     <li data-md="">
@@ -2182,8 +2187,8 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=47">2.3.4. Semantics</a> <a href="#ref-for-page=47①">(2)</a>
     <li><a href="#ref-for-page=47②">2.4. AV1 Sample Format</a> <a href="#ref-for-page=47③">(2)</a> <a href="#ref-for-page=47④">(3)</a>
-    <li><a href="#ref-for-page=47⑤">2.8.2. Description</a>
-    <li><a href="#ref-for-page=47⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=47⑤">2.8.2. Description</a> <a href="#ref-for-page=47⑥">(2)</a> <a href="#ref-for-page=47⑦">(3)</a>
+    <li><a href="#ref-for-page=47⑧">4.1. General Subsample Encryption constraints</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">

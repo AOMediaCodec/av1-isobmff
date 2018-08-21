@@ -473,19 +473,28 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Description ### {#metadatasamplegroupentry-description}
 
-The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=] of the given type.
+The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=]. The <code>grouping_type_parameter</code> can be used to identify samples containing [=metadata OBUs=] of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing [=metadata OBUs=] for which the <code>metadata_type</code> is unknown.
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
 ```
 class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
-  unsigned int (16) metadata_type;
+}
+```
+
+For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:
+
+```
+{
+   unsigned int (16) reserved = 0;
+   unsigned int (16) metadata_type;
 }
 ```
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn export>metadata_type</dfn> used by one OBU in the sample.
+
+<dfn export>metadata_type</dfn> is as defined in [[!AV1]].
 
 CMAF AV1 track format {#cmaf}
 =====================================================
