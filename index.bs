@@ -339,7 +339,7 @@ The CleanApertureBox 'clap' SHOULD not be present.
 
 For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present, and their values SHALL match the values of contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).
 
-NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical payload to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>.
+NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical syntax to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and should not be confused.
 
 Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
