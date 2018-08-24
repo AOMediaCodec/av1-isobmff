@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="b021ff4e77fe87e0a6cb4b33708162a4e2d216aa" name="document-revision">
+  <meta content="14deeaac29b6e155a755f5e560504e7c68f5de21" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1751,12 +1751,13 @@ Quantity:   Zero or more.
 </pre>
    <p>For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:</p>
 <pre>{
-   unsigned int (16) reserved = 0;
    unsigned int (16) metadata_type;
+   unsigned int (16) metadata_specific_parameters;
 }
 </pre>
    <h4 class="heading settled" data-level="2.8.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.8.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
    <p><dfn data-dfn-type="dfn" data-export="" id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> is as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>.</p>
+   <p><dfn data-dfn-type="dfn" data-export="" id="metadata_specific_parameters">metadata_specific_parameters<a class="self-link" href="#metadata_specific_parameters"></a></dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 16 bytes of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In any case, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.</p>
    <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format</span><a class="self-link" href="#cmaf"></a></h2>
    <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑨">cmfc</a></code> in the <code>FileTypeBox</code>.</p>
    <p>If a <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⓪">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
@@ -2042,6 +2043,7 @@ Quantity:   Zero or more.
    <li><a href="#initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</a><span>, in §2.3.4</span>
    <li><a href="#initial_presentation_delay_present">initial_presentation_delay_present</a><span>, in §2.3.4</span>
    <li><a href="#marker">marker</a><span>, in §2.3.4</span>
+   <li><a href="#metadata_specific_parameters">metadata_specific_parameters</a><span>, in §2.8.4</span>
    <li><a href="#metadata_type">metadata_type</a><span>, in §2.8.4</span>
    <li><a href="#monochrome">monochrome</a><span>, in §2.3.4</span>
    <li><a href="#seq_level_idx_0">seq_level_idx_0</a><span>, in §2.3.4</span>
