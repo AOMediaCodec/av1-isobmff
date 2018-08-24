@@ -533,23 +533,6 @@ Within protected samples, the following constraints apply:
     - A subsample SHALL be created for each tile.
     - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.
 
-Illustration {#subsample-encryption-illustration}
-------------------
-
-This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
-
-<figure>
-	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
-</figure>
-
-<figure>
-	<img alt="Subsample-based AV1 encryption" src="images/subsample-encryption-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
-</figure>
-
-
-
 Codecs Parameter String {#codecsparam}
 ======================================
 

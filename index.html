@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
+  <meta content="Bikeshed version 3f684c5a8b9e82482490404d25c7ed75e25b2c98" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="cb924c22a55622c0d5d217b4d9713aaefb9dd8e1" name="document-revision">
+  <meta content="b021ff4e77fe87e0a6cb4b33708162a4e2d216aa" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1493,7 +1493,6 @@ pre .property::before, pre .property::after {
      <a href="#CommonEncryption"><span class="secno">4</span> <span class="content">Common Encryption</span></a>
      <ol class="toc">
       <li><a href="#subsample-encryption"><span class="secno">4.1</span> <span class="content">General Subsample Encryption constraints</span></a>
-      <li><a href="#subsample-encryption-illustration"><span class="secno">4.2</span> <span class="content">Illustration</span></a>
      </ol>
     <li><a href="#codecsparam"><span class="secno">5</span> <span class="content">Codecs Parameter String</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
@@ -1807,16 +1806,6 @@ Quantity:   Zero or more.
        <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.</p>
      </ul>
    </ul>
-   <h3 class="heading settled" data-level="4.2" id="subsample-encryption-illustration"><span class="secno">4.2. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
-   <p>This is illustrated in Figure #1 and Figure #2, where for simplicity the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">obu_size</a> field is assumed to be part of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40②">OBU Header</a>.</p>
-   <figure>
-     <img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg"> 
-    <figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
-   </figure>
-   <figure>
-     <img alt="Subsample-based AV1 encryption" src="images/subsample-encryption-type.svg"> 
-    <figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
-   </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
    <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-②⑨">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
@@ -1824,8 +1813,8 @@ Quantity:   Zero or more.
 </pre>
    <p>All fields following the sample entry 4CC are expressed as double digit decimals, unless indicated otherwise. Leading or trailing zeros cannot be omitted.</p>
    <p>The profile parameter value, represented by a single digit decimal, SHALL equal the value of seq_profile in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑦">Sequence Header OBU</a>.</p>
-   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑧">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑧">Sequence Header OBU</a>.</p>
-   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑨">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
+   <p>The level parameter value SHALL equal the first level value indicated by <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑦">seq_level_idx</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑧">Sequence Header OBU</a>.</p>
+   <p>The tier parameter value SHALL be equal to <code>M</code> when the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑧">seq_tier</a> value in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑨">Sequence Header OBU</a> is equal to 0, and <code>H</code> when it is equal to 1.</p>
    <p>The bitDepth parameter value SHALL equal the value of BitDepth variable as defined in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> derived from the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③⓪">Sequence Header OBU</a>.</p>
    <p>The monochrome parameter value, represented by a single digit decimal, SHALL equal the value of mono_chrome in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41③①">Sequence Header OBU</a>.</p>
    <p>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y. If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0.</p>
@@ -2061,8 +2050,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=206">
@@ -2096,8 +2084,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2108,8 +2095,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
@@ -2161,8 +2147,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2173,8 +2158,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=47">
@@ -2194,8 +2178,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=39">
@@ -2211,7 +2194,6 @@ Quantity:   Zero or more.
    <ul>
     <li><a href="#ref-for-page=40">2.3.4. Semantics</a>
     <li><a href="#ref-for-page=40①">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=40②">4.2. Illustration</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2222,8 +2204,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2234,8 +2215,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2246,8 +2226,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=206">
@@ -2267,8 +2246,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2279,8 +2257,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=41">
@@ -2301,8 +2278,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2313,8 +2289,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2325,8 +2300,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2337,8 +2311,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
@@ -2390,8 +2363,7 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2⑧">2.3.4. Semantics</a> <a href="#ref-for-page=2⑨">(2)</a> <a href="#ref-for-page=2①⓪">(3)</a> <a href="#ref-for-page=2①①">(4)</a> <a href="#ref-for-page=2①②">(5)</a> <a href="#ref-for-page=2①③">(6)</a> <a href="#ref-for-page=2①④">(7)</a> <a href="#ref-for-page=2①⑤">(8)</a> <a href="#ref-for-page=2①⑥">(9)</a> <a href="#ref-for-page=2①⑦">(10)</a> <a href="#ref-for-page=2①⑧">(11)</a> <a href="#ref-for-page=2①⑨">(12)</a> <a href="#ref-for-page=2②⓪">(13)</a>
     <li><a href="#ref-for-page=2②①">2.4. AV1 Sample Format</a> <a href="#ref-for-page=2②②">(2)</a> <a href="#ref-for-page=2②③">(3)</a> <a href="#ref-for-page=2②④">(4)</a> <a href="#ref-for-page=2②⑤">(5)</a>
     <li><a href="#ref-for-page=2②⑥">4.1. General Subsample Encryption constraints</a>
-    <li><a href="#ref-for-page=2②⑦">4.2. Illustration</a>
-    <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
+    <li><a href="#ref-for-page=2②⑦">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
