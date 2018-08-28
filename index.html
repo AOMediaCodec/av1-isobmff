@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="cb924c22a55622c0d5d217b4d9713aaefb9dd8e1" name="document-revision">
+  <meta content="b021ff4e77fe87e0a6cb4b33708162a4e2d216aa" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1780,7 +1780,7 @@ Quantity:   Zero or more.
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
    <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Only the <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②①">cenc</a></code> and <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②②">cbcs</a></code> protection schemes are supported.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
-   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②④">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. In particular, pattern encryption with <code>crypt_byte_block</code> = 1 and <code>skip_byte_block</code> = 0 SHALL be supported.</p>
+   <p>When the protected scheme <code><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②④">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a> recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, in particular, <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.</p>
    <h3 class="heading settled" data-level="4.1" id="subsample-encryption"><span class="secno">4.1. </span><span class="content">General Subsample Encryption constraints</span><a class="self-link" href="#subsample-encryption"></a></h3>
    <p>Within protected samples, the following constraints apply:</p>
    <ul>
