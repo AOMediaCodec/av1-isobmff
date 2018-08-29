@@ -513,7 +513,7 @@ Common Encryption {#CommonEncryption}
 
 When the protected scheme <code>[=cenc=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
 
-When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. [[!CENC]] recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, in particular, <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.
+When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. [[!CENC]] recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, including <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.
 
 General Subsample Encryption constraints {#subsample-encryption}
 --------------------------------------
