@@ -96,7 +96,7 @@ url: https://www.iso.org/standard/71975.html#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 	text: cmfc
 
-url: http://iso.org/#; spec: CENC; type: dfn;
+url: https://www.iso.org/standard/68042.html#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
 	text: BytesOfClearData
 	text: cbcs
