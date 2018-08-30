@@ -486,16 +486,16 @@ For this sample group entry, the <code>grouping_type_parameter</code> syntax is 
 
 ```
 {
-   unsigned int (16) metadata_type;
-   unsigned int (16) metadata_specific_parameters;
+   unsigned int (8) metadata_type;
+   unsigned int (24) metadata_specific_parameters;
 }
 ```
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn export>metadata_type</dfn> is a 16-bit field whose value is the value of the metadata_type field defined in [[!AV1]], when it is equal or lower than 65535. metadata_type values above 65535 are not supported by this sample group.
+<dfn export>metadata_type</dfn> is a 8-bit field whose value is the value of the metadata_type field defined in [[!AV1]], when it is equal or lower than 255. metadata_type values above 255 are not supported by this sample group.
 
-<dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 16 bits of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.
+<dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.
 
 CMAF AV1 track format {#cmaf}
 =====================================================
