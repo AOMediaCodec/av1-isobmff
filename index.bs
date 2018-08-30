@@ -77,6 +77,12 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; ty
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
 	text: Metadata OBU
 
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Redundant Frame Header OBU
+
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Padding OBU
+
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
@@ -524,7 +530,7 @@ Within protected samples, the following constraints apply:
 	- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
 
 - All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
-- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]) SHALL be unprotected.
+- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
     - A subsample SHALL be created for each tile.
