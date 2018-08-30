@@ -520,7 +520,7 @@ General Subsample Encryption constraints {#subsample-encryption}
 
 Within protected samples, the following constraints apply:
 - Protected samples SHALL be exactly spanned by one or more contiguous subsamples.
-	- Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with [=BytesOfProtectedData=] set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.
+	- An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
 	- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
 
 - All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
