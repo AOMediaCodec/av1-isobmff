@@ -65,7 +65,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; typ
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Temporal Delimiter OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Tile Group OBU
 
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
@@ -74,7 +74,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; typ
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Tile List OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Metadata OBU
 
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;

@@ -1211,9 +1211,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version dc6a0999286e5dda761ab3caeb4f978c270ddaf8" name="generator">
+  <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="cb924c22a55622c0d5d217b4d9713aaefb9dd8e1" name="document-revision">
+  <meta content="b021ff4e77fe87e0a6cb4b33708162a4e2d216aa" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1651,13 +1651,13 @@ But if the frames were grouped as follows:
      <p>From any sample marked with the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</a>, an AV1 bitstream is formed by first outputting the OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox④">AV1CodecConfigurationBox</a> and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</p>
    </ul>
    <p>Additionally, the configOBUs field SHALL contain at most one <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑤">Sequence Header OBU</a> and if present, it SHALL be the first OBU.</p>
-   <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only one <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑥">Sequence Header OBU</a> and zero or more <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47">Metadata OBUs</a> when applicable to all the associated samples.</p>
+   <p class="note" role="note"><span>NOTE:</span> The configOBUs field is expected to contain only one <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑥">Sequence Header OBU</a> and zero or more <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46">Metadata OBUs</a> when applicable to all the associated samples.</p>
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
    <p>When a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑦">Sequence Header OBU</a> is contained within the configOBUs of the AV1CodecConfigurationRecord, the values present in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑧">Sequence Header OBU</a> contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord.</p>
    <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">timing_info_present_flag</a> in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑨">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a>, the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">frame_presentation_time</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⓪">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
    <p>The sample entry SHOULD contain a <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑤">colr</a> box with a colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑥">nclx</a>. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑦">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②②">Sequence Header OBU</a>. When configOBUs does not contain a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a>, this box with colour_type set to <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑧">nclx</a> SHALL be present.</p>
    <p>The CleanApertureBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-⑨">clap</a> SHOULD not be present.</p>
-   <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①①">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
+   <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①①">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
    <p class="note" role="note"><span>NOTE:</span> The MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①②">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①③">clli</a> have identical payload to the SMPTE2086MasteringDisplayMetadataBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①④">SmDm</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①⑤">CoLL</a>, except that they are of type <code>Box</code> and not <code>FullBox</code>.</p>
    <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-①⑥">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox⑤">AV1CodecConfigurationBox</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
    <h3 class="heading settled" data-level="2.4" id="sampleformat"><span class="secno">2.4. </span><span class="content">AV1 Sample Format</span><a class="self-link" href="#sampleformat"></a></h3>
@@ -1668,7 +1668,7 @@ But if the frames were grouped as follows:
     <li data-md="">
      <p>each OBU SHALL follow the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②①">open_bitstream_unit</a> <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39③">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. Each OBU SHALL have the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②②">obu_has_size_field</a> set to 1 except for the last OBU in the sample, for which <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②③">obu_has_size_field</a> MAY be set to 0, in which case it is assumed to fill the remainder of the sample,</p>
    </ul>
-   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either: set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②④">obu_has_size_field</a> to 1 for some OBUs if not already set, add the size field in this case, and add <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46">Temporal Delimiter OBU</a>; or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>. If encryption is used, similar operations MAY have to be done before or after decryption depending on the demuxer/decryptor/decoder architecture.</p>
+   <p class="note" role="note"><span>NOTE:</span> When extracting OBUs from an ISOBMFF file, and depending on the capabilities of the decoder processing these OBUs, ISOBMFF parsers MAY need to either: set the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②④">obu_has_size_field</a> to 1 for some OBUs if not already set, add the size field in this case, and add <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46②">Temporal Delimiter OBU</a>; or use the length-delimited bitstream format as defined in Annex B of <a data-link-type="dfn" href="#av1s" id="ref-for-av1s">AV1</a>. If encryption is used, similar operations MAY have to be done before or after decryption depending on the demuxer/decryptor/decoder architecture.</p>
    <ul>
     <li data-md="">
      <p>OBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding,</p>
@@ -1685,14 +1685,14 @@ But if the frames were grouped as follows:
      <p>It contains a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a> before the first <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49①">Frame Header OBU</a>.</p>
    </ul>
    <p class="note" role="note"><span>NOTE:</span> Within this definition, a sync sample may contain additional frames that are not Key Frames. The fact that none of them is the first frame in the temporal unit ensures that they are decodable.</p>
-   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47②">metadata OBUs</a> could be present before the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a>.</p>
+   <p class="note" role="note"><span>NOTE:</span> Other types of OBUs such as <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46③">metadata OBUs</a> could be present before the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a>.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑦">Intra-only frames</a> SHOULD be signaled using the sample_depends_on flag set to 2.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206⑦">Delayed Random Access Points</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry①">AV1ForwardKeyFrameSampleGroupEntry</a>.</p>
    <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑧">Switch Frames</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1switchframesamplegroupentry" id="ref-for-av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</a>.</p>
    <p>Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑨">Switch Frames</a>, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⑦">bitr</a>).</p>
    <p>In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-①⑧">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
    <p>When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the <a data-link-type="dfn" href="#av1multiframesamplegroupentry" id="ref-for-av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a>.</p>
-   <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47③">Metadata OBUs</a> may be carried in sample data. In this case, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> SHOULD be used. If the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47④">metadata OBUs</a> are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.</p>
+   <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46④">Metadata OBUs</a> may be carried in sample data. In this case, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> SHOULD be used. If the <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑤">metadata OBUs</a> are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.</p>
    <p>Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.</p>
    <h3 class="heading settled" data-level="2.5" id="forwardkeyframesamplegroupentry"><span class="secno">2.5. </span><span class="content">AV1 Forward Key Frame sample group entry</span><a class="self-link" href="#forwardkeyframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.5.1" id="forwardkeyframesamplegroupentry-definition"><span class="secno">2.5.1. </span><span class="content">Definition</span><a class="self-link" href="#forwardkeyframesamplegroupentry-definition"></a></h4>
@@ -1744,7 +1744,7 @@ Mandatory:  No
 Quantity:   Zero or more.
 </pre>
    <h4 class="heading settled" data-level="2.8.2" id="metadatasamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑤">metadata OBUs</a> of the given type.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑥">metadata OBUs</a> of the given type.</p>
    <h4 class="heading settled" data-level="2.8.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
 <pre>class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
   unsigned int (16) metadata_type;
@@ -1789,17 +1789,17 @@ Quantity:   Zero or more.
     <li data-md="">
      <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑦">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑥">Metadata OBUs</a> MAY be protected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑧">Metadata OBUs</a> MAY be protected.</p>
     <li data-md="">
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBUs</a> SHALL be protected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Frame OBUs</a> SHALL be protected.</p>
     <li data-md="">
      <p>Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">BytesOfProtectedData</a> set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.</p>
     <li data-md="">
      <p>A large unprotected OBU whose data size is larger than the maximum size of a single <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑥">BytesOfClearData</a> field MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑦">BytesOfProtectedData</a>.</p>
     <li data-md="">
-     <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72①">Tile Group OBUs</a> or <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Frame OBUs</a>, the following applies:</p>
+     <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71②">Tile Group OBUs</a> or <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71③">Frame OBUs</a>, the following applies:</p>
      <ul>
       <li data-md="">
        <p>A subsample SHALL be created for each tile.</p>
@@ -2085,7 +2085,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=71">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a>
+    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2177,13 +2177,13 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-page=47">
-   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-page=46">
+   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=47">2.3.4. Semantics</a> <a href="#ref-for-page=47①">(2)</a>
-    <li><a href="#ref-for-page=47②">2.4. AV1 Sample Format</a> <a href="#ref-for-page=47③">(2)</a> <a href="#ref-for-page=47④">(3)</a>
-    <li><a href="#ref-for-page=47⑤">2.8.2. Description</a>
-    <li><a href="#ref-for-page=47⑥">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=46">2.3.4. Semantics</a> <a href="#ref-for-page=46①">(2)</a>
+    <li><a href="#ref-for-page=46②">2.4. AV1 Sample Format</a> <a href="#ref-for-page=46③">(2)</a> <a href="#ref-for-page=46④">(3)</a> <a href="#ref-for-page=46⑤">(4)</a>
+    <li><a href="#ref-for-page=46⑥">2.8.2. Description</a>
+    <li><a href="#ref-for-page=46⑦">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=46⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2352,8 +2352,10 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=46">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=46">2.4. AV1 Sample Format</a>
-    <li><a href="#ref-for-page=46①">4.1. General Subsample Encryption constraints</a>
+    <li><a href="#ref-for-page=46">2.3.4. Semantics</a> <a href="#ref-for-page=46①">(2)</a>
+    <li><a href="#ref-for-page=46②">2.4. AV1 Sample Format</a> <a href="#ref-for-page=46③">(2)</a> <a href="#ref-for-page=46④">(3)</a> <a href="#ref-for-page=46⑤">(4)</a>
+    <li><a href="#ref-for-page=46⑥">2.8.2. Description</a>
+    <li><a href="#ref-for-page=46⑦">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=46⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=13">
@@ -2364,10 +2366,10 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=13①⓪">2.7.2. Description</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-page=72">
-   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-page=71">
+   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=72">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=72①">(2)</a>
+    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=121">
@@ -2633,7 +2635,7 @@ Quantity:   Zero or more.
      <li><span class="dfn-paneled" id="term-for-page=39" style="color:initial">low overhead bitstream format</span>
      <li><span class="dfn-paneled" id="term-for-page=2③" style="color:initial">max_frame_height_minus_1</span>
      <li><span class="dfn-paneled" id="term-for-page=2④" style="color:initial">max_frame_width_minus_1</span>
-     <li><span class="dfn-paneled" id="term-for-page=47" style="color:initial">metadata obu</span>
+     <li><span class="dfn-paneled" id="term-for-page=46" style="color:initial">metadata obu</span>
      <li><span class="dfn-paneled" id="term-for-page=2⑤" style="color:initial">mono_chrome</span>
      <li><span class="dfn-paneled" id="term-for-page=39①" style="color:initial">obu</span>
      <li><span class="dfn-paneled" id="term-for-page=40" style="color:initial">obu header</span>
@@ -2649,9 +2651,9 @@ Quantity:   Zero or more.
      <li><span class="dfn-paneled" id="term-for-page=2①③" style="color:initial">subsampling_x</span>
      <li><span class="dfn-paneled" id="term-for-page=2①④" style="color:initial">subsampling_y</span>
      <li><span class="dfn-paneled" id="term-for-page=13③" style="color:initial">switch frame</span>
-     <li><span class="dfn-paneled" id="term-for-page=46" style="color:initial">temporal delimiter obu</span>
+     <li><span class="dfn-paneled" id="term-for-page=46①" style="color:initial">temporal delimiter obu</span>
      <li><span class="dfn-paneled" id="term-for-page=13④" style="color:initial">temporal unit</span>
-     <li><span class="dfn-paneled" id="term-for-page=72" style="color:initial">tile group obu</span>
+     <li><span class="dfn-paneled" id="term-for-page=71①" style="color:initial">tile group obu</span>
      <li><span class="dfn-paneled" id="term-for-page=121" style="color:initial">tile list obu</span>
      <li><span class="dfn-paneled" id="term-for-page=45" style="color:initial">timing_info</span>
      <li><span class="dfn-paneled" id="term-for-page=2①⑤" style="color:initial">timing_info_present_flag</span>
