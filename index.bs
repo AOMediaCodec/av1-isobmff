@@ -92,7 +92,7 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; typ
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
 	text: Low Overhead Bitstream Format
 
-url: http://iso.org/#; spec: CMAF; type: dfn;
+url: https://www.iso.org/standard/71975.html#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 	text: cmfc
 
