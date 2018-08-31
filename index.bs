@@ -1,7 +1,7 @@
 <pre class='metadata'>
 Title: AV1 Codec ISO Media File Format Binding
 Status: LS
-URL: https://AOMediaCodec.github.io/av1-isobmff
+URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
@@ -24,10 +24,10 @@ Custom Warning Text: This document is the release candidate for the first versio
 </div>
 
 <pre class="anchors">
-url: http://iso.org/#; spec: ISOBMFF; type: dfn;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
-url: http://iso.org/#; spec: ISOBMFF; type: property;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
 	text: clap
 	text: clli
@@ -44,59 +44,65 @@ url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
 	text: SmDm
 	text: CoLL
 
-url: http://iso.org/#; spec: RFC6381; type: property;
+url: https://tools.ietf.org/html/rfc6381#; spec: RFC6381; type: property;
 	text: codecs
 
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1; spec: AV1; type: dfn;
 	text: AV1 bitstream
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
 	text: OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
 	text: OBU Header
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
 	text: Frame Header OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
 	text: Sequence Header OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Temporal Delimiter OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Tile Group OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Frame OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Tile List OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Metadata OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Redundant Frame Header OBU
+
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Padding OBU
+
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Recovery Point
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
 	text: Inter Frame
 	text: Intra-only Frame
 	text: Key Frame
 	text: Switch Frame
 	text: Temporal Unit
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
 	text: Low Overhead Bitstream Format
 
-url: http://iso.org/#; spec: CMAF; type: dfn;
+url: https://www.iso.org/standard/71975.html#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 	text: cmfc
 
-url: http://iso.org/#; spec: CENC; type: dfn;
+url: https://www.iso.org/standard/68042.html#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
 	text: BytesOfClearData
 	text: cbcs
@@ -104,10 +110,10 @@ url: http://iso.org/#; spec: CENC; type: dfn;
 	text: cbc1
 	text: cens
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
 	text: timing_info
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
 	text: buffer_removal_time
 	text: byte_alignment
 	text: color_config
@@ -140,9 +146,9 @@ OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OB
 
 NOTE: [=Tile List OBUs=] defined in the [[!AV1]] specification are not supported in the current version of this specification. A future version of the specification may do so.
 
-Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
+Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented.
 
-NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
+NOTE: The AV1 specification defines scalability features, allowing frames from multiple layers or operating points to be present in a single temporal unit. This version of storage in ISOBMFF supports the simple storage of scalable streams in a single track, but does not specify advanced tools for handling multi-track support, layer extraction, or other scalability related use cases. A future version of the specification may do so.
 
 Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=Switch Frames=], and frames with a [=show_existing_frame=] flag set to 1.
 
@@ -337,7 +343,7 @@ The CleanApertureBox 'clap' SHOULD not be present.
 
 For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present, and their values SHALL match the values of contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).
 
-NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical payload to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>.
+NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical syntax to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and should not be confused.
 
 Additional boxes may be provided at the end of the [=VisualSampleEntry=] as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the [=AV1CodecConfigurationBox=]. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.
 
@@ -471,19 +477,29 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Description ### {#metadatasamplegroupentry-description}
 
-The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=] of the given type.
+The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=]. The <code>grouping_type_parameter</code> can be used to identify samples containing [=metadata OBUs=] of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing [=metadata OBUs=] for which the <code>metadata_type</code> is unknown.
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
 ```
 class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
-  unsigned int (16) metadata_type;
+}
+```
+
+For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:
+
+```
+{
+   unsigned int (8) metadata_type;
+   unsigned int (24) metadata_specific_parameters;
 }
 ```
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn export>metadata_type</dfn> used by one OBU in the sample.
+<dfn export>metadata_type</dfn> is a 8-bit field whose value is the value of the metadata_type field defined in [[!AV1]], when it is equal or lower than 255. metadata_type values above 255 are not supported by this sample group.
+
+<dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.
 
 CMAF AV1 track format {#cmaf}
 =====================================================
@@ -509,42 +525,27 @@ Common Encryption {#CommonEncryption}
 
 When the protected scheme <code>[=cenc=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
 
-When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. In particular, pattern encryption with <code>crypt_byte_block</code> = 1 and <code>skip_byte_block</code> = 0 SHALL be supported.
+When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. [[!CENC]] recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, including <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.
 
 General Subsample Encryption constraints {#subsample-encryption}
 --------------------------------------
 
 Within protected samples, the following constraints apply:
 - Protected samples SHALL be exactly spanned by one or more contiguous subsamples.
-- all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
-- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] SHALL be unprotected.
+	- An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
+	- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
+
+- All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
+- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
-- [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected.
-
-- Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with [=BytesOfProtectedData=] set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.
-
-- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
-
-- Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
+- [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
     - A subsample SHALL be created for each tile.
-    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.
+    - [=BytesOfProtectedData=] SHALL be a multiple of 16 bytes.
+    - [=BytesOfProtectedData=] SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
+    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).
 
-Illustration {#subsample-encryption-illustration}
-------------------
-
-This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
-
-<figure>
-	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
-</figure>
-
-<figure>
-	<img alt="Subsample-based AV1 encryption" src="images/subsample-encryption-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
-</figure>
-
-
+    NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
+	- All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected.
 
 Codecs Parameter String {#codecsparam}
 ======================================
