@@ -140,9 +140,9 @@ OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OB
 
 NOTE: [=Tile List OBUs=] defined in the [[!AV1]] specification are not supported in the current version of this specification. A future version of the specification may do so.
 
-Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented (when scalability is not used).
+Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented.
 
-NOTE: The AV1 specification defines scalability features, but this version of storage in ISOBMFF does not specify specific tools for scalability. A future version of the specification may do so.
+NOTE: The AV1 specification defines scalability features, allowing frames from multiple layers or operating points to be present in a single temporal unit. This version of storage in ISOBMFF supports the simple storage of scalable streams in a single track, but does not specify advanced tools for handling multi-track support, layer extraction, or other scalability related use cases. A future version of the specification may do so.
 
 Frames carried in Temporal Units may have coding dependencies on frames carried previously in the same Temporal Unit or in previous Temporal Units. Frames that can be decoded without dependencies to previous frames are of two categories: [=Key Frames=] and [=Intra-only Frames=]. Frames that cannot be decoded independently are of three categories: [=Inter Frames=], [=Switch Frames=], and frames with a [=show_existing_frame=] flag set to 1.
 
@@ -473,19 +473,29 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 
 ### Description ### {#metadatasamplegroupentry-description}
 
-The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=] of the given type.
+The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=metadata OBUs=]. The <code>grouping_type_parameter</code> can be used to identify samples containing [=metadata OBUs=] of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing [=metadata OBUs=] for which the <code>metadata_type</code> is unknown.
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
 ```
 class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
-  unsigned int (16) metadata_type;
+}
+```
+
+For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:
+
+```
+{
+   unsigned int (8) metadata_type;
+   unsigned int (24) metadata_specific_parameters;
 }
 ```
 
 ### Semantics ### {#metadatasamplegroupentry-semantics}
 
-<dfn export>metadata_type</dfn> used by one OBU in the sample.
+<dfn export>metadata_type</dfn> is a 8-bit field whose value is the value of the metadata_type field defined in [[!AV1]], when it is equal or lower than 255. metadata_type values above 255 are not supported by this sample group.
+
+<dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.
 
 CMAF AV1 track format {#cmaf}
 =====================================================
