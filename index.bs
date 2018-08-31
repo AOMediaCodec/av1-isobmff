@@ -1,7 +1,7 @@
 <pre class='metadata'>
 Title: AV1 Codec ISO Media File Format Binding
 Status: LS
-URL: https://AOMediaCodec.github.io/av1-isobmff
+URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
@@ -24,10 +24,10 @@ Custom Warning Text: This document is the release candidate for the first versio
 </div>
 
 <pre class="anchors">
-url: http://iso.org/#; spec: ISOBMFF; type: dfn;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
-url: http://iso.org/#; spec: ISOBMFF; type: property;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
 	text: clap
 	text: clli
@@ -44,65 +44,65 @@ url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
 	text: SmDm
 	text: CoLL
 
-url: http://iso.org/#; spec: RFC6381; type: property;
+url: https://tools.ietf.org/html/rfc6381#; spec: RFC6381; type: property;
 	text: codecs
 
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1; spec: AV1; type: dfn;
 	text: AV1 bitstream
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn;
 	text: OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40; spec: AV1; type: dfn;
 	text: OBU Header
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
 	text: Frame Header OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41; spec: AV1; type: dfn;
 	text: Sequence Header OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Temporal Delimiter OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Tile Group OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71; spec: AV1; type: dfn;
 	text: Frame OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Tile List OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Metadata OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Redundant Frame Header OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
 	text: Padding OBU
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Recovery Point
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13; spec: AV1; type: dfn
 	text: Inter Frame
 	text: Intra-only Frame
 	text: Key Frame
 	text: Switch Frame
 	text: Temporal Unit
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; type: dfn
 	text: Low Overhead Bitstream Format
 
-url: http://iso.org/#; spec: CMAF; type: dfn;
+url: https://www.iso.org/standard/71975.html#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 	text: cmfc
 
-url: http://iso.org/#; spec: CENC; type: dfn;
+url: https://www.iso.org/standard/68042.html#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
 	text: BytesOfClearData
 	text: cbcs
@@ -110,10 +110,10 @@ url: http://iso.org/#; spec: CENC; type: dfn;
 	text: cbc1
 	text: cens
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
 	text: timing_info
 
-url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
 	text: buffer_removal_time
 	text: byte_alignment
 	text: color_config
