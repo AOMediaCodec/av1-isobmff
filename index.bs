@@ -77,6 +77,12 @@ url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; ty
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47; spec: AV1; type: dfn;
 	text: Metadata OBU
 
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Redundant Frame Header OBU
+
+url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+	text: Padding OBU
+
 url: http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
@@ -530,18 +536,20 @@ General Subsample Encryption constraints {#subsample-encryption}
 
 Within protected samples, the following constraints apply:
 - Protected samples SHALL be exactly spanned by one or more contiguous subsamples.
-- all [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
-- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] SHALL be unprotected.
+	- An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
+	- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
+
+- All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
+- [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
-- [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected.
-
-- Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with [=BytesOfProtectedData=] set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.
-
-- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
-
-- Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
+- [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
     - A subsample SHALL be created for each tile.
-    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.
+    - [=BytesOfProtectedData=] SHALL be a multiple of 16 bytes.
+    - [=BytesOfProtectedData=] SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
+    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).
+
+    NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
+	- All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected.
 
 Illustration {#subsample-encryption-illustration}
 ------------------

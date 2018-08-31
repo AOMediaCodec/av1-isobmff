@@ -1214,7 +1214,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 1ae98debb4e51d3776dd78f95940efb62b6b8e27" name="generator">
   <link href="https://AOMediaCodec.github.io/av1-isobmff" rel="canonical">
-  <meta content="9ce8efcbaae6635a17c5a14925384fb5d2522f95" name="document-revision">
+  <meta content="2e557e9f09670ebd832f79ac86280c74221e64be" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1793,25 +1793,34 @@ Quantity:   Zero or more.
    <ul>
     <li data-md>
      <p>Protected samples SHALL be exactly spanned by one or more contiguous subsamples.</p>
+     <ul>
+      <li data-md>
+       <p>An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data. However, as recommended in <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.</p>
+      <li data-md>
+       <p>A large unprotected OBU whose data size is larger than the maximum size of a single <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">BytesOfClearData</a> field MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑥">BytesOfProtectedData</a>.</p>
+     </ul>
     <li data-md>
-     <p>all <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
+     <p>All <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> SHALL be unprotected.</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Temporal Delimiter OBUs</a>, <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑥">Sequence Header OBUs</a>, and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49②">Frame Header OBUs</a> (including within a <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBU</a>), <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121①">Redundant Frame Header OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121②">Padding OBUs</a> SHALL be unprotected.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=47" id="ref-for-page=47⑧">Metadata OBUs</a> MAY be protected.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71">Frame OBUs</a> SHALL be protected.</p>
-    <li data-md>
-     <p>Subsamples SHALL NOT cross OBU boundaries, except for multiple consecutive unprotected OBUs which SHOULD be spanned by a single subsample, with <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑤">BytesOfProtectedData</a> set to 0. In other words, a subsample that spans a protected OBU SHALL NOT span any other OBU.</p>
-    <li data-md>
-     <p>A large unprotected OBU whose data size is larger than the maximum size of a single <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑥">BytesOfClearData</a> field MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑦">BytesOfProtectedData</a>.</p>
-    <li data-md>
-     <p>Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72①">Tile Group OBUs</a> or <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Frame OBUs</a>, the following applies:</p>
+     <p><a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Frame OBUs</a> SHALL be protected. Within <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72①">Tile Group OBUs</a> or <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71②">Frame OBUs</a>, the following applies:</p>
      <ul>
       <li data-md>
        <p>A subsample SHALL be created for each tile.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits), and SHALL end on the last byte of the OBU for the last tile or on the last byte of <code>decode_tile</code> structures (including any trailing bits) for all other tiles. As a result, partial blocks are not permitted.</p>
+       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑦">BytesOfProtectedData</a> SHALL be a multiple of 16 bytes.</p>
+      <li data-md>
+       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).</p>
+      <li data-md>
+       <p><a data-link-type="dfn" href="http://iso.org/#" id="termref-for-②⑨">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).</p>
+     </ul>
+     <p class="note" role="note"><span>NOTE:</span> As a result of the above, partial blocks are not used and it is possible that <a data-link-type="dfn" href="http://iso.org/#" id="termref-for-③⓪">BytesOfProtectedData</a> does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.</p>
+     <ul>
+      <li data-md>
+       <p>All other parts of <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72" id="ref-for-page=72②">Tile Group OBUs</a> and <a data-link-type="dfn" href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71③">Frame OBUs</a> SHALL be unprotected.</p>
      </ul>
    </ul>
    <h3 class="heading settled" data-level="4.2" id="subsample-encryption-illustration"><span class="secno">4.2. </span><span class="content">Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
@@ -1825,7 +1834,7 @@ Quantity:   Zero or more.
     <figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-②⑨">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="http://iso.org/#" id="termref-for-③①">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
@@ -2093,7 +2102,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=71">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a>
+    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2258,6 +2267,13 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=2②⑧">5. Codecs Parameter String</a> <a href="#ref-for-page=2②⑨">(2)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-page=121">
+   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-page=121">1. Bitstream features overview</a>
+    <li><a href="#ref-for-page=121①">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=121②">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-page=206">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206</a><b>Referenced in:</b>
    <ul>
@@ -2265,6 +2281,13 @@ Quantity:   Zero or more.
     <li><a href="#ref-for-page=206⑦">2.4. AV1 Sample Format</a>
     <li><a href="#ref-for-page=206⑧">2.5.2. Description</a> <a href="#ref-for-page=206⑨">(2)</a>
     <li><a href="#ref-for-page=206①⓪">2.5.4. Semantics</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-page=121">
+   <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-page=121">1. Bitstream features overview</a>
+    <li><a href="#ref-for-page=121①">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=121②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2375,13 +2398,14 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=72">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=72</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=72">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=72①">(2)</a>
+    <li><a href="#ref-for-page=72">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=72①">(2)</a> <a href="#ref-for-page=72②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=121">
    <a href="http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121">http://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-page=121">1. Bitstream features overview</a>
+    <li><a href="#ref-for-page=121①">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=121②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=45">
@@ -2411,7 +2435,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2424,7 +2448,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2437,7 +2461,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2450,7 +2474,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2463,7 +2487,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2476,7 +2500,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2489,7 +2513,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2502,7 +2526,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2515,7 +2539,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2528,7 +2552,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2541,7 +2565,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2554,7 +2578,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2567,7 +2591,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2580,7 +2604,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2593,7 +2617,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2606,7 +2630,7 @@ Quantity:   Zero or more.
     <li><a href="#termref-for-">2.4. AV1 Sample Format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">3. CMAF AV1 track format</a> <a href="#termref-for-">(2)</a>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a>
     <li><a href="#termref-for-">5. Codecs Parameter String</a>
    </ul>
   </aside>
@@ -2648,7 +2672,9 @@ Quantity:   Zero or more.
      <li><span class="dfn-paneled" id="term-for-page=2⑥" style="color:initial">obu_has_size_field</span>
      <li><span class="dfn-paneled" id="term-for-page=2⑦" style="color:initial">obu_size</span>
      <li><span class="dfn-paneled" id="term-for-page=2⑧" style="color:initial">open_bitstream_unit</span>
+     <li><span class="dfn-paneled" id="term-for-page=121" style="color:initial">padding obu</span>
      <li><span class="dfn-paneled" id="term-for-page=206②" style="color:initial">random access point</span>
+     <li><span class="dfn-paneled" id="term-for-page=121①" style="color:initial">redundant frame header obu</span>
      <li><span class="dfn-paneled" id="term-for-page=2⑨" style="color:initial">seq_level_idx</span>
      <li><span class="dfn-paneled" id="term-for-page=2①⓪" style="color:initial">seq_tier</span>
      <li><span class="dfn-paneled" id="term-for-page=41" style="color:initial">sequence header obu</span>
@@ -2660,7 +2686,7 @@ Quantity:   Zero or more.
      <li><span class="dfn-paneled" id="term-for-page=46" style="color:initial">temporal delimiter obu</span>
      <li><span class="dfn-paneled" id="term-for-page=13④" style="color:initial">temporal unit</span>
      <li><span class="dfn-paneled" id="term-for-page=72" style="color:initial">tile group obu</span>
-     <li><span class="dfn-paneled" id="term-for-page=121" style="color:initial">tile list obu</span>
+     <li><span class="dfn-paneled" id="term-for-page=121②" style="color:initial">tile list obu</span>
      <li><span class="dfn-paneled" id="term-for-page=45" style="color:initial">timing_info</span>
      <li><span class="dfn-paneled" id="term-for-page=2①⑤" style="color:initial">timing_info_present_flag</span>
     </ul>
