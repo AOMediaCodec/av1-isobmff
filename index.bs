@@ -24,10 +24,10 @@ Custom Warning Text: This document is the release candidate for the first versio
 </div>
 
 <pre class="anchors">
-url: http://iso.org/#; spec: ISOBMFF; type: dfn;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
 
-url: http://iso.org/#; spec: ISOBMFF; type: property;
+url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
 	text: clap
 	text: clli
@@ -44,7 +44,7 @@ url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
 	text: SmDm
 	text: CoLL
 
-url: http://iso.org/#; spec: RFC6381; type: property;
+url: https://tools.ietf.org/html/rfc6381#; spec: RFC6381; type: property;
 	text: codecs
 
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1; spec: AV1; type: dfn;
