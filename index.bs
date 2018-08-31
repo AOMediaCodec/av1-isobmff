@@ -551,23 +551,6 @@ Within protected samples, the following constraints apply:
     NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
 	- All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected.
 
-Illustration {#subsample-encryption-illustration}
-------------------
-
-This is illustrated in Figure #1 and Figure #2, where for simplicity the [=obu_size=] field is assumed to be part of the [=OBU Header=].
-
-<figure>
-	<img alt="Simplified subsample-based AV1 encryption" src="images/subsample-encryption-no-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers with OBU types omitted.</figcaption>
-</figure>
-
-<figure>
-	<img alt="Subsample-based AV1 encryption" src="images/subsample-encryption-type.svg">
-	<figcaption>Subsample-based AV1 encryption with clear OBU headers including OBU types.</figcaption>
-</figure>
-
-
-
 Codecs Parameter String {#codecsparam}
 ======================================
 
