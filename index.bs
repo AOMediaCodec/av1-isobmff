@@ -490,7 +490,7 @@ CMAF AV1 track format {#cmaf}
 
 [[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
 
-If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
+If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:
 - it SHALL use an [=AV1SampleEntry=]
 - it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:
     - <code>seq_profile</code>
@@ -501,8 +501,6 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - <code>initial_presentation_delay_minus_one</code>
 
 When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turn relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
-
-NOTE: This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.
 
 Common Encryption {#CommonEncryption}
 =========================
