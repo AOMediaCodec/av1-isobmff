@@ -294,15 +294,13 @@ The <dfn export>chroma_subsampling_y</dfn> field indicates the [=subsampling_y=]
 
 The <dfn export>chroma_sample_position</dfn> field indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
 
-The <dfn>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
+The <dfn export>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
 The <dfn>initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
 - construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples referring to that sample entry,
 - set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames minus one contained in the first [=initial_presentation_delay_minus_one=] + 1 samples,
 - set the [=frame_presentation_time=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),
 - apply the decoder model specified in [[!AV1]] to this hypothetical bitstream using the first operating point. If <code>buffer_removal_time</code> information is present in bitstream for this operating point, the decoding schedule mode SHALL be applied, otherwise the resource availability mode SHALL be applied.
-
-If an ISOBMFF writer cannot verify the above procedure, [=initial_presentation_delay_present=] SHALL be set to 0.
 
 NOTE: With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.
 
@@ -508,7 +506,7 @@ CMAF AV1 track format {#cmaf}
 
 [[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
 
-If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints apply:
+If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:
 - it SHALL use an [=AV1SampleEntry=]
 - it MAY use multiple sample entries, and in that case the following values SHALL not change in the track:
     - <code>seq_profile</code>
@@ -519,8 +517,6 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - <code>initial_presentation_delay_minus_one</code>
 
 When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turn relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
-
-NOTE: This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.
 
 Common Encryption {#CommonEncryption}
 =========================

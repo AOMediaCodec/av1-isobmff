@@ -1214,7 +1214,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 1ae98debb4e51d3776dd78f95940efb62b6b8e27" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="fd248638448468de832b3f5b87d808a227a8b017" name="document-revision">
+  <meta content="b7e38a47afd57ef9b035dc6522479449e6ec9b1d" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1615,7 +1615,7 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p>The <dfn data-dfn-type="dfn" data-export id="chroma_subsampling_x">chroma_subsampling_x<a class="self-link" href="#chroma_subsampling_x"></a></dfn> field indicates the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑨">subsampling_x</a> value from the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⓪">Sequence Header OBU</a>.</p>
    <p>The <dfn data-dfn-type="dfn" data-export id="chroma_subsampling_y">chroma_subsampling_y<a class="self-link" href="#chroma_subsampling_y"></a></dfn> field indicates the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⓪">subsampling_y</a> value from the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①①">Sequence Header OBU</a>.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="chroma_sample_position">chroma_sample_position</dfn> field indicates the <a data-link-type="dfn" href="#chroma_sample_position" id="ref-for-chroma_sample_position">chroma_sample_position</a> value from the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①②">Sequence Header OBU</a>.</p>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="initial_presentation_delay_present">initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.</p>
+   <p>The <dfn data-dfn-type="dfn" data-export id="initial_presentation_delay_present">initial_presentation_delay_present<a class="self-link" href="#initial_presentation_delay_present"></a></dfn> field indicates the presence of the initial_presentation_delay_minus_one field.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="initial_presentation_delay_minus_one">initial_presentation_delay_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①①">seq_level_idx</a> in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:</p>
    <ul>
     <li data-md>
@@ -1627,7 +1627,6 @@ aligned (8) class AV1CodecConfigurationRecord {
     <li data-md>
      <p>apply the decoder model specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> to this hypothetical bitstream using the first operating point. If <code>buffer_removal_time</code> information is present in bitstream for this operating point, the decoding schedule mode SHALL be applied, otherwise the resource availability mode SHALL be applied.</p>
    </ul>
-   <p>If an ISOBMFF writer cannot verify the above procedure, <a data-link-type="dfn" href="#initial_presentation_delay_present" id="ref-for-initial_presentation_delay_present">initial_presentation_delay_present</a> SHALL be set to 0.</p>
    <p class="note" role="note"><span>NOTE:</span> With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.</p>
    <p class="note" role="note"><span>NOTE:</span> Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_presentation_delay_minus_one</code> if considered separately, the sample entry would signal the larger value.</p>
    <div class="example" id="example-27bde372">
@@ -1760,7 +1759,7 @@ Quantity:   Zero or more.
    <p><dfn data-dfn-type="dfn" data-export id="metadata_specific_parameters">metadata_specific_parameters<a class="self-link" href="#metadata_specific_parameters"></a></dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure. For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code>.</p>
    <h2 class="heading settled" data-level="3" id="cmaf"><span class="secno">3. </span><span class="content">CMAF AV1 track format</span><a class="self-link" href="#cmaf"></a></h2>
    <p><a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code><a data-link-type="dfn" href="https://www.iso.org/standard/71975.html#" id="termref-for-①⑨">cmfc</a></code> in the <code>FileTypeBox</code>.</p>
-   <p>If a <a data-link-type="dfn" href="https://www.iso.org/standard/71975.html#" id="termref-for-②⓪">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints apply:</p>
+   <p>If a <a data-link-type="dfn" href="https://www.iso.org/standard/71975.html#" id="termref-for-②⓪">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:</p>
    <ul>
     <li data-md>
      <p>it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry④">AV1SampleEntry</a></p>
@@ -1782,7 +1781,6 @@ Quantity:   Zero or more.
      </ul>
    </ul>
    <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
-   <p class="note" role="note"><span>NOTE:</span> This document does not specify at this stage any CMAF Media Profile or associated brand for AV1 bitstreams in CMAF-compliant files. Future version of this specification MAY do so.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
    <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Only the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cenc</a></code> and <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cbcs</a></code> protection schemes are supported.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
@@ -2671,12 +2669,6 @@ Quantity:   Zero or more.
    <b><a href="#chroma_sample_position">#chroma_sample_position</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-chroma_sample_position">2.3.4. Semantics</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="initial_presentation_delay_present">
-   <b><a href="#initial_presentation_delay_present">#initial_presentation_delay_present</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-initial_presentation_delay_present">2.3.4. Semantics</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="initial_presentation_delay_minus_one">
