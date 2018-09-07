@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 0e8880531a1904b4bc0b037759fa3cb386293992" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="289b28ae8cbdaf030bc03c4541099bb7bfd9e816" name="document-revision">
+  <meta content="636c143acae73376ded816b682f682863d4c6f80" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1402,7 +1402,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-08-31">31 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">v1.0.0, <time class="dt-updated" datetime="2018-08-31">7 September 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1488,6 +1488,7 @@ pre .property::before, pre .property::after {
      <a href="#CommonEncryption"><span class="secno">4</span> <span class="content">Common Encryption</span></a>
      <ol class="toc">
       <li><a href="#subsample-encryption"><span class="secno">4.1</span> <span class="content">General Subsample Encryption constraints</span></a>
+      <li><a href="#subsample-encryption-illustration"><span class="secno">4.2</span> <span class="content">Subsample Encryption Illustration</span></a>
      </ol>
     <li><a href="#codecsparam"><span class="secno">5</span> <span class="content">Codecs Parameter String</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
@@ -1506,7 +1507,7 @@ pre .property::before, pre .property::after {
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="bitstream-overview"><span class="secno">1. </span><span class="content">Bitstream features overview</span><a class="self-link" href="#bitstream-overview"></a></h2>
-    An <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1" id="ref-for-page=1">AV1 bitstream</a> is composed of a sequence of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39">OBUs</a>, grouped into <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13">Temporal Units</a>. 
+    An <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1" id="ref-for-page=1">AV1 bitstream</a> is composed of a sequence of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39">OBUs</a>, grouped into <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13">Temporal Units</a>.
    <p>OBUs are made of a 1 or 2 bytes header, identifying in particular the type of OBU, followed by an optional length field and by an optional payload, whose presence and content depend on the OBU type. Depending on its type, an OBU can carry configuration information, metadata, or coded video data.</p>
    <p class="note" role="note"><span>NOTE:</span> <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121" id="ref-for-page=121">Tile List OBUs</a> defined in the <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> specification are not supported in the current version of this specification. A future version of the specification may do so.</p>
    <p>Temporal Units are processed by a decoder in the order given by the bitstream. Each Temporal Unit is associated with a presentation time. Some Temporal Units may contain multiple frames to be decoded but only one is presented.</p>
@@ -1624,17 +1625,17 @@ aligned (8) class AV1CodecConfigurationRecord {
    <p class="note" role="note"><span>NOTE:</span> With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_presentation_delay_minus_one is 0.</p>
    <p class="note" role="note"><span>NOTE:</span> Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_presentation_delay_minus_one</code> if considered separately, the sample entry would signal the larger value.</p>
    <div class="example" id="example-27bde372">
-    <a class="self-link" href="#example-27bde372"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">initial_display_delay_minus_1</a> can be illustrated by considering the following example: 
+    <a class="self-link" href="#example-27bde372"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">initial_display_delay_minus_1</a> can be illustrated by considering the following example:
 <pre>a b c d e f g h
 </pre>
-    where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows: 
+    where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows:
 <pre>[a] [b c d] [e] [f] [g] [h]
 </pre>
     <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
-But if the frames were grouped as follows: 
+But if the frames were grouped as follows:
 <pre>[a] [b] [c] [d e f] [g] [h]
 </pre>
-    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded. 
+    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded.
    </div>
    <p>The <dfn data-dfn-type="dfn" data-export="" id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:</p>
    <ul>
@@ -1814,6 +1815,12 @@ Quantity:   Zero or more.
        <p>All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑤">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑥">Frame OBUs</a> SHALL be unprotected.</p>
      </ul>
    </ul>
+   <h3 class="heading settled" data-level="4.2" id="subsample-encryption-illustration"><span class="secno">4.2. </span><span class="content">Subsample Encryption Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
+    Figure #1 illustrates Subsample based encryption of AV1.
+   <figure>
+     <img alt="Subsample-based AV1 encryption" src="images/subsample_encryption.svg">
+    <figcaption>Subsample-based AV1 encryption.</figcaption>
+   </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
    <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="https://tools.ietf.org/html/rfc6381#" id="termref-for-③①">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
