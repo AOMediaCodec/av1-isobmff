@@ -6,15 +6,12 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2018-08-16
+Date: 2018-09-07
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
-Warning: Custom
-Custom Warning Title: Release Candidate
-Custom Warning Text: This document is the release candidate for the first version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
 </pre>
 
 <div boilerplate='copyright'>
@@ -546,6 +543,15 @@ Within protected samples, the following constraints apply:
 
     NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
 	- All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected.
+
+Subsample Encryption Illustration {#subsample-encryption-illustration}
+------------------
+Figure #1 illustrates Subsample based encryption of AV1.
+
+<figure>
+<img alt="Subsample-based AV1 encryption" src="images/subsample_encryption.svg">
+<figcaption>Subsample-based AV1 encryption.</figcaption>
+</figure>
 
 Codecs Parameter String {#codecsparam}
 ======================================
