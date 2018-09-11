@@ -12,6 +12,11 @@ Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
+Warning: Custom
+Custom Warning Title: Release Candidate
+Custom Warning Text: This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
+
+!Last approved version: TODO
 </pre>
 
 <div boilerplate='copyright'>
@@ -136,10 +141,6 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 	text: timing_info_present_flag
 	text: twelve_bit
 </pre>
-
-Changes since v1.0.0 release {#changelist}
-==========================================
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
 
 Bitstream features overview {#bitstream-overview}
 =================================================
@@ -616,3 +617,7 @@ All the other fields (including their leading '.') are optional, mutually inclus
 The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.
 
 If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
+
+Changes since v1.0.0 release {#changelist}
+==========================================
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
