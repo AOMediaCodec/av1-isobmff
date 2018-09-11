@@ -6,12 +6,17 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2018-09-07
+Date: 2018-09-11
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
+Warning: Custom
+Custom Warning Title: Release Candidate
+Custom Warning Text: This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
+
+!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.0.0/index.html">v1.0.0</a>
 </pre>
 
 <div boilerplate='copyright'>
@@ -110,10 +115,12 @@ url: https://www.iso.org/standard/68042.html#; spec: CENC; type: dfn;
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45; spec: AV1; type: dfn
 	text: timing_info
 
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=44; spec: AV1; type: dfn
+	text: color_config
+
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; type: dfn;
 	text: buffer_removal_time
 	text: byte_alignment
-	text: color_config
 	text: frame_presentation_time
 	text: high_bitdepth
 	text: initial_display_delay_minus_1
@@ -281,7 +288,7 @@ The <dfn export>seq_tier_0</dfn> field indicates the value of seq_tier[0] found 
 
 The <dfn export>high_bitdepth</dfn> field indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
 
-The <dfn export>twelve_bit</dfn> field indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=].
+The <dfn export>twelve_bit</dfn> field indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=]. When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.
 
 The <dfn export>monochrome</dfn> field indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
 
@@ -290,6 +297,8 @@ The <dfn export>chroma_subsampling_x</dfn> field indicates the [=subsampling_x=]
 The <dfn export>chroma_subsampling_y</dfn> field indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
 
 The <dfn export>chroma_sample_position</dfn> field indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
+
+When not specified in the [=Sequence Header OBU=], and not defined by the conditions specified in the [[!AV1]] [=color_config=], the values of [=chroma_subsampling_x=], [=chroma_subsampling_y=], and [=chroma_sample_position=] SHALL be 0.
 
 The <dfn export>initial_presentation_delay_present</dfn> field indicates the presence of the initial_presentation_delay_minus_one field.
 
@@ -608,3 +617,7 @@ All the other fields (including their leading '.') are optional, mutually inclus
 The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.
 
 If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
+
+Changes since v1.0.0 release {#changelist}
+==========================================
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
