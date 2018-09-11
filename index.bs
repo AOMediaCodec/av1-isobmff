@@ -137,6 +137,10 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 	text: twelve_bit
 </pre>
 
+Changes since v1.0.0 release {#changelist}
+==========================================
+- <a href=" https://github.com/AOMediaCodec/av1-isobmff/pull/103/commits/2d5860ee38a6655584333d44abbf37e455b3bbbf"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
+
 Bitstream features overview {#bitstream-overview}
 =================================================
 An [=AV1 bitstream=] is composed of a sequence of [=OBUs=], grouped into [=Temporal Units=].
