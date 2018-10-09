@@ -545,12 +545,12 @@ Within protected samples, the following constraints apply:
 - [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
 - [=Metadata OBUs=] MAY be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
-    - A subsample SHALL be created for each tile.
     - [=BytesOfProtectedData=] SHALL be a multiple of 16 bytes.
     - [=BytesOfProtectedData=] SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
     - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).
 
     NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
+    - A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes. If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any.
 	- All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected.
 
 Subsample Encryption Illustration {#subsample-encryption-illustration}
@@ -621,3 +621,4 @@ If any character that is not '.', digits, part of the AV1 4CC, or a tier value i
 Changes since v1.0.0 release {#changelist}
 ==========================================
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a>
