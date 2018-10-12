@@ -261,9 +261,9 @@ aligned (8) class AV1CodecConfigurationRecord {
   unsigned int (2) chroma_sample_position;
   unsigned int (3) reserved = 0;
 
-  unsigned int (1) initial_delay_present;
-  if (initial_delay_present) {
-    unsigned int (4) initial_delay_samples_minus_one;
+  unsigned int (1) initial_display_delay_present;
+  if (initial_display_delay_present) {
+    unsigned int (4) initial_display_delay_in_samples_minus_1;
   } else {
     unsigned int (4) reserved = 0;
   }
@@ -300,20 +300,20 @@ The <dfn export>chroma_sample_position</dfn> field indicates the [=chroma_sample
 
 When not specified in the [=Sequence Header OBU=], and not defined by the conditions specified in the [[!AV1]] [=color_config=], the values of [=chroma_subsampling_x=], [=chroma_subsampling_y=], and [=chroma_sample_position=] SHALL be 0.
 
-The <dfn export>initial_delay_present</dfn> field indicates the presence of the initial_delay_samples_minus_one field.
+The <dfn export>initial_display_delay_present</dfn> field indicates the presence of the initial_display_delay_in_samples_minus_1 field.
 
-The <dfn>initial_delay_samples_minus_one</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
+The <dfn>initial_display_delay_in_samples_minus_1</dfn> field indicates the number of samples (minus one) that need to be decoded prior to starting the presentation of the first sample associated with this sample entry in order to guarantee that each sample will be decoded prior to its presentation time under the constraints of the first level value indicated by [=seq_level_idx=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples). More precisely, the following procedure SHALL not return any error:
 - construct a hypothetical bitstream consisting of the OBUs carried in the sample entry followed by the OBUs carried in all the samples referring to that sample entry,
-- set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames minus one contained in the first [=initial_delay_samples_minus_one=] + 1 samples,
+- set the first [=initial_display_delay_minus_1=] field of each [=Sequence Header OBU=] to the number of frames minus one contained in the first [=initial_display_delay_in_samples_minus_1=] + 1 samples,
 - set the [=frame_presentation_time=] field of the frame header of each presentable frame such that it matches the presentation time difference between the sample carrying this frame and the previous sample (if it exists, 0 otherwise),
 - apply the decoder model specified in [[!AV1]] to this hypothetical bitstream using the first operating point. If <code>buffer_removal_time</code> information is present in bitstream for this operating point, the decoding schedule mode SHALL be applied, otherwise the resource availability mode SHALL be applied.
 
-NOTE: With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_delay_samples_minus_one is 0.
+NOTE: With the above procedure, when smooth presentation can be guaranteed after decoding the first sample, initial_display_delay_in_samples_minus_1 is 0.
 
-NOTE: Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_delay_samples_minus_one</code> if considered separately, the sample entry would signal the larger value.
+NOTE: Because the above procedure considers all OBUs in all samples associated with a sample entry, if these OBUS form multiple coded video sequences which would have different values of <code>initial_display_delay_in_samples_minus_1</code> if considered separately, the sample entry would signal the larger value.
 
 <div class=example>
-The difference between [=initial_delay_samples_minus_one=] and [=initial_display_delay_minus_1=] can be illustrated by considering the following example:
+The difference between [=initial_display_delay_in_samples_minus_1=] and [=initial_display_delay_minus_1=] can be illustrated by considering the following example:
 ```
 a b c d e f g h
 ```
@@ -321,12 +321,12 @@ where letters correspond to frames. Assume that <code>[=initial_display_delay_mi
 ```
 [a] [b c d] [e] [f] [g] [h]
 ```
-<code>[=initial_delay_samples_minus_one=]</code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
+<code>[=initial_display_delay_in_samples_minus_1=]</code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
 But if the frames were grouped as follows:
 ```
 [a] [b] [c] [d e f] [g] [h]
 ```
-<code>[=initial_delay_samples_minus_one=]</code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded.
+<code>[=initial_display_delay_in_samples_minus_1=]</code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded.
 </div>
 
 The <dfn export>configOBUs</dfn> field contains zero or more OBUs. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
@@ -520,7 +520,7 @@ If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>
     - the first value of <code>seq_level_idx</code>
     - the first value of <code>seq_tier</code>
     - <code>color_config</code>
-    - <code>initial_delay_samples_minus_one</code>
+    - <code>initial_display_delay_in_samples_minus_1</code>
 
 When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]], which in turn relies on [[!CENC]], with the provisions specified in [[#CommonEncryption]].
 
