@@ -1212,9 +1212,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 1ae98debb4e51d3776dd78f95940efb62b6b8e27" name="generator">
+  <meta content="Bikeshed version 018be3f805d3272ce699a232398d6e3902d1ea8d" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="bcac53f04aecdab238c2468261d383dd17f9e998" name="document-revision">
+  <meta content="0a8261dba84de338a1f9ee5e323d8ab5983c2017" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1787,7 +1787,7 @@ Quantity:   Zero or more.
    </ul>
    <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
-   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Only the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cenc</a></code> and <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cbcs</a></code> protection schemes are supported.</p>
+   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Files SHOULD be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cbcs</a></code> protection scheme and MAY be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cenc</a></code> protection scheme.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②④">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a> recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, including <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.</p>
    <h3 class="heading settled" data-level="4.1" id="subsample-encryption"><span class="secno">4.1. </span><span class="content">General Subsample Encryption constraints</span><a class="self-link" href="#subsample-encryption"></a></h3>

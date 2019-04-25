@@ -527,7 +527,7 @@ When protected, [=CMAF AV1 Tracks=] SHALL use the signaling defined in [[!CMAF]]
 Common Encryption {#CommonEncryption}
 =========================
 
-[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to [[!CENC]]. Only the <code>[=cenc=]</code> and <code>[=cbcs=]</code> protection schemes are supported.
+[=CMAF AV1 Tracks=] and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to [[!CENC]]. Files SHOULD be protected using the <code>[=cbcs=]</code> protection scheme and MAY be protected using the <code>[=cenc=]</code> protection scheme.
 
 When the protected scheme <code>[=cenc=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
 
