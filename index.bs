@@ -622,3 +622,6 @@ Changes since v1.0.0 release {#changelist}
 ==========================================
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/109"> Add recommendation to use <code>cbcs</code> when protecting streams.</a>
+
+
