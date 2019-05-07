@@ -1212,9 +1212,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 1ae98debb4e51d3776dd78f95940efb62b6b8e27" name="generator">
+  <meta content="Bikeshed version 018be3f805d3272ce699a232398d6e3902d1ea8d" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="bcac53f04aecdab238c2468261d383dd17f9e998" name="document-revision">
+  <meta content="a89c13581380d6e3d791c631df9393599c565ae8" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1403,7 +1403,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2018-09-11">11 September 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-05-07">7 May 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1424,7 +1424,7 @@ pre .property::before, pre .property::after {
     </details>
    </div>
    <p class="copyright" data-fill-with="copyright">
-    <p>Copyright 2018, The Alliance for Open Media</p>
+    <p>Copyright 2019, The Alliance for Open Media</p>
     <p>Licensing information is available at http://aomedia.org/license/</p>
     <p>The MATERIALS ARE PROVIDED “AS IS.” The Alliance for Open Media, its members, and its contributors expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials. The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE ALLIANCE FOR OPEN MEDIA, ITS MEMBERS, OR CONTRIBUTORS BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
    </p>
@@ -1787,7 +1787,7 @@ Quantity:   Zero or more.
    </ul>
    <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
-   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Only the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cenc</a></code> and <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cbcs</a></code> protection schemes are supported.</p>
+   <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Files SHOULD be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cbcs</a></code> protection scheme and MAY be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cenc</a></code> protection scheme.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②④">cbcs</a></code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a> recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, including <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.</p>
    <h3 class="heading settled" data-level="4.1" id="subsample-encryption"><span class="secno">4.1. </span><span class="content">General Subsample Encryption constraints</span><a class="self-link" href="#subsample-encryption"></a></h3>
@@ -1876,6 +1876,8 @@ Quantity:   Zero or more.
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a></p>
+    <li data-md>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/109"> Add recommendation to use <code>cbcs</code> when protecting streams.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
