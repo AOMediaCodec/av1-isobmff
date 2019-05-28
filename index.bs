@@ -531,7 +531,11 @@ Common Encryption {#CommonEncryption}
 
 When the protected scheme <code>[=cenc=]</code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.
 
-When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. [[!CENC]] recommends that the Pattern Block length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>. All combinations such that this is true SHALL be supported, including <code>crypt_byte_block</code> = 10 and <code>skip_byte_block</code> = 0.
+When the protected scheme <code>[=cbcs=]</code> is used, samples SHALL be protected using subsample encryption and SHALL use pattern encryption. [[!CENC]] recommends that the Block Pattern length be 10, i.e. <code>crypt_byte_block + skip_byte_block = 10</code>, where a Block is of size 16-bytes. In this specification, the combination of <code>crypt_byte_block</code> and <code>skip_byte_block</code> SHALL be one of the following, with the first one being recommended:
+- <code>crypt_byte_block = 1</code> and <code>skip_byte_block = 9</code>,
+- <code>crypt_byte_block = 5</code> and <code>skip_byte_block = 5</code>,
+- <code>crypt_byte_block = 10</code> and <code>skip_byte_block = 0</code>.
+
 
 General Subsample Encryption constraints {#subsample-encryption}
 --------------------------------------
@@ -623,5 +627,6 @@ Changes since v1.0.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/109"> Add recommendation to use <code>cbcs</code> when protecting streams.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/110"> Restrict and recommend <code>cbcs</code> patterns when protecting streams.</a>
 
 
