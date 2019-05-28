@@ -6,15 +6,12 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2019-05-07
+Date: 2019-05-28
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
-Warning: Custom
-Custom Warning Title: Release Candidate
-Custom Warning Text: This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
 
 !Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.0.0/index.html">v1.0.0</a>
 </pre>
