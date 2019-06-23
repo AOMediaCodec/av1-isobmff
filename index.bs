@@ -510,7 +510,7 @@ For this sample group entry, the <code>grouping_type_parameter</code> syntax is 
 CMAF AV1 track format {#cmaf}
 =====================================================
 
-[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
+[[iso23000-19]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
 
 If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:
 - it SHALL use an [=AV1SampleEntry=]
