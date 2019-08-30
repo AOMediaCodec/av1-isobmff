@@ -562,7 +562,7 @@ General Subsample Encryption constraints {#subsample-encryption}
 
 Within protected samples, the following constraints apply:
 - Protected samples SHALL be exactly spanned by one or more contiguous subsamples.
-	- An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
+	- An OBU MAY be spanned by one or more subsamples, especially when it has multiple ranges of protected data, e.g. when tiles are used. However, as recommended in [[!CENC]], writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
 	- A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=].
 
 - All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
@@ -570,8 +570,10 @@ Within protected samples, the following constraints apply:
 - [=Metadata OBUs=] MAY be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
     - [=BytesOfProtectedData=] SHALL be a multiple of 16 bytes.
-    - [=BytesOfProtectedData=] SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
-    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).
+    - [=BytesOfProtectedData=] SHALL:
+    	- end on the last byte of the <code>decode_tile</code> structure (including any trailing bits), when the protected scheme is either <code>[=cenc=]</code> or <code>[=cbcs=]</code>,
+    	- or start on the first byte of the <code>decode_tile</code> structure, when the protected scheme is <code>[=cbcs=]</code>.
+    - [=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits if end alignment is used when the protected scheme is <code>[=cbcs=]</code>).
 
     NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
     - A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes. If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any.
