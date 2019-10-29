@@ -1,6 +1,6 @@
 <pre class='metadata'>
 Title: AV1 Codec ISO Media File Format Binding
-Status: LS
+Status: LS-COMMIT
 URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
