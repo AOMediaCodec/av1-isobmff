@@ -16,7 +16,7 @@ Warning: Custom
 Custom Warning Title: Release Candidate
 Custom Warning Text: This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
 
-!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.1.0/index.html">v1.1.0</a>
+!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.1.0/">v1.1.0</a>
 </pre>
 
 <div boilerplate='copyright'>
