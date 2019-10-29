@@ -6,14 +6,17 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2019-05-28
+Date: 2019-10-29
 Repository: AOMediaCodec/av1-isobmff
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css on
 Group: AOM
+Warning: Custom
+Custom Warning Title: Release Candidate
+Custom Warning Text: This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.
 
-!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.0.0/index.html">v1.0.0</a>
+!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.1.0/index.html">v1.1.0</a>
 </pre>
 
 <div boilerplate='copyright'>
@@ -651,11 +654,8 @@ The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile,
 
 If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
 
-Changes since v1.0.0 release {#changelist}
+Changes since v1.1.0 release {#changelist}
 ==========================================
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a>
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a>
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/109"> Add recommendation to use <code>cbcs</code> when protecting streams.</a>
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/110"> Restrict and recommend <code>cbcs</code> patterns when protecting streams.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/116"> Change tile/subsample alignement for the <code>cbcs</code> protection scheme.</a>
 
 

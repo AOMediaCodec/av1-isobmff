@@ -1214,7 +1214,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 872cce6d3026423d677f3bd5837f1a1a46299a04" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="8a2e4cf41d03ccfb61a052de48befa1c1ad8b0b5" name="document-revision">
+  <meta content="a7c3ae457c9f564eeb6ffe281bd0a5996fc4f4ce" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1403,7 +1403,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-05-28">28 May 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-10-29">29 October 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1414,10 +1414,15 @@ pre .property::before, pre .property::after {
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:cconcolato@netflix.com">Cyril Concolato</a> (<span class="p-org org">Netflix</span>)
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:tom.finegan@google.com">Tom Finegan</a> (<span class="p-org org">Google</span>)
      <dt>Last approved version:
-     <dd><a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.0.0/index.html">v1.0.0</a>
+     <dd><a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.1.0/index.html">v1.1.0</a>
     </dl>
    </div>
-   <div data-fill-with="warning"></div>
+   <div data-fill-with="warning">
+    <details class="annoying-warning" open>
+     <summary>Release Candidate</summary>
+     <p>This document is the release candidate for the next version of this specification. It awaits formal approval by the AOM. Once approved, any further change in future versions will be documented and backwards compatible, unless interoperability concerns are uncovered.</p>
+    </details>
+   </div>
    <p class="copyright" data-fill-with="copyright">
     <p>Copyright 2019, The Alliance for Open Media</p>
     <p>Licensing information is available at http://aomedia.org/license/</p>
@@ -1494,7 +1499,7 @@ pre .property::before, pre .property::after {
       <li><a href="#subsample-encryption-illustration"><span class="secno">4.2</span> <span class="content">Subsample Encryption Illustration</span></a>
      </ol>
     <li><a href="#codecsparam"><span class="secno">5</span> <span class="content">Codecs Parameter String</span></a>
-    <li><a href="#changelist"><span class="secno">6</span> <span class="content">Changes since v1.0.0 release</span></a>
+    <li><a href="#changelist"><span class="secno">6</span> <span class="content">Changes since v1.1.0 release</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -1890,16 +1895,10 @@ Quantity:   Zero or more.
    </table>
    <p>The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.</p>
    <p>If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.</p>
-   <h2 class="heading settled" data-level="6" id="changelist"><span class="secno">6. </span><span class="content">Changes since v1.0.0 release</span><a class="self-link" href="#changelist"></a></h2>
+   <h2 class="heading settled" data-level="6" id="changelist"><span class="secno">6. </span><span class="content">Changes since v1.1.0 release</span><a class="self-link" href="#changelist"></a></h2>
    <ul>
     <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/103"> Clarify values of AV1CodecConfigurationRecord fields when not present in the Sequence Header OBU.</a></p>
-    <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/106"> Relax the rules for the creation of encryption subsamples when tile data is less than an encryption block.</a></p>
-    <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/109"> Add recommendation to use <code>cbcs</code> when protecting streams.</a></p>
-    <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/110"> Restrict and recommend <code>cbcs</code> patterns when protecting streams.</a></p>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/116"> Change tile/subsample alignement for the <code>cbcs</code> protection scheme.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
