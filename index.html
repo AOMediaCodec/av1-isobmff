@@ -1212,9 +1212,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 018be3f805d3272ce699a232398d6e3902d1ea8d" name="generator">
+  <meta content="Bikeshed version 872cce6d3026423d677f3bd5837f1a1a46299a04" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="dd772d89082a13a80c3b435a304ad67a1af28b43" name="document-revision">
+  <meta content="8a2e4cf41d03ccfb61a052de48befa1c1ad8b0b5" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1403,7 +1403,7 @@ pre .property::before, pre .property::after {
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">v1.1.0, <time class="dt-updated" datetime="2019-05-28">28 May 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard, <time class="dt-updated" datetime="2019-05-28">28 May 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1533,7 +1533,7 @@ pre .property::before, pre .property::after {
     <li data-md>
      <p>It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-">iso6</a></p>
     <li data-md>
-     <p>It MAY indicate CMAF brands as specified in <a href="#cmaf">§3 CMAF AV1 track format</a></p>
+     <p>It MAY indicate CMAF brands as specified in <a href="#cmaf">§ 3 CMAF AV1 track format</a></p>
     <li data-md>
      <p>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</p>
    </ul>
@@ -1780,7 +1780,7 @@ Quantity:   Zero or more.
        <p><code>initial_presentation_delay_minus_one</code></p>
      </ul>
    </ul>
-   <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§4 Common Encryption</a>.</p>
+   <p>When protected, <a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track">CMAF AV1 Tracks</a> SHALL use the signaling defined in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a>, which in turn relies on <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, with the provisions specified in <a href="#CommonEncryption">§ 4 Common Encryption</a>.</p>
    <h2 class="heading settled" data-level="4" id="CommonEncryption"><span class="secno">4. </span><span class="content">Common Encryption</span><a class="self-link" href="#CommonEncryption"></a></h2>
    <p><a data-link-type="dfn" href="#cmaf-av1-track" id="ref-for-cmaf-av1-track①">CMAF AV1 Tracks</a> and non-segmented AV1 files MAY be protected. If protected, they SHALL conform to <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>. Files SHOULD be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②①">cbcs</a></code> protection scheme and MAY be protected using the <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②②">cenc</a></code> protection scheme.</p>
    <p>When the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②③">cenc</a></code> is used, samples SHALL be protected using subsample encryption and SHALL NOT use pattern encryption.</p>
@@ -1814,18 +1814,35 @@ Quantity:   Zero or more.
      <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71①">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71②">Frame OBUs</a> SHALL be protected. Within <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71③">Tile Group OBUs</a> or <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71④">Frame OBUs</a>, the following applies:</p>
      <ul>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑦">BytesOfProtectedData</a> SHALL be a multiple of 16 bytes.</p>
+       <p>for the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑦">cbcs</a></code>:</p>
+       <ul>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL start on the first byte and end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).</p>
+       </ul>
+       <p class="note" role="note"><span>NOTE:</span> As a result of the above, <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑨">BytesOfProtectedData</a> is not necessarily a multiple of 16 bytes and partial blocks are included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③⓪">BytesOfProtectedData</a> range, but per <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a> the data is not be encrypted.</p>
+       <ul>
+        <li data-md>
+         <p>A subsample SHALL be created for each tile, even if its size is less than 16 bytes.</p>
+        <li data-md>
+         <p>All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑤">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑥">Frame OBUs</a> SHALL be unprotected.</p>
+       </ul>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑧">BytesOfProtectedData</a> SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).</p>
-      <li data-md>
-       <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑨">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).</p>
-     </ul>
-     <p class="note" role="note"><span>NOTE:</span> As a result of the above, partial blocks are not used and it is possible that <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③⓪">BytesOfProtectedData</a> does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.</p>
-     <ul>
-      <li data-md>
-       <p>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes. If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③①">BytesOfClearData</a> field of a surrounding subsample, if any.</p>
-      <li data-md>
-       <p>All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑤">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑥">Frame OBUs</a> SHALL be unprotected.</p>
+       <p>for the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③①">cenc</a></code>:</p>
+       <ul>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③②">BytesOfProtectedData</a> SHALL be a multiple of 16 bytes.</p>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③③">BytesOfProtectedData</a> SHALL end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).</p>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③④">BytesOfProtectedData</a> SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits).</p>
+       </ul>
+       <p class="note" role="note"><span>NOTE:</span> As a result of the above, partial blocks are not used and it is possible that <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③⑤">BytesOfProtectedData</a> does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.</p>
+       <ul>
+        <li data-md>
+         <p>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes. If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-③⑥">BytesOfClearData</a> field of a surrounding subsample, if any.</p>
+        <li data-md>
+         <p>All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑦">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑧">Frame OBUs</a> SHALL be unprotected.</p>
+       </ul>
      </ul>
    </ul>
    <h3 class="heading settled" data-level="4.2" id="subsample-encryption-illustration"><span class="secno">4.2. </span><span class="content">Subsample Encryption Illustration</span><a class="self-link" href="#subsample-encryption-illustration"></a></h3>
@@ -1835,7 +1852,7 @@ Quantity:   Zero or more.
     <figcaption>Subsample-based AV1 encryption.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="https://tools.ietf.org/html/rfc6381#" id="termref-for-③②">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="https://tools.ietf.org/html/rfc6381#" id="termref-for-③⑦">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
@@ -2119,7 +2136,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=71">
    <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71">https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a> <a href="#ref-for-page=71④">(5)</a> <a href="#ref-for-page=71⑤">(6)</a> <a href="#ref-for-page=71⑥">(7)</a>
+    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a> <a href="#ref-for-page=71④">(5)</a> <a href="#ref-for-page=71⑤">(6)</a> <a href="#ref-for-page=71⑥">(7)</a> <a href="#ref-for-page=71⑦">(8)</a> <a href="#ref-for-page=71⑧">(9)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=2">
@@ -2402,7 +2419,7 @@ Quantity:   Zero or more.
   <aside class="dfn-panel" data-for="term-for-page=71">
    <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71">https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a> <a href="#ref-for-page=71④">(5)</a> <a href="#ref-for-page=71⑤">(6)</a> <a href="#ref-for-page=71⑥">(7)</a>
+    <li><a href="#ref-for-page=71">4.1. General Subsample Encryption constraints</a> <a href="#ref-for-page=71①">(2)</a> <a href="#ref-for-page=71②">(3)</a> <a href="#ref-for-page=71③">(4)</a> <a href="#ref-for-page=71④">(5)</a> <a href="#ref-for-page=71⑤">(6)</a> <a href="#ref-for-page=71⑥">(7)</a> <a href="#ref-for-page=71⑦">(8)</a> <a href="#ref-for-page=71⑧">(9)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-page=121">
@@ -2433,28 +2450,28 @@ Quantity:   Zero or more.
    <a href="https://www.iso.org/standard/68042.html#">https://www.iso.org/standard/68042.html#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
    <a href="https://www.iso.org/standard/68042.html#">https://www.iso.org/standard/68042.html#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
    <a href="https://www.iso.org/standard/68042.html#">https://www.iso.org/standard/68042.html#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
    <a href="https://www.iso.org/standard/68042.html#">https://www.iso.org/standard/68042.html#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">4. Common Encryption</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a>
-    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a>
+    <li><a href="#termref-for-">4.1. General Subsample Encryption constraints</a> <a href="#termref-for-">(2)</a> <a href="#termref-for-">(3)</a> <a href="#termref-for-">(4)</a> <a href="#termref-for-">(5)</a> <a href="#termref-for-">(6)</a> <a href="#termref-for-">(7)</a> <a href="#termref-for-">(8)</a> <a href="#termref-for-">(9)</a> <a href="#termref-for-">(10)</a> <a href="#termref-for-">(11)</a> <a href="#termref-for-">(12)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
