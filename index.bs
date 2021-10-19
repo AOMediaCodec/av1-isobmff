@@ -11,7 +11,7 @@ Date: 2019-12-12
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
 
-!Last approved version: <a href="https://cdn.rawgit.com/AOMediaCodec/av1-isobmff/v1.1.0/">v1.1.0</a>
+!Previously approved version: <a href="v1.1.0.html">v1.1.0</a>
 </pre>
 
 <pre class="anchors">
