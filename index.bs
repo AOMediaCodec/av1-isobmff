@@ -558,7 +558,7 @@ Within protected samples, the following constraints apply:
 
 - All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
 - [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
-- [=Metadata OBUs=] MAY be protected.
+- [=Metadata OBUs=] SHALL NOT be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
 	- for the protected scheme <code>[=cbcs=]</code>:
 		- [=BytesOfProtectedData=] SHALL start on the first byte and end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
