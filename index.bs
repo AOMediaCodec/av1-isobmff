@@ -219,8 +219,7 @@ The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=Vis
 
 Let MaxRenderWidth be the maximum RenderWidth and MaxRenderHeight be the maximum RenderHeight of all the frames in the track.
 The width and height in the TrackHeaderBox SHOULD be equal to MaxRenderWidth and MaxRenderHeight, respectively.
-
-Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that
+Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that:
 
 ```
 hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
