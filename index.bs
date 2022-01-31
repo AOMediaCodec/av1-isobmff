@@ -217,7 +217,9 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header OBU=] applying to the samples associated with this sample entry.
 
-The width and height in the TrackHeaderBox SHOULD be respectively equal to the maximum RenderWidth, called MaxRenderWidth, and the maximum RenderHeight, called MaxRenderHeight, of all the frames in the track. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that
+Let MaxRenderWidth be the maximum RenderWidth and MaxRenderHeight be the maximum RenderHeight of all the frames in the track.
+The width and height in the TrackHeaderBox SHOULD be equal to MaxRenderWidth and MaxRenderHeight, respectively.
+
 ```
 hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
                               ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
