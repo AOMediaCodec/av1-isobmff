@@ -279,7 +279,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     unsigned int (4) reserved = 0;
   }
 
-  unsigned int (8)[] configOBUs;
+  unsigned int (8) configOBUs[];
 }
 ```
 
