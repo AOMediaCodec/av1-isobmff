@@ -1,16 +1,15 @@
 <pre class='metadata'>
 Title: AV1 Codec ISO Media File Format Binding
-Text Macro: SPECVERSION v1.2.0
-Status: FD
+Status: WGD
 URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2019-12-12
+Date: 2021-11-15
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
-!Previously approved version: <a href="v1.1.0.html">v1.1.0</a>
+!Previously approved version: <a href="v1.2.0.html">v1.2.0</a>
 </pre>
 
 <pre class="anchors">
