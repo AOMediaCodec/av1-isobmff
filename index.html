@@ -1269,9 +1269,9 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li span:not(.dfn-paneled) {
+		ul.index li a + span {
 			white-space: nowrap;
-		}
+			color: transparent; }
 		ul.index li a:hover + span,
 		ul.index li a:focus + span {
 			color: #707070;
@@ -1487,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 31a2f03f4, updated Wed Dec 1 15:27:21 2021 -0800" name="generator">
+  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="6bbc83c2919421d96c69eebb944363101bd73990" name="document-revision">
+  <meta content="556e31b58c901d708e40f0fb6981be482546ff10" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1934,8 +1934,7 @@ dfn > a.self-link::before      { content: "#"; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.aomedia.org/" style="width: 200px"> <img alt="AOM" height="60" src="https://aomedia.org/assets/images/aomedia-logo-rgb.svg" width="200"> </a> </p>
    <h1 class="p-name no-ref" id="title">AV1 Codec ISO Media File Format Binding</h1>
-   <h2 class="p-name no-num no-toc no-ref heading settled" id="subtitle"><span class="content">v1.2.0</span></h2>
-   <h3 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">AOM Final Deliverable, <time class="dt-updated" datetime="2019-12-12">12 December 2019</time></span></h3>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">AOM Working Group Draft, <time class="dt-updated" datetime="2021-11-15">15 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1946,12 +1945,17 @@ dfn > a.self-link::before      { content: "#"; }
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:cconcolato@netflix.com">Cyril Concolato</a> (<span class="p-org org">Netflix</span>)
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:tom.finegan@google.com">Tom Finegan</a> (<span class="p-org org">Google</span>)
      <dt>Previously approved version:
-     <dd><a href="v1.1.0.html">v1.1.0</a>
+     <dd><a href="v1.2.0.html">v1.2.0</a>
     </dl>
    </div>
-   <div data-fill-with="warning"></div>
+   <div data-fill-with="warning">
+    <details class="annoying-warning" open>
+     <summary>Warning</summary>
+     <p>This specification is still at draft stage and should not be referenced other than as a working draft.</p>
+    </details>
+   </div>
    <p class="copyright" data-fill-with="copyright">
-    <p>Copyright 2019, <a href="https://aomedia.org">AOM</a></p>
+    <p>Copyright 2021, <a href="https://aomedia.org">AOM</a></p>
     <p>Licensing information is available at <a href="http://aomedia.org/license/">http://aomedia.org/license/</a></p>
     <p>The MATERIALS ARE PROVIDED “AS IS.” The Alliance for Open Media, its members, and its contributors expressly disclaim any warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to the materials. The entire risk as to implementing or otherwise using the materials is assumed by the implementer and user. IN NO EVENT WILL THE ALLIANCE FOR OPEN MEDIA, ITS MEMBERS, OR CONTRIBUTORS BE LIABLE TO ANY OTHER PARTY FOR LOST PROFITS OR ANY FORM OF INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER FROM ANY CAUSES OF ACTION OF ANY KIND WITH RESPECT TO THIS DELIVERABLE OR ITS GOVERNING AGREEMENT, WHETHER BASED ON BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE, AND WHETHER OR NOT THE OTHER MEMBER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
    </p>
@@ -1961,6 +1965,7 @@ dfn > a.self-link::before      { content: "#"; }
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>This document specifies the storage format for <a data-link-type="biblio" href="#biblio-av1">[AV1]</a> bitstreams in <a data-link-type="biblio" href="#biblio-isobmff">[ISOBMFF]</a> tracks as well as in <a data-link-type="biblio" href="#biblio-cmaf">[CMAF]</a> files.</p>
   </div>
+  <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
@@ -2062,13 +2067,13 @@ dfn > a.self-link::before      { content: "#"; }
     <li data-md>
      <p>It SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a></p>
     <li data-md>
-     <p>It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-">iso6</a></p>
+     <p>It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-">iso6</a></p>
     <li data-md>
      <p>It MAY indicate CMAF brands as specified in <a href="#cmaf">§ 3 CMAF AV1 track format</a></p>
     <li data-md>
      <p>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</p>
    </ul>
-   <p>Parsers SHALL support the structures required by the <code><a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①">iso6</a></code> brand and MAY support structures required by further ISOBMFF structural brands.</p>
+   <p>Parsers SHALL support the structures required by the <code><a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①">iso6</a></code> brand and MAY support structures required by further ISOBMFF structural brands.</p>
    <h3 class="heading settled" data-level="2.2" id="av1sampleentry-section"><span class="secno">2.2. </span><span class="content">AV1 Sample Entry</span><a class="self-link" href="#av1sampleentry-section"></a></h3>
    <h4 class="heading settled" data-level="2.2.1" id="av1sampleentry-definition"><span class="secno">2.2.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
 <pre class="def">Sample Entry Type: <dfn data-dfn-for="AV1SampleEntry" data-dfn-type="value" data-export id="valdef-av1sampleentry-av01">av01<a class="self-link" href="#valdef-av1sampleentry-av01"></a></dfn>
@@ -2185,10 +2190,10 @@ But if the frames were grouped as follows:
    <p>OBUs stored in the configOBUs field follow the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑥">open_bitstream_unit</a> <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39" id="ref-for-page=39①">Low Overhead Bitstream Format</a> syntax as specified in <a data-link-type="biblio" href="#biblio-av1">[AV1]</a>. The flag <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑦">obu_has_size_field</a> SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128.</p>
    <p>When a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①⑨">Sequence Header OBU</a> is contained within the configOBUs of the AV1CodecConfigurationRecord, the values present in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⓪">Sequence Header OBU</a> contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord.</p>
    <p>The presentation times of AV1 samples are given by the ISOBMFF structures. The <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑧">timing_info_present_flag</a> in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②①">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) SHOULD be set to 0. If set to 1, the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=45" id="ref-for-page=45">timing_info</a> structure of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②②">Sequence Header OBU</a>, the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑨">frame_presentation_time</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⓪">buffer_removal_time</a> fields of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49" id="ref-for-page=49">Frame Header OBUs</a>, if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</p>
-   <p>The sample entry SHOULD contain a <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑤">colr</a> box with a colour_type set to <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑥">nclx</a>. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑦">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a>. When configOBUs does not contain a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a>, this box with colour_type set to <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑧">nclx</a> SHALL be present.</p>
-   <p>The CleanApertureBox <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑨">clap</a> SHOULD not be present.</p>
-   <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①①">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
-   <p class="note" role="note"><span>NOTE:</span> The MasteringDisplayColourVolumeBox <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①②">mdcv</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①③">clli</a> have identical syntax to the SMPTE2086MasteringDisplayMetadataBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①④">SmDm</a> and ContentLightLevelBox <a class="property" data-link-type="propdesc" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①⑤">CoLL</a>, except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and should not be confused.</p>
+   <p>The sample entry SHOULD contain a <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑤">colr</a> box with a colour_type set to <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑥">nclx</a>. If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②③">Sequence Header OBU</a> (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1. Similarly, the full_range_flag in the <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑦">colr</a> box shall match the color_range flag in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②④">Sequence Header OBU</a>. When configOBUs does not contain a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41②⑤">Sequence Header OBU</a>, this box with colour_type set to <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑧">nclx</a> SHALL be present.</p>
+   <p>The CleanApertureBox <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-⑨">clap</a> SHOULD not be present.</p>
+   <p>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⓪">mdcv</a> and ContentLightLevelBox <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①①">clli</a> SHOULD be present, and their values SHALL match the values of contained in the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①">Metadata OBUs</a> of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).</p>
+   <p class="note" role="note"><span>NOTE:</span> The MasteringDisplayColourVolumeBox <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①②">mdcv</a> and ContentLightLevelBox <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①③">clli</a> have identical syntax to the SMPTE2086MasteringDisplayMetadataBox <a class="property css" data-link-type="property" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①④">SmDm</a> and ContentLightLevelBox <a class="property css" data-link-type="property" href="https://www.webmproject.org/vp9/mp4/#" id="termref-for-①⑤">CoLL</a>, except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and should not be confused.</p>
    <p>Additional boxes may be provided at the end of the <a data-link-type="dfn" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⑥">VisualSampleEntry</a> as permitted by ISOBMFF, that may represent redundant or similar information to the one provided in some OBUs contained in the <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox⑤">AV1CodecConfigurationBox</a>. If the box definition does not indicate that its information overrides the OBU information, in case of conflict, the OBU information should be considered authoritative.</p>
    <h3 class="heading settled" data-level="2.4" id="sampleformat"><span class="secno">2.4. </span><span class="content">AV1 Sample Format</span><a class="self-link" href="#sampleformat"></a></h3>
    <p>For tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry②">AV1SampleEntry</a>, an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1-sample">AV1 Sample</dfn> has the following constraints:</p>
@@ -2219,8 +2224,8 @@ But if the frames were grouped as follows:
    <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑦">Intra-only frames</a> SHOULD be signaled using the sample_depends_on flag set to 2.</p>
    <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206⑦">Delayed Random Access Points</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1forwardkeyframesamplegroupentry" id="ref-for-av1forwardkeyframesamplegroupentry①">AV1ForwardKeyFrameSampleGroupEntry</a>.</p>
    <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑧">Switch Frames</a> SHOULD be signaled using sample groups and the <a data-link-type="dfn" href="#av1switchframesamplegroupentry" id="ref-for-av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</a>.</p>
-   <p>Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑨">Switch Frames</a>, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⑦">bitr</a>).</p>
-   <p>In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property" data-link-type="propdesc" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⑧">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
+   <p>Additionally, if a file contains multiple tracks that are alternative representations of the same content, in particular using <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13⑨">Switch Frames</a>, those tracks SHOULD be marked as belonging to the same alternate group and should use a track selection box with an appropriate attribute (e.g. <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⑦">bitr</a>).</p>
+   <p>In tracks using the <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry③">AV1SampleEntry</a>, the <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-①⑧">ctts</a> box and composition offsets in movie fragments SHALL NOT be used. Similarly, the is_leading flag, if used, SHALL be set to 0 or 2.</p>
    <p>When a temporal unit contains more than one frame, the sample corresponding to that temporal unit MAY be marked using the <a data-link-type="dfn" href="#av1multiframesamplegroupentry" id="ref-for-av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</a>.</p>
    <p><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46④">Metadata OBUs</a> may be carried in sample data. In this case, the <a data-link-type="dfn" href="#av1metadatasamplegroupentry" id="ref-for-av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</a> SHOULD be used. If the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑤">metadata OBUs</a> are static for the entire set of samples associated with a given sample description entry, they SHOULD also be in the OBU array in the sample description entry.</p>
    <p>Unless explicitely stated, the grouping_type_parameter is not defined for the SampleToGroupBox with grouping types defined in this specification.</p>
@@ -2383,7 +2388,7 @@ Quantity:   Zero or more.
     <figcaption>Subsample-based AV1 encryption.</figcaption>
    </figure>
    <h2 class="heading settled" data-level="5" id="codecsparam"><span class="secno">5. </span><span class="content">Codecs Parameter String</span><a class="self-link" href="#codecsparam"></a></h2>
-   <p>DASH and other applications require defined values for the <a class="property" data-link-type="propdesc" href="https://tools.ietf.org/html/rfc6381#" id="termref-for-③⑦">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
+   <p>DASH and other applications require defined values for the <a class="property css" data-link-type="property" href="https://tools.ietf.org/html/rfc6381#" id="termref-for-③⑦">Codecs</a> parameter specified in <a data-link-type="biblio" href="#biblio-rfc6381">[RFC6381]</a> for ISO Media tracks. The codecs parameter string for the AOM AV1 codec is as follows:</p>
 <pre>&lt;sample entry 4CC>.&lt;profile>.&lt;level>&lt;tier>.&lt;bitDepth>.&lt;monochrome>.&lt;chromaSubsampling>.
 &lt;colorPrimaries>.&lt;transferCharacteristics>.&lt;matrixCoefficients>.&lt;videoFullRangeFlag>
 </pre>
