@@ -216,7 +216,10 @@ class AV1SampleEntry extends VisualSampleEntry('av01') {
 
 The <dfn noexport>width</dfn> and <dfn noexport>height</dfn> fields of the [=VisualSampleEntry=] SHALL equal the values of [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 of the [=Sequence Header OBU=] applying to the samples associated with this sample entry.
 
-The width and height in the TrackHeaderBox SHOULD equal, respectively, the maximum RenderWidth, called MaxRenderWidth, and the maximum RenderHeight, called MaxRenderHeight, of all the frames associated with this sample entry. Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that
+Let MaxRenderWidth be the maximum RenderWidth and MaxRenderHeight be the maximum RenderHeight of all the frames in the track.
+The width and height in the TrackHeaderBox SHOULD be equal to MaxRenderWidth and MaxRenderHeight, respectively.
+Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that:
+
 ```
 hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
                               ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
@@ -278,7 +281,7 @@ aligned (8) class AV1CodecConfigurationRecord {
     unsigned int (4) reserved = 0;
   }
 
-  unsigned int (8)[] configOBUs;
+  unsigned int (8) configOBUs[];
 }
 ```
 
@@ -357,7 +360,7 @@ The sample entry SHOULD contain a 'colr' box with a colour_type set to 'nclx'. I
 
 The CleanApertureBox 'clap' SHOULD not be present.
 
-For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present, and their values SHALL match the values of contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).
+For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present, and their values SHALL match the values contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples).
 
 NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical syntax to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and should not be confused.
 
@@ -557,7 +560,7 @@ Within protected samples, the following constraints apply:
 
 - All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected.
 - [=Temporal Delimiter OBUs=], [=Sequence Header OBUs=], and [=Frame Header OBUs=] (including within a [=Frame OBU=]), [=Redundant Frame Header OBUs=] and [=Padding OBUs=] SHALL be unprotected.
-- [=Metadata OBUs=] MAY be protected.
+- [=Metadata OBUs=] SHALL NOT be protected.
 - [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be protected. Within [=Tile Group OBUs=] or [=Frame OBUs=], the following applies:
 	- for the protected scheme <code>[=cbcs=]</code>:
 		- [=BytesOfProtectedData=] SHALL start on the first byte and end on the last byte of the <code>decode_tile</code> structure (including any trailing bits).
