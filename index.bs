@@ -644,8 +644,5 @@ The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile,
 
 If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.
 
-Changes since v1.1.0 release {#changelist}
+Changes since v1.2.0 release {#changelist}
 ==========================================
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/116"> Change tile/subsample alignement for the <code>cbcs</code> protection scheme.</a>
-
-
