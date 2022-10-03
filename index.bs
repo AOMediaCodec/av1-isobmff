@@ -10,6 +10,7 @@ Date: 2021-11-15
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
 !Previously approved version: <a href="v1.2.0.html">v1.2.0</a>
+Markup Shorthands: css no
 </pre>
 
 <pre class="anchors">
