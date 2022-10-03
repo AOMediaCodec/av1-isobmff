@@ -646,3 +646,4 @@ If any character that is not '.', digits, part of the AV1 4CC, or a tier value i
 
 Changes since v1.2.0 release {#changelist}
 ==========================================
+<a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a>
