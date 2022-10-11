@@ -624,13 +624,13 @@ For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 Main Profile
 <td>chromaSubsampling</td><td>110 (4:2:0)</td>
 </tr>
 <tr>
-<td>colorPrimaries</td><td>1 (ITU-R BT.709)</td>
+<td>colorPrimaries</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
-<td>transferCharacteristics</td><td>1 (ITU-R BT.709)</td>
+<td>transferCharacteristics</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
-<td>matrixCoefficients</td><td>1 (ITU-R BT.709)</td>
+<td>matrixCoefficients</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
 <td>videoFullRangeFlag</td><td>0 (studio swing representation)</td>
