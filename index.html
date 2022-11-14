@@ -1487,9 +1487,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
+  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="12a27a73187537d87f5cbaa14a2280438e853f7b" name="document-revision">
+  <meta content="65d4b7d684478cf948b0318075da61f3bfd8223f" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1777,6 +1777,14 @@ a.self-link:hover {
 }
 .heading > a.self-link {
     font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
 }
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
@@ -2381,7 +2389,10 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <p>The string codecs="av01.0.01M.08" in this case would represent AV1 Main Profile, level 2.1, Main tier, 8-bit content with 4:2:0 chroma subsampling, ITU-R BT.709 color primaries, transfer characteristics, matrix coefficients, and studio swing representation.</p>
    <p>If any character that is not '.', digits, part of the AV1 4CC, or a tier value is encountered, the string SHALL be interpreted ignoring all the characters starting from that character.</p>
    <h2 class="heading settled" data-level="6" id="changelist"><span class="secno">6. </span><span class="content">Changes since v1.2.0 release</span><a class="self-link" href="#changelist"></a></h2>
-    <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove <a class="property css" data-link-type="property">clap</a> restriction.</a> 
+   <ul>
+    <li data-md>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove <a class="property css" data-link-type="property">clap</a> restriction.</a></p>
+   </ul>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
