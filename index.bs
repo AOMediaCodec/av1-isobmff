@@ -18,7 +18,6 @@ url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 
 url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
-	text: clap
 	text: clli
 	text: colr
 	text: ctts
@@ -358,8 +357,6 @@ The presentation times of AV1 samples are given by the ISOBMFF structures. <asse
 
 <assert>The sample entry SHOULD contain a 'colr' box with a colour_type set to 'nclx'</assert>. <assert>If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1</assert>. Similarly, <assert>the full_range_flag in the 'colr' box SHALL match the color_range flag in the [=Sequence Header OBU=]</assert>. <assert>When configOBUs does not contain a [=Sequence Header OBU=], this box with colour_type set to 'nclx' SHALL be present.</assert>
 
-<assert>The CleanApertureBox 'clap' SHOULD not be present.</assert>
-
 <assert>For sample entries corresponding to HDR content, the MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' SHOULD be present</assert>, and <assert>their values SHALL match the values contained in the [=Metadata OBUs=] of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in the configOBUs or in the samples)</assert>.
 
 NOTE: The MasteringDisplayColourVolumeBox 'mdcv' and ContentLightLevelBox 'clli' have identical syntax to the SMPTE2086MasteringDisplayMetadataBox 'SmDm' and ContentLightLevelBox 'CoLL', except that they are of type <code>Box</code> and not <code>FullBox</code>. However, the semantics of the MasteringDisplayColourVolumeBox and SMPTE2086MasteringDisplayMetadataBox have important differences and SHOULD not be confused.
@@ -627,13 +624,13 @@ For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 Main Profile
 <td>chromaSubsampling</td><td>110 (4:2:0)</td>
 </tr>
 <tr>
-<td>colorPrimaries</td><td>1 (ITU-R BT.709)</td>
+<td>colorPrimaries</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
-<td>transferCharacteristics</td><td>1 (ITU-R BT.709)</td>
+<td>transferCharacteristics</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
-<td>matrixCoefficients</td><td>1 (ITU-R BT.709)</td>
+<td>matrixCoefficients</td><td>01 (ITU-R BT.709)</td>
 </tr>
 <tr>
 <td>videoFullRangeFlag</td><td>0 (studio swing representation)</td>
@@ -646,4 +643,6 @@ If any character that is not '.', digits, part of the AV1 4CC, or a tier value i
 
 Changes since v1.2.0 release {#changelist}
 ==========================================
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove 'clap' restriction.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a>
