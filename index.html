@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="2624a8b770629c16b163dc3140f53a7d3431b325" name="document-revision">
+  <meta content="acf8095210db67b155abbdc1941e046d30cb2321" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2317,7 +2317,7 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
     <li data-md>
      <span id="assert-d84cddee">Protected samples SHALL be exactly spanned by one or more contiguous subsamples</span>. 
      <ul>
-      <li data-md><span id="assert-38a31899">An OBU MAY be spanned by one or more subsamples</span>, especially when it has multiple ranges of protected data. However, as recommended in <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, writers SHOULD reduce the number of subsamples as possible. This can be achieved by using a subsample that spans multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists. 
+      <li data-md><span id="assert-38a31899">An OBU MAY be spanned by one or more subsamples</span>, especially when it has multiple ranges of protected data. However, as recommended in <a data-link-type="biblio" href="#biblio-cenc">[CENC]</a>, subsample encryption entries SHOULD be as compactly represented as possible. For example, only one subsample encryption entry should be created for multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists. 
       <li data-md><span id="assert-02d6b0e9">A large unprotected OBU whose data size is larger than the maximum size of a single <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②④">BytesOfClearData</a> field MAY be spanned by multiple subsamples with zero size <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="termref-for-②⑤">BytesOfProtectedData</a></span>. 
      </ul>
     <li data-md><span id="assert-b8cabcad">All <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=40" id="ref-for-page=40①">OBU Headers</a> and associated <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2②⑥">obu_size</a> fields SHALL be unprotected</span>. 
@@ -2394,6 +2394,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove <a class="property css" data-link-type="property">clap</a> restriction.</a></p>
+    <li data-md>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
