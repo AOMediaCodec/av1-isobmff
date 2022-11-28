@@ -555,7 +555,7 @@ General Subsample Encryption constraints {#subsample-encryption}
 
 Within protected samples, the following constraints apply:
 - <assert>Protected samples SHALL be exactly spanned by one or more contiguous subsamples</assert>.
-	- <assert>An OBU MAY be spanned by one or more subsamples</assert>, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], subsample encryption entries SHOULD be as compactly represented as possible. For example, only one subsample entry should be created for multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
+	- <assert>An OBU MAY be spanned by one or more subsamples</assert>, especially when it has multiple ranges of protected data. However, as recommended in [[!CENC]], subsample encryption entries SHOULD be as compactly represented as possible. For example, only one subsample encryption entry should be created for multiple consecutive unprotected OBUs as well as the first unprotected and protected parts of the following protected OBU, if such protected OBU exists.
 	- <assert>A large unprotected OBU whose data size is larger than the maximum size of a single [=BytesOfClearData=] field MAY be spanned by multiple subsamples with zero size [=BytesOfProtectedData=]</assert>.
 
 - <assert>All [=OBU Headers=] and associated [=obu_size=] fields SHALL be unprotected</assert>.
