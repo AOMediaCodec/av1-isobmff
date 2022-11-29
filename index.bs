@@ -646,3 +646,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove 'clap' restriction.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
