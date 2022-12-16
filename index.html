@@ -1489,7 +1489,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="0a5f03a2a53018d6ef3db994bbfacb015fb0786f" name="document-revision">
+  <meta content="e676515e19b86e220f5c84745378aa747ad60b97" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2070,7 +2070,7 @@ dfn > a.self-link::before      { content: "#"; }
    <ul>
     <li data-md><span id="assert-3d78af2f">It SHALL conform to the normative requirements of <a data-link-type="biblio" href="#biblio-isobmff" title="Information technology — Coding of audio-visual objects — Part 12: ISO Base Media File Format">[ISOBMFF]</a></span> 
     <li data-md><span id="assert-03258f22">It SHALL have the <dfn class="css" data-dfn-for="ISOBMFF Brand" data-dfn-type="value" data-export id="valdef-isobmff-brand-av01">av01<a class="self-link" href="#valdef-isobmff-brand-av01"></a></dfn> brand among the compatible brands array of the FileTypeBox</span> 
-    <li data-md><span id="assert-bd1c6212">It SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a>, possibly transformed by encryption as specified in <a href="#CommonEncryption">§ 4 Common Encryption</a></span> 
+    <li data-md><span id="assert-0f24a9ee">It SHALL contain at least one track using an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry">AV1SampleEntry</a></span> 
     <li data-md><span id="assert-5e63f779">It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="termref-for-">iso6</a></span> 
     <li data-md><span id="assert-c652c075">It MAY indicate CMAF brands as specified in <a href="#cmaf">§ 3 CMAF AV1 track format</a></span> 
     <li data-md><span id="assert-384c2374">It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</span> 
@@ -2285,7 +2285,7 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <p><a data-link-type="biblio" href="#biblio-cmaf" title="Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media">[CMAF]</a> defines structural constraints on ISOBMFF files additional to <a data-link-type="biblio" href="#biblio-isobmff" title="Information technology — Coding of audio-visual objects — Part 12: ISO Base Media File Format">[ISOBMFF]</a> for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code><a data-link-type="dfn" href="https://www.iso.org/standard/71975.html#" id="termref-for-①⑧">cmfc</a></code> in the <code>FileTypeBox</code>.</p>
    <p>If a <a data-link-type="dfn" href="https://www.iso.org/standard/71975.html#" id="termref-for-①⑨">CMAF Video Track</a> uses the brand <code>av01</code>, it is called a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="cmaf-av1-track">CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:</p>
    <ul>
-    <li data-md><span id="assert-ffcf1af0">it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry④">AV1SampleEntry</a>, possibly transformed by encryption as specified in <a href="#CommonEncryption">§ 4 Common Encryption</a></span> 
+    <li data-md><span id="assert-f261aa51">it SHALL use an <a data-link-type="dfn" href="#av1sampleentry" id="ref-for-av1sampleentry④">AV1SampleEntry</a></span> 
     <li data-md>
      <span id="assert-aec6597a">it MAY use multiple sample entries, and in that case the following values SHALL not change in the track</span>: 
      <ul>
@@ -2396,8 +2396,6 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove <a class="property css" data-link-type="property">clap</a> restriction.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a></p>
-    <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
