@@ -180,7 +180,7 @@ General Requirements & Brands {#brands}
 A file conformant to this specification satisfies the following:
 - <assert>It SHALL conform to the normative requirements of [[!ISOBMFF]]</assert>
 - <assert>It SHALL have the <dfn value export for="ISOBMFF Brand">av01</dfn> brand among the compatible brands array of the FileTypeBox</assert>
-- <assert>It SHALL contain at least one track using an [=AV1SampleEntry=]</assert>
+- <assert>It SHALL contain at least one track using an [=AV1SampleEntry=], possibly transformed by encryption as specified in [[#CommonEncryption]]</assert>
 - <assert>It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as 'iso6'</assert>
 - <assert>It MAY indicate CMAF brands as specified in [[#cmaf]]</assert>
 - <assert>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</assert>
@@ -527,7 +527,7 @@ CMAF AV1 track format {#cmaf}
 [[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
 
 If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:
-- <assert>it SHALL use an [=AV1SampleEntry=]</assert>
+- <assert>it SHALL use an [=AV1SampleEntry=], possibly transformed by encryption as specified in [[#CommonEncryption]]</assert>
 - <assert>it MAY use multiple sample entries, and in that case the following values SHALL not change in the track</assert>:
     - <code>seq_profile</code>
     - <code>still_picture</code>
@@ -651,3 +651,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove 'clap' restriction.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the 'mdcv' box.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
