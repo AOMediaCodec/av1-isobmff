@@ -355,7 +355,12 @@ OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Ove
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. <assert>The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0</assert>. <assert>If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</assert>
 
-<assert>The sample entry SHOULD contain a 'colr' box with a colour_type set to 'nclx'</assert>. <assert>If present, the values of colour_primaries, transfer_characteristics, and matrix_coefficients SHALL match the values given in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) if the color_description_present_flag is set to 1</assert>. Similarly, <assert>the full_range_flag in the 'colr' box SHALL match the color_range flag in the [=Sequence Header OBU=]</assert>. <assert>When configOBUs does not contain a [=Sequence Header OBU=], this box with colour_type set to 'nclx' SHALL be present.</assert>
+<assert>The sample entry SHOULD contain a 'colr' box with a colour_type set to 'nclx'</assert>. If a 'colr' box with a colour_type set to 'nclx' is present, the following applies:
+- <assert>If any of colour_primaries, transfer_characteristics, and matrix_coefficients is specified with a value other than 2 in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples), then the value of that field in the 'colr' box SHALL match the value in the [=Sequence Header OBU=].</assert>
+- <assert>If any of colour_primaries, transfer_characteristics, and matrix_coefficients is NOT specified or is specified with a value equal to 2 in the [=Sequence Header OBU=], then the value of that field in the 'colr' box MAY be different and the value in the 'colr' box overrides the value in the bitstream, as specified in the ColourInformationBox definition in ISOBMFF.</assert>
+- <assert>The value of full_range_flag in the 'colr' box SHALL match the color_range flag in the [=Sequence Header OBU=].</assert>
+
+<assert>When configOBUs does not contain a [=Sequence Header OBU=], a 'colr' box with a colour_type set to 'nclx' SHALL be present.</assert>
 
 For sample entries corresponding to HDR content, the following applies:
 - <assert>The ContentLightLevelBox 'clli' SHOULD be present</assert>. <assert>Its values SHALL equal the values contained in the [=Metadata OBU=] of type METADATA_TYPE_HDR_CLL, if present (in the configOBUs or in the samples)</assert>.
@@ -652,3 +657,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the 'mdcv' box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the 'colr' box.</a>
