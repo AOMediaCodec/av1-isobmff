@@ -9,6 +9,7 @@ Abstract: This document specifies the storage format for [[!AV1]] bitstreams in 
 Date: 2021-11-15
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
+Markup Shorthands: css no
 !Previously approved version: <a href="v1.2.0.html">v1.2.0</a>
 </pre>
 
