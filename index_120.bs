@@ -181,12 +181,12 @@ General Requirements & Brands {#brands}
 -----------------------------
 
 A file conformant to this specification satisfies the following:
-- It SHALL conform to the normative requirements of [[!ISOBMFF]]
-- It SHALL have the <dfn value export for="ISOBMFF Brand">av01</dfn> brand among the compatible brands array of the FileTypeBox
-- It SHALL contain at least one track using an [=AV1SampleEntry=]
-- It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as 'iso6'
-- It MAY indicate CMAF brands as specified in [[#cmaf]]
-- It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification
+- <assert>It SHALL conform to the normative requirements of [[!ISOBMFF]]</assert>
+- <assert>It SHALL have the <dfn value export for="ISOBMFF Brand">av01</dfn> brand among the compatible brands array of the FileTypeBox</assert>
+- <assert>It SHALL contain at least one track using an [=AV1SampleEntry=]</assert>
+- <assert>It SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as 'iso6'</assert>
+- <assert>It MAY indicate CMAF brands as specified in [[#cmaf]]</assert>
+- <assert>It MAY indicate other brands not specified in this document provided that the associated requirements do not conflict with those given in this specification</assert>
 
 Parsers SHALL support the structures required by the <code>'iso6'</code> brand and MAY support structures required by further ISOBMFF structural brands.
 
@@ -198,8 +198,8 @@ AV1 Sample Entry {#av1sampleentry-section}
 <pre class="def">
 	Sample Entry Type: <dfn value export for="AV1SampleEntry">av01</dfn>
 	Container:         Sample Description Box ('stsd')
-	Mandatory:         Yes
-	Quantity:          One or more.
+	Mandatory:         <assert>Yes</assert>
+	Quantity:          <assert>One or more.</assert>
 </pre>
 
 ### Description ### {#av1sampleentry-description}
