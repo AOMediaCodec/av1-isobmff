@@ -1238,14 +1238,15 @@ Possible extra rowspan handling
 			grid-column: 2;
 			width: auto;
 			margin-right: 1rem;
+			border-bottom: 3px solid transparent;
+			margin-bottom: -3px;
 		}
 		#toc .content:hover,
 		#toc .content:focus {
 			background: rgba(75%, 75%, 75%, .25);
 			background: var(--a-hover-bg);
-			border-bottom: 3px solid #054572;
-			border-bottom: 3px solid var(--toclink-underline);
-			margin-bottom: -3px;
+			border-bottom-color: #054572;
+			border-bottom-color: var(--toclink-underline);
 		}
 		#toc li li li .content {
 			margin-left: 1rem;
@@ -1487,10 +1488,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
+  <meta content="Bikeshed version 5edf5e459, updated Thu Jun 22 11:28:01 2023 -0700" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="e95f6e0041afe0e2b5a94c677ae688fda317628b" name="document-revision">
-<style>/* style-autolinks */
+  <meta content="2754170ae19f76122e5eb5525a96a87fc9196a39" name="document-revision">
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -1551,8 +1552,16 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
 </style>
-<style>/* style-colors */
+<style>/* Boilerplate: style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
@@ -1661,163 +1670,6 @@ pre .property::before, pre .property::after {
 
     --editedrec-bg: darkorange;
 }
-</style>
-<style>/* style-counters */
-body {
-    counter-reset: example figure issue;
-}
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}
-</style>
-<style>/* style-dfn-panel */
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
-}
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    width: 20em;
-    width: 300px;
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
-.dfn-panel li a {
-    white-space: pre;
-    display: inline-block;
-    max-width: calc(300px - 1.5em - 1em);
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled[role="button"] { cursor: pointer; }
-</style>
-<style>/* style-issues */
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}
-</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -1930,21 +1782,220 @@ dfn > a.self-link::before      { content: "#"; }
        which is quite common in practice... */
     img { background: white; }
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
 }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
 </style>
  <body class="h-entry">
   <div class="head">
@@ -2413,15 +2464,15 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a></p>
     <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove <a class="property css" data-link-type="property">clap</a> restriction.</a></p>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove clap restriction.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a></p>
     <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="ref-for-something④⑤">mdcv</a> box.</a></p>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the mdcv box.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a></p>
     <li data-md>
-     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the <a class="property css" data-link-type="property" href="https://www.iso.org/standard/68960.html#" id="ref-for-something④⑥">colr</a> box.</a></p>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
@@ -2713,7 +2764,7 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <dt id="biblio-rfc6381">[RFC6381]
    <dd>R. Gellens; D. Singer; P. Frojdh. <a href="https://www.rfc-editor.org/rfc/rfc6381"><cite>The 'Codecs' and 'Profiles' Parameters for "Bucket" Media Types</cite></a>. August 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6381">https://www.rfc-editor.org/rfc/rfc6381</a>
   </dl>
-<script>/* script-dfn-panel */
+<script>/* Boilerplate: script-dfn-panel */
 "use strict";
 {
     const dfnsJson = window.dfnsJson || {};
@@ -2866,7 +2917,160 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
     }
 }
 </script>
-<script>/* script-dfn-panel-json */
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
 window.dfnpanelData = {};
 window.dfnpanelData['0c2ca1d5'] = {"dfnID": "0c2ca1d5", "url": "https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=1", "dfnText": "av1 bitstream", "refSections": [{"refs": [{"id": "ref-for-page=1"}], "title": "1. Bitstream features overview"}, {"refs": [{"id": "ref-for-page=1\u2460"}], "title": "2. Basic Encapsulation Scheme"}], "external": true};
 window.dfnpanelData['37e9fb19'] = {"dfnID": "37e9fb19", "url": "https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2", "dfnText": "buffer_removal_time", "refSections": [{"refs": [{"id": "ref-for-page=2"}, {"id": "ref-for-page=2\u2460"}, {"id": "ref-for-page=2\u2461"}, {"id": "ref-for-page=2\u2462"}], "title": "1. Bitstream features overview"}, {"refs": [{"id": "ref-for-page=2\u2463"}, {"id": "ref-for-page=2\u2464"}, {"id": "ref-for-page=2\u2465"}, {"id": "ref-for-page=2\u2466"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-page=2\u2467"}, {"id": "ref-for-page=2\u2468"}, {"id": "ref-for-page=2\u2460\u24ea"}, {"id": "ref-for-page=2\u2460\u2460"}, {"id": "ref-for-page=2\u2460\u2461"}, {"id": "ref-for-page=2\u2460\u2462"}, {"id": "ref-for-page=2\u2460\u2463"}, {"id": "ref-for-page=2\u2460\u2464"}, {"id": "ref-for-page=2\u2460\u2465"}, {"id": "ref-for-page=2\u2460\u2466"}, {"id": "ref-for-page=2\u2460\u2467"}, {"id": "ref-for-page=2\u2460\u2468"}, {"id": "ref-for-page=2\u2461\u24ea"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-page=2\u2461\u2460"}, {"id": "ref-for-page=2\u2461\u2461"}, {"id": "ref-for-page=2\u2461\u2462"}, {"id": "ref-for-page=2\u2461\u2463"}, {"id": "ref-for-page=2\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-page=2\u2461\u2465"}], "title": "4.1. General Subsample Encryption constraints"}, {"refs": [{"id": "ref-for-page=2\u2461\u2466"}, {"id": "ref-for-page=2\u2461\u2467"}], "title": "5. Codecs Parameter String"}], "external": true};
@@ -2913,14 +3117,14 @@ window.dfnpanelData['aea95c63'] = {"dfnID": "aea95c63", "url": "https://www.iso.
 window.dfnpanelData['8d1f372c'] = {"dfnID": "8d1f372c", "url": "https://www.iso.org/standard/68042.html#", "dfnText": "cenc", "refSections": [{"refs": [{"id": "ref-for-something\u2461\u2467"}, {"id": "ref-for-something\u2461\u2468"}, {"id": "ref-for-something\u2462\u24ea"}, {"id": "ref-for-something\u2462\u2460"}], "title": "4. Common Encryption"}, {"refs": [{"id": "ref-for-something\u2462\u2461"}, {"id": "ref-for-something\u2462\u2462"}, {"id": "ref-for-something\u2462\u2463"}, {"id": "ref-for-something\u2462\u2464"}, {"id": "ref-for-something\u2462\u2465"}, {"id": "ref-for-something\u2462\u2466"}, {"id": "ref-for-something\u2462\u2467"}, {"id": "ref-for-something\u2462\u2468"}, {"id": "ref-for-something\u2463\u24ea"}, {"id": "ref-for-something\u2463\u2460"}, {"id": "ref-for-something\u2463\u2461"}, {"id": "ref-for-something\u2463\u2462"}], "title": "4.1. General Subsample Encryption constraints"}], "external": true};
 window.dfnpanelData['ce4f79c4'] = {"dfnID": "ce4f79c4", "url": "https://www.iso.org/standard/71975.html#", "dfnText": "cmaf video track", "refSections": [{"refs": [{"id": "ref-for-something\u2461\u2465"}, {"id": "ref-for-something\u2461\u2466"}], "title": "3. CMAF AV1 track format"}], "external": true};
 window.dfnpanelData['8e134714'] = {"dfnID": "8e134714", "url": "https://www.iso.org/standard/71975.html#", "dfnText": "cmfc", "refSections": [{"refs": [{"id": "ref-for-something\u2461\u2465"}, {"id": "ref-for-something\u2461\u2466"}], "title": "3. CMAF AV1 track format"}], "external": true};
-window.dfnpanelData['fe72a98d'] = {"dfnID": "fe72a98d", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "bitr", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['df22dcca'] = {"dfnID": "df22dcca", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "clli", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['addc5c57'] = {"dfnID": "addc5c57", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "colr", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['574e11bb'] = {"dfnID": "574e11bb", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "ctts", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['103b0ad5'] = {"dfnID": "103b0ad5", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "iso6", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['c2257a27'] = {"dfnID": "c2257a27", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "mdcv", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['80acadec'] = {"dfnID": "80acadec", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "nclx", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
-window.dfnpanelData['62954e09'] = {"dfnID": "62954e09", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "visualsampleentry", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}, {"refs": [{"id": "ref-for-something\u2463\u2464"}, {"id": "ref-for-something\u2463\u2465"}], "title": "6. Changes since v1.2.0 release"}], "external": true};
+window.dfnpanelData['fe72a98d'] = {"dfnID": "fe72a98d", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "bitr", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['df22dcca'] = {"dfnID": "df22dcca", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "clli", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['addc5c57'] = {"dfnID": "addc5c57", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "colr", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['574e11bb'] = {"dfnID": "574e11bb", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "ctts", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['103b0ad5'] = {"dfnID": "103b0ad5", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "iso6", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['c2257a27'] = {"dfnID": "c2257a27", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "mdcv", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['80acadec'] = {"dfnID": "80acadec", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "nclx", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
+window.dfnpanelData['62954e09'] = {"dfnID": "62954e09", "url": "https://www.iso.org/standard/68960.html#", "dfnText": "visualsampleentry", "refSections": [{"refs": [{"id": "ref-for-something"}, {"id": "ref-for-something\u2460"}], "title": "2.1. General Requirements & Brands"}, {"refs": [{"id": "ref-for-something\u2461"}, {"id": "ref-for-something\u2462"}, {"id": "ref-for-something\u2463"}], "title": "2.2.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2464"}, {"id": "ref-for-something\u2465"}, {"id": "ref-for-something\u2466"}, {"id": "ref-for-something\u2467"}, {"id": "ref-for-something\u2468"}, {"id": "ref-for-something\u2460\u24ea"}, {"id": "ref-for-something\u2460\u2460"}, {"id": "ref-for-something\u2460\u2461"}, {"id": "ref-for-something\u2460\u2462"}, {"id": "ref-for-something\u2460\u2463"}, {"id": "ref-for-something\u2460\u2464"}, {"id": "ref-for-something\u2460\u2465"}, {"id": "ref-for-something\u2460\u2466"}, {"id": "ref-for-something\u2460\u2467"}, {"id": "ref-for-something\u2461\u2460"}, {"id": "ref-for-something\u2461\u2461"}, {"id": "ref-for-something\u2461\u2462"}], "title": "2.3.4. Semantics"}, {"refs": [{"id": "ref-for-something\u2461\u2463"}, {"id": "ref-for-something\u2461\u2464"}], "title": "2.4. AV1 Sample Format"}], "external": true};
 window.dfnpanelData['05d9bbbb'] = {"dfnID": "05d9bbbb", "url": "https://tools.ietf.org/html/rfc6381#", "dfnText": "codecs", "refSections": [{"refs": [{"id": "ref-for-something\u2463\u2463"}], "title": "5. Codecs Parameter String"}], "external": true};
 window.dfnpanelData['259a7661'] = {"dfnID": "259a7661", "url": "https://www.webmproject.org/vp9/mp4/#", "dfnText": "coll", "refSections": [{"refs": [{"id": "ref-for-something\u2460\u2468"}, {"id": "ref-for-something\u2461\u24ea"}], "title": "2.3.4. Semantics"}], "external": true};
 window.dfnpanelData['fd8e2db3'] = {"dfnID": "fd8e2db3", "url": "https://www.webmproject.org/vp9/mp4/#", "dfnText": "smdm", "refSections": [{"refs": [{"id": "ref-for-something\u2460\u2468"}, {"id": "ref-for-something\u2461\u24ea"}], "title": "2.3.4. Semantics"}], "external": true};
@@ -2938,8 +3142,9 @@ window.dfnpanelData['av1multiframesamplegroupentry'] = {"dfnID": "av1multiframes
 window.dfnpanelData['av1s'] = {"dfnID": "av1s", "url": "#av1s", "dfnText": "av1s", "refSections": [{"refs": [{"id": "ref-for-av1s"}], "title": "2.4. AV1 Sample Format"}], "external": false};
 window.dfnpanelData['av1switchframesamplegroupentry'] = {"dfnID": "av1switchframesamplegroupentry", "url": "#av1switchframesamplegroupentry", "dfnText": "AV1SwitchFrameSampleGroupEntry", "refSections": [{"refs": [{"id": "ref-for-av1switchframesamplegroupentry"}], "title": "2.4. AV1 Sample Format"}], "external": false};
 window.dfnpanelData['av1metadatasamplegroupentry'] = {"dfnID": "av1metadatasamplegroupentry", "url": "#av1metadatasamplegroupentry", "dfnText": "AV1MetadataSampleGroupEntry", "refSections": [{"refs": [{"id": "ref-for-av1metadatasamplegroupentry"}], "title": "2.4. AV1 Sample Format"}], "external": false};
-window.dfnpanelData['cmaf-av1-track'] = {"dfnID": "cmaf-av1-track", "url": "#cmaf-av1-track", "dfnText": "CMAF AV1 Track", "refSections": [{"refs": [{"id": "ref-for-cmaf-av1-track"}], "title": "3. CMAF AV1 track format"}, {"refs": [{"id": "ref-for-cmaf-av1-track\u2460"}], "title": "4. Common Encryption"}], "external": false};</script>
-<script>/* script-dom-helper */
+window.dfnpanelData['cmaf-av1-track'] = {"dfnID": "cmaf-av1-track", "url": "#cmaf-av1-track", "dfnText": "CMAF AV1 Track", "refSections": [{"refs": [{"id": "ref-for-cmaf-av1-track"}], "title": "3. CMAF AV1 track format"}, {"refs": [{"id": "ref-for-cmaf-av1-track\u2460"}], "title": "4. Common Encryption"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
 function query(sel) { return document.querySelector(sel); }
 
 function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
@@ -3133,4 +3338,5 @@ function parseHTML(markup) {
 		el.innerHTML = markup;
 		return el.content;
 	}
-}</script>
+}
+</script>
