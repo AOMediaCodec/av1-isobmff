@@ -65,13 +65,13 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; t
 url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Metadata OBU
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=49; spec: AV1; type: dfn;
 	text: Redundant Frame Header OBU
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=121; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46; spec: AV1; type: dfn;
 	text: Padding OBU
 
-url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206; spec: AV1; type: dfn;
+url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=218; spec: AV1; type: dfn;
 	text: Random Access Point
 	text: Delayed Random Access Point
 	text: Key Frame Dependent Recovery Point
@@ -658,3 +658,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the mdcv box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/174">Correct the page numbers in links to the AV1 spec.</a>
