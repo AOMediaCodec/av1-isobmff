@@ -671,3 +671,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the mdcv box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
