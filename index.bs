@@ -638,8 +638,11 @@ All fields following the sample entry 4CC are expressed as double digit decimals
 The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values are set as follows:
 - <assert>If a 'colr' box with colour_type set to 'nclx' is present, the colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the values of matching fields in the 'colr' box</assert>.
 - Otherwise, a 'colr' box with colour_type set to 'nclx' is absent.
-    - <assert>If the color_description_present_flag is set to 1 in the [=Sequence Header OBU=], the colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHALL equal the values of matching fields in the [=Sequence Header OBU=] and the videoFullRangeFlag parameter value SHALL equal the color_range flag in the [=Sequence Header OBU=]</assert>.
-    - Otherwise, the color_description_present_flag is set to 0 in the [=Sequence Header OBU=]. <assert>The colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHOULD be set to the default values below and the videoFullRangeFlag parameter value SHALL equal the color_range flag in the [=Sequence Header OBU=]</assert>.
+    - <assert>The videoFullRangeFlag parameter value SHALL equal the color_range flag in the [=Sequence Header OBU=]</assert>.
+    - <assert>If the color_description_present_flag is set to 1 in the [=Sequence Header OBU=], the colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHALL equal the values of matching fields in the [=Sequence Header OBU=]</assert>.
+    - Otherwise, the color_description_present_flag is set to 0 in the [=Sequence Header OBU=]. <assert>The colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHOULD be set to the default values below</assert>.
+
+NOTE: It is encouraged that a 'colr' box be present. The 'colr' box simplifies the task of the codecs parameter generator.
 
 The videoFullRangeFlag is represented by a single digit.
 
