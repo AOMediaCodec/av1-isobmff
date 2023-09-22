@@ -89,6 +89,7 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=39; spec: AV1; ty
 url: https://www.iso.org/standard/71975.html#; spec: CMAF; type: dfn;
 	text: CMAF Video Track
 	text: cmfc
+	text: cmf2
 
 url: https://www.iso.org/standard/68042.html#; spec: CENC; type: dfn;
 	text: BytesOfProtectedData
@@ -542,7 +543,11 @@ For this sample group entry, the <code>grouping_type_parameter</code> syntax is 
 CMAF AV1 track format {#cmaf}
 =====================================================
 
-[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brand <code>[=cmfc=]</code> in the <code>FileTypeBox</code>.
+[[CMAF]] defines structural constraints on ISOBMFF files additional to [[ISOBMFF]] for the purpose of, for example, adaptive streaming or for protected files. Conformance to these structural constraints is signaled by the presence of the brands <code>[=cmfc=]</code> or <code>[=cmf2=]</code> in the <code>FileTypeBox</code>.
+
+NOTE: It is important to note that while the <code>[=cmf2=]</code> brand does not introduce any new requirements compared to the previously defined <code>[=cmfc=]</code> brand, it further restricts the <code>[=cmfc=]</code> constraints.
+
+For compatibility reasons, when the <code>[=cmf2=]</code> brand is used, the <code>[=cmfc=]</code> brand SHOULD also be included in the <code>FileTypeBox</code>.
 
 If a [=CMAF Video Track=] uses the brand <code>av01</code>, it is called a <dfn>CMAF AV1 Track</dfn> and the following constraints, defining the CMAF Media Profile for AV1, apply:
 - <assert>it SHALL use an [=AV1SampleEntry=], possibly transformed by encryption as specified in [[#CommonEncryption]]</assert>
@@ -668,7 +673,8 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/151">Update encryption diagram.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/152">Remove clap restriction.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/153">Clarify compactness and encryption.</a>
-- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the mdcv box.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156">Add a NOTE to clarify the mdcv box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
