@@ -205,8 +205,10 @@ The <dfn>AV1SampleEntry</dfn> sample entry identifies that the track contains [=
 
 ### Syntax ### {#av1sampleentry-syntax}
 
-```
-class AV1SampleEntry extends VisualSampleEntry('av01') {
+```cpp
+class AV1SampleEntry
+extends VisualSampleEntry('av01')
+{
   AV1CodecConfigurationBox config;
 }
 ```
@@ -219,9 +221,9 @@ Let MaxRenderWidth be the maximum RenderWidth and MaxRenderHeight be the maximum
 <assert>The width and height in the TrackHeaderBox SHOULD be equal to MaxRenderWidth and MaxRenderHeight, respectively.</assert>
 <assert>Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the [=max_frame_width_minus_1=] + 1 and [=max_frame_height_minus_1=] + 1 values of the [=Sequence Header OBU=], a PixelAspectRatioBox box SHALL be present in the sample entry and set such that</assert>:
 
-```
+```cpp
 hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
-                              ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
+                        ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
 ```
 
 The <dfn noexport>compressorname</dfn> field of the [=VisualSampleEntry=] is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). <assert>The value "\012AOM Coding" is RECOMMENDED</assert>; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.
@@ -254,33 +256,36 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 
 ### Syntax ### {#av1codecconfigurationbox-syntax}
 
-```
-class AV1CodecConfigurationBox extends Box('av1C'){
+```cpp
+class AV1CodecConfigurationBox
+extends Box('av1C')
+{
   AV1CodecConfigurationRecord av1Config;
 }
 
-aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (1) marker = 1;
-  unsigned int (7) version = 1;
-  unsigned int (3) seq_profile;
-  unsigned int (5) seq_level_idx_0;
-  unsigned int (1) seq_tier_0;
-  unsigned int (1) high_bitdepth;
-  unsigned int (1) twelve_bit;
-  unsigned int (1) monochrome;
-  unsigned int (1) chroma_subsampling_x;
-  unsigned int (1) chroma_subsampling_y;
-  unsigned int (2) chroma_sample_position;
-  unsigned int (3) reserved = 0;
+aligned(8) class AV1CodecConfigurationRecord
+{
+  unsigned int(1) marker = 1;
+  unsigned int(7) version = 1;
+  unsigned int(3) seq_profile;
+  unsigned int(5) seq_level_idx_0;
+  unsigned int(1) seq_tier_0;
+  unsigned int(1) high_bitdepth;
+  unsigned int(1) twelve_bit;
+  unsigned int(1) monochrome;
+  unsigned int(1) chroma_subsampling_x;
+  unsigned int(1) chroma_subsampling_y;
+  unsigned int(2) chroma_sample_position;
+  unsigned int(3) reserved = 0;
 
-  unsigned int (1) initial_presentation_delay_present;
-  if (initial_presentation_delay_present) {
-    unsigned int (4) initial_presentation_delay_minus_one;
+  unsigned int(1) initial_presentation_delay_present;
+  if(initial_presentation_delay_present) {
+    unsigned int(4) initial_presentation_delay_minus_one;
   } else {
-    unsigned int (4) reserved = 0;
+    unsigned int(4) reserved = 0;
   }
 
-  unsigned int (8) configOBUs[];
+  unsigned int(8) configOBUs[];
 }
 ```
 
@@ -428,8 +433,10 @@ The <dfn>AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain
 
 ### Syntax ### {#forwardkeyframesamplegroupentry-syntax}
 
-```
-class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') {
+```cpp
+class AV1ForwardKeyFrameSampleGroupEntry
+extends VisualSampleGroupEntry('av1f')
+{
   unsigned int(8) fwd_distance;
 }
 ```
@@ -458,8 +465,10 @@ The <dfn>AV1MultiFrameSampleGroupEntry</dfn> documents samples that contain mult
 
 ### Syntax ### {#multiframesamplegroupentry-syntax}
 
-```
-class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
+```cpp
+class AV1MultiFrameSampleGroupEntry
+extends VisualSampleGroupEntry('av1m')
+{
 }
 ```
 
@@ -482,8 +491,10 @@ The <dfn>AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with 
 
 ### Syntax ### {#switchframesamplegroupentry-syntax}
 
-```
-class AV1SwitchFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
+```cpp
+class AV1SwitchFrameSampleGroupEntry
+extends VisualSampleGroupEntry('av1s')
+{
 }
 ```
 
@@ -506,14 +517,16 @@ The <dfn>AV1MetadataSampleGroupEntry</dfn> documents samples that contain [=meta
 
 ### Syntax ### {#metadatasamplegroupentry-syntax}
 
-```
-class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
+```cpp
+class AV1MetadataSampleGroupEntry
+extends VisualSampleGroupEntry('av1M')
+{
 }
 ```
 
 For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:
 
-```
+```cpp
 {
    unsigned int (8) metadata_type;
    unsigned int (24) metadata_specific_parameters;
@@ -658,3 +671,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/156"> Add a NOTE to clarify the mdcv box.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
