@@ -1488,9 +1488,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 5edf5e459, updated Thu Jun 22 11:28:01 2023 -0700" name="generator">
+  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="2754170ae19f76122e5eb5525a96a87fc9196a39" name="document-revision">
+  <meta content="9c6db67058e2c5788637aad1832ab472240f9069" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -1997,6 +1997,129 @@ a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.aomedia.org/" style="width: 200px"> <img alt="AOM" height="60" src="https://aomedia.org/assets/images/aomedia-logo-rgb.svg" width="200"> </a> </p>
@@ -2145,16 +2268,18 @@ Quantity:          <span id="assert-17ecb535">One or more.</span>
    <h4 class="heading settled" data-level="2.2.2" id="av1sampleentry-description"><span class="secno">2.2.2. </span><span class="content">Description</span><a class="self-link" href="#av1sampleentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1sampleentry">AV1SampleEntry</dfn> sample entry identifies that the track contains <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample">AV1 Samples</a>, and uses an <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox">AV1CodecConfigurationBox</a>.</p>
    <h4 class="heading settled" data-level="2.2.3" id="av1sampleentry-syntax"><span class="secno">2.2.3. </span><span class="content">Syntax</span><a class="self-link" href="#av1sampleentry-syntax"></a></h4>
-<pre>class AV1SampleEntry extends VisualSampleEntry('av01') {
-  AV1CodecConfigurationBox config;
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1SampleEntry</c->
+<c- n>extends</c-> <c- n>VisualSampleEntry</c-><c- p>(</c->'<c- n>av01</c->'<c- p>)</c->
+<c- p>{</c->
+  <c- n>AV1CodecConfigurationBox</c-> <c- n>config</c-><c- p>;</c->
+<c- p>}</c->
 </pre>
    <h4 class="heading settled" data-level="2.2.4" id="av1sampleentry-semantics"><span class="secno">2.2.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1sampleentry-semantics"></a></h4>
     <span id="assert-4708372f">The <dfn data-dfn-type="dfn" data-noexport id="width">width<a class="self-link" href="#width"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport id="height">height<a class="self-link" href="#height"></a></dfn> fields of the <a data-link-type="dfn" href="https://www.iso.org/standard/68960.html#" id="ref-for-something②">VisualSampleEntry</a> SHALL equal the values of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2④">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑤">max_frame_height_minus_1</a> + 1 of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41">Sequence Header OBU</a> applying to the samples associated with this sample entry.</span> 
    <p>Let MaxRenderWidth be the maximum RenderWidth and MaxRenderHeight be the maximum RenderHeight of all the frames in the track.</p>
     <span id="assert-b8425a84">The width and height in the TrackHeaderBox SHOULD be equal to MaxRenderWidth and MaxRenderHeight, respectively.</span> <span id="assert-54ae6192">Additionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑥">max_frame_width_minus_1</a> + 1 and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2⑦">max_frame_height_minus_1</a> + 1 values of the <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=41" id="ref-for-page=41①">Sequence Header OBU</a>, a PixelAspectRatioBox box SHALL be present in the sample entry and set such that</span>: 
-<pre>hSpacing / vSpacing = MaxRenderWidth * (max_frame_height_minus_1 + 1) /
-                              ((max_frame_width_minus_1 + 1) * MaxRenderHeight)
+<pre class="language-cpp highlight"><c- n>hSpacing</c-> <c- o>/</c-> <c- n>vSpacing</c-> <c- o>=</c-> <c- n>MaxRenderWidth</c-> <c- o>*</c-> <c- p>(</c-><c- n>max_frame_height_minus_1</c-> <c- o>+</c-> <c- mi>1</c-><c- p>)</c-> <c- o>/</c->
+                        <c- p>((</c-><c- n>max_frame_width_minus_1</c-> <c- o>+</c-> <c- mi>1</c-><c- p>)</c-> <c- o>*</c-> <c- n>MaxRenderHeight</c-><c- p>)</c->
 </pre>
    <p>The <dfn data-dfn-type="dfn" data-noexport id="compressorname">compressorname<a class="self-link" href="#compressorname"></a></dfn> field of the <a data-link-type="dfn" href="https://www.iso.org/standard/68960.html#" id="ref-for-something③">VisualSampleEntry</a> is an informative name. It is formatted in a fixed 32-byte field, with the first byte set to the number of bytes to be displayed, followed by that number of bytes of displayable data, followed by padding to complete 32 bytes total (including the size byte). <span id="assert-da9cc152">The value "\012AOM Coding" is RECOMMENDED</span>; the first byte is a count of the remaining bytes, here represented by \012, which (being octal 12) is decimal 10, the number of bytes in the rest of the string.</p>
    <p class="note" role="note"><span class="marker">NOTE:</span> Parsers may ignore the value of the compressorname field. It is specified in this document simply for legacy and backwards compatibility reasons.</p>
@@ -2171,33 +2296,36 @@ Quantity:  <span id="assert-29c02c41">Exactly One</span>
    <h4 class="heading settled" data-level="2.3.2" id="av1codecconfigurationbox-description"><span class="secno">2.3.2. </span><span class="content">Description</span><a class="self-link" href="#av1codecconfigurationbox-description"></a></h4>
     <span id="assert-f875c695">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains decoder configuration information that SHALL be valid for every sample that references the sample entry.</span> 
    <h4 class="heading settled" data-level="2.3.3" id="av1codecconfigurationbox-syntax"><span class="secno">2.3.3. </span><span class="content">Syntax</span><a class="self-link" href="#av1codecconfigurationbox-syntax"></a></h4>
-<pre>class AV1CodecConfigurationBox extends Box('av1C'){
-  AV1CodecConfigurationRecord av1Config;
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1CodecConfigurationBox</c->
+<c- n>extends</c-> <c- n>Box</c-><c- p>(</c->'<c- n>av1C</c->'<c- p>)</c->
+<c- p>{</c->
+  <c- n>AV1CodecConfigurationRecord</c-> <c- n>av1Config</c-><c- p>;</c->
+<c- p>}</c->
 
-aligned (8) class AV1CodecConfigurationRecord {
-  unsigned int (1) marker = 1;
-  unsigned int (7) version = 1;
-  unsigned int (3) seq_profile;
-  unsigned int (5) seq_level_idx_0;
-  unsigned int (1) seq_tier_0;
-  unsigned int (1) high_bitdepth;
-  unsigned int (1) twelve_bit;
-  unsigned int (1) monochrome;
-  unsigned int (1) chroma_subsampling_x;
-  unsigned int (1) chroma_subsampling_y;
-  unsigned int (2) chroma_sample_position;
-  unsigned int (3) reserved = 0;
+<c- n>aligned</c-><c- p>(</c-><c- mi>8</c-><c- p>)</c-> <c- k>class</c-> <c- nc>AV1CodecConfigurationRecord</c->
+<c- p>{</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>marker</c-> <c- o>=</c-> <c- mi>1</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>7</c-><c- p>)</c-> <c- n>version</c-> <c- o>=</c-> <c- mi>1</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>3</c-><c- p>)</c-> <c- n>seq_profile</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>5</c-><c- p>)</c-> <c- n>seq_level_idx_0</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>seq_tier_0</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>high_bitdepth</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>twelve_bit</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>monochrome</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>chroma_subsampling_x</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>chroma_subsampling_y</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>2</c-><c- p>)</c-> <c- n>chroma_sample_position</c-><c- p>;</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>3</c-><c- p>)</c-> <c- n>reserved</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
 
-  unsigned int (1) initial_presentation_delay_present;
-  if (initial_presentation_delay_present) {
-    unsigned int (4) initial_presentation_delay_minus_one;
-  } else {
-    unsigned int (4) reserved = 0;
-  }
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>1</c-><c- p>)</c-> <c- n>initial_presentation_delay_present</c-><c- p>;</c->
+  <c- k>if</c-><c- p>(</c-><c- n>initial_presentation_delay_present</c-><c- p>)</c-> <c- p>{</c->
+    <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>4</c-><c- p>)</c-> <c- n>initial_presentation_delay_minus_one</c-><c- p>;</c->
+  <c- p>}</c-> <c- k>else</c-> <c- p>{</c->
+    <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>4</c-><c- p>)</c-> <c- n>reserved</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
+  <c- p>}</c->
 
-  unsigned int (8) configOBUs[];
-}
+  <c- b>unsigned</c-> <c- b>int</c-><c- p>(</c-><c- mi>8</c-><c- p>)</c-> <c- n>configOBUs</c-><c- p>[];</c->
+<c- p>}</c->
 </pre>
    <h4 class="heading settled" data-level="2.3.4" id="av1codecconfigurationbox-semantics"><span class="secno">2.3.4. </span><span class="content">Semantics</span><a class="self-link" href="#av1codecconfigurationbox-semantics"></a></h4>
     <span id="assert-52768b11">The <dfn data-dfn-type="dfn" data-export id="marker">marker<a class="self-link" href="#marker"></a></dfn> field SHALL be set to 1.</span> 
@@ -2229,14 +2357,14 @@ aligned (8) class AV1CodecConfigurationRecord {
     <a class="self-link" href="#example-27bde372"></a> The difference between <a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one①">initial_presentation_delay_minus_one</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①④">initial_display_delay_minus_1</a> can be illustrated by considering the following example: 
 <pre>a b c d e f g h
 </pre>
-    where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows: 
+    <p>where letters correspond to frames. Assume that <code><a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2" id="ref-for-page=2①⑤">initial_display_delay_minus_1</a></code> is 2, i.e. that once frame <code>c</code> has been decoded, all other frames in the bitstream can be presented on time. If those frames were grouped into temporal units and samples as follows:</p>
 <pre>[a] [b c d] [e] [f] [g] [h]
 </pre>
-    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
-But if the frames were grouped as follows: 
+    <p><code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one②">initial_presentation_delay_minus_one</a></code> would be 1 because it takes presentation of 2 samples to ensure that <code>c</code> is decoded.
+But if the frames were grouped as follows:</p>
 <pre>[a] [b] [c] [d e f] [g] [h]
 </pre>
-    <code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded. 
+    <p><code><a data-link-type="dfn" href="#initial_presentation_delay_minus_one" id="ref-for-initial_presentation_delay_minus_one③">initial_presentation_delay_minus_one</a></code> would be 2 because it takes presentation of 3 samples to ensure that <code>c</code> is decoded.</p>
    </div>
     <span id="assert-8890b1aa">The <dfn data-dfn-type="dfn" data-export id="configobus">configOBUs<a class="self-link" href="#configobus"></a></dfn> field contains zero or more OBUs</span>. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams: 
    <ul>
@@ -2298,9 +2426,11 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.5.2" id="forwardkeyframesamplegroupentry-description"><span class="secno">2.5.2. </span><span class="content">Description</span><a class="self-link" href="#forwardkeyframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206⑧">Delayed Random Access Point</a> that are followed at a given distance in the bitstream by a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206⑨">Key Frame Dependent Recovery Point</a>.</p>
    <h4 class="heading settled" data-level="2.5.3" id="forwardkeyframesamplegroupentry-syntax"><span class="secno">2.5.3. </span><span class="content">Syntax</span><a class="self-link" href="#forwardkeyframesamplegroupentry-syntax"></a></h4>
-<pre>class AV1ForwardKeyFrameSampleGroupEntry extends VisualSampleGroupEntry('av1f') {
-  unsigned int(8) fwd_distance;
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1ForwardKeyFrameSampleGroupEntry</c->
+<c- n>extends</c-> <c- n>VisualSampleGroupEntry</c-><c- p>(</c->'<c- n>av1f</c->'<c- p>)</c->
+<c- p>{</c->
+  <c- b>unsigned</c-> <c- nf>int</c-><c- p>(</c-><c- mi>8</c-><c- p>)</c-> <c- n>fwd_distance</c-><c- p>;</c->
+<c- p>}</c->
 </pre>
    <h4 class="heading settled" data-level="2.5.4" id="forwardkeyframesamplegroupentry-semantics"><span class="secno">2.5.4. </span><span class="content">Semantics</span><a class="self-link" href="#forwardkeyframesamplegroupentry-semantics"></a></h4>
    <p>The <dfn data-dfn-type="dfn" data-export id="fwd_distance">fwd_distance<a class="self-link" href="#fwd_distance"></a></dfn> field indicates the number of samples between this sample and the next sample containing the associated <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=206" id="ref-for-page=206①⓪">Key Frame Dependent Recovery Point</a>. 0 means the next sample.</p>
@@ -2314,8 +2444,10 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.6.2" id="multiframesamplegroupentry-description"><span class="secno">2.6.2. </span><span class="content">Description</span><a class="self-link" href="#multiframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</dfn> documents samples that contain multiple frames.</p>
    <h4 class="heading settled" data-level="2.6.3" id="multiframesamplegroupentry-syntax"><span class="secno">2.6.3. </span><span class="content">Syntax</span><a class="self-link" href="#multiframesamplegroupentry-syntax"></a></h4>
-<pre>class AV1MultiFrameSampleGroupEntry extends VisualSampleGroupEntry('av1m') {
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1MultiFrameSampleGroupEntry</c->
+<c- n>extends</c-> <c- n>VisualSampleGroupEntry</c-><c- p>(</c->'<c- n>av1m</c->'<c- p>)</c->
+<c- p>{</c->
+<c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="2.7" id="switchframesamplegroupentry"><span class="secno">2.7. </span><span class="content">AV1 Switch Frame sample group entry</span><a class="self-link" href="#switchframesamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.7.1" id="switchframesamplegroupentry-definition"><span class="secno">2.7.1. </span><span class="content">Definition</span><a class="self-link" href="#switchframesamplegroupentry-definition"></a></h4>
@@ -2327,8 +2459,10 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.7.2" id="switchframesamplegroupentry-description"><span class="secno">2.7.2. </span><span class="content">Description</span><a class="self-link" href="#switchframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13①⓪">Switch Frame</a>.</p>
    <h4 class="heading settled" data-level="2.7.3" id="switchframesamplegroupentry-syntax"><span class="secno">2.7.3. </span><span class="content">Syntax</span><a class="self-link" href="#switchframesamplegroupentry-syntax"></a></h4>
-<pre>class AV1SwitchFrameSampleGroupEntry extends VisualSampleGroupEntry('av1s') {
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1SwitchFrameSampleGroupEntry</c->
+<c- n>extends</c-> <c- n>VisualSampleGroupEntry</c-><c- p>(</c->'<c- n>av1s</c->'<c- p>)</c->
+<c- p>{</c->
+<c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="2.8" id="metadatasamplegroupentry"><span class="secno">2.8. </span><span class="content">AV1 Metadata sample group entry</span><a class="self-link" href="#metadatasamplegroupentry"></a></h3>
    <h4 class="heading settled" data-level="2.8.1" id="metadatasamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#metadatasamplegroupentry-definition"></a></h4>
@@ -2340,14 +2474,16 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.8.2" id="metadatasamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑨">metadata OBUs</a>. The <code>grouping_type_parameter</code> can be used to identify samples containing <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①⓪">metadata OBUs</a> of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①①">metadata OBUs</a> for which the <code>metadata_type</code> is unknown.</p>
    <h4 class="heading settled" data-level="2.8.3" id="metadatasamplegroupentry-syntax"><span class="secno">2.8.3. </span><span class="content">Syntax</span><a class="self-link" href="#metadatasamplegroupentry-syntax"></a></h4>
-<pre>class AV1MetadataSampleGroupEntry extends VisualSampleGroupEntry('av1M') {
-}
+<pre class="language-cpp highlight"><c- k>class</c-> <c- nc>AV1MetadataSampleGroupEntry</c->
+<c- n>extends</c-> <c- n>VisualSampleGroupEntry</c-><c- p>(</c->'<c- n>av1M</c->'<c- p>)</c->
+<c- p>{</c->
+<c- p>}</c->
 </pre>
    <p>For this sample group entry, the <code>grouping_type_parameter</code> syntax is as follows:</p>
-<pre>{
-   unsigned int (8) metadata_type;
-   unsigned int (24) metadata_specific_parameters;
-}
+<pre class="language-cpp highlight"><c- p>{</c->
+   <c- b>unsigned</c-> <c- nf>int</c-> <c- p>(</c-><c- mi>8</c-><c- p>)</c-> <c- n>metadata_type</c-><c- p>;</c->
+   <c- b>unsigned</c-> <c- nf>int</c-> <c- p>(</c-><c- mi>24</c-><c- p>)</c-> <c- n>metadata_specific_parameters</c-><c- p>;</c->
+<c- p>}</c->
 </pre>
    <h4 class="heading settled" data-level="2.8.4" id="metadatasamplegroupentry-semantics"><span class="secno">2.8.4. </span><span class="content">Semantics</span><a class="self-link" href="#metadatasamplegroupentry-semantics"></a></h4>
    <p><dfn data-dfn-type="dfn" data-export id="metadata_type">metadata_type<a class="self-link" href="#metadata_type"></a></dfn> is a 8-bit field whose value is the value of the metadata_type field defined in <a data-link-type="biblio" href="#biblio-av1" title="AV1 Bitstream &amp; Decoding Process Specification">[AV1]</a>, when it is equal or lower than 255. metadata_type values above 255 are not supported by this sample group.</p>
@@ -2473,6 +2609,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/162">Clarify requirements on sample entry when encryption is used.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/167">Clarify the colr box.</a></p>
+    <li data-md>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
