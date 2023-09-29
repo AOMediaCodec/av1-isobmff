@@ -644,6 +644,8 @@ The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRa
 
 NOTE: It is encouraged that a 'colr' box be present. The 'colr' box simplifies the task of the codecs parameter generator.
 
+NOTE: If you use a color space that is not registered in CICP and you don't explicitly code 2/2/2 either in the 'colr' box or in the [=Sequence Header OBU=] (with color_description_present_flag set to 1), you will get a codecs parameter string that declares ITU-R BT.709 (1/1/1). Writers should act accordingly.
+
 The videoFullRangeFlag is represented by a single digit.
 
 <assert>If the codecs parameter string ends with ".0.110.01.01.01.0" (containing all the default values below), that trailing part of the string SHOULD be omitted</assert>.
