@@ -148,6 +148,12 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 		"status": "Standard",
 		"publisher": "ISO",
 		"href": "https://www.iso.org/standard/68042.html"
+	},
+	"CICP": {
+		"title": "Coding-independent code points for video signal type identification",
+		"status": "Standard",
+		"publisher": "ITU-T",
+		"href": "https://www.itu.int/rec/T-REC-H.273-202107-I/en"
 	}
 }
 </pre>
