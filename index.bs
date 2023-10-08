@@ -153,7 +153,7 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 		"title": "Coding-independent code points for video signal type identification",
 		"status": "Standard",
 		"publisher": "ITU-T",
-		"href": "https://www.itu.int/rec/T-REC-H.273-202107-I/en"
+		"href": "https://www.itu.int/rec/T-REC-H.273/en"
 	}
 }
 </pre>
