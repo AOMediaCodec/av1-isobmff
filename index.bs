@@ -699,3 +699,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/171">Make assert-id's unique and add them to the previous version.</a>
