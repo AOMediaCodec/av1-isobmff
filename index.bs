@@ -148,6 +148,12 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 		"status": "Standard",
 		"publisher": "ISO",
 		"href": "https://www.iso.org/standard/68042.html"
+	},
+	"CICP": {
+		"title": "Coding-independent code points for video signal type identification",
+		"status": "Standard",
+		"publisher": "ITU-T",
+		"href": "https://www.itu.int/rec/T-REC-H.273/en"
 	}
 }
 </pre>
@@ -635,7 +641,20 @@ All fields following the sample entry 4CC are expressed as double digit decimals
 
 <assert>The chromaSubsampling parameter value, represented by a three-digit decimal, SHALL have its first digit equal to subsampling_x and its second digit equal to subsampling_y</assert>. <assert>If both subsampling_x and subsampling_y are set to 1, then the third digit SHALL be equal to chroma_sample_position, otherwise it SHALL be set to 0</assert>.
 
-<assert>The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the value of matching fields in the [=Sequence Header OBU=], if color_description_present_flag is set to 1</assert>, <assert>otherwise they SHOULD not be set, defaulting to the values below</assert>. The videoFullRangeFlag is represented by a single digit.
+The colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values are set as follows:
+- <assert>If a 'colr' box with colour_type set to 'nclx' is present, the colorPrimaries, transferCharacteristics, matrixCoefficients, and videoFullRangeFlag parameter values SHALL equal the values of matching fields in the 'colr' box</assert>.
+- Otherwise, a 'colr' box with colour_type set to 'nclx' is absent.
+    - <assert>The videoFullRangeFlag parameter value SHALL equal the color_range flag in the [=Sequence Header OBU=]</assert>.
+    - <assert>If the color_description_present_flag is set to 1 in the [=Sequence Header OBU=], the colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHALL equal the values of matching fields in the [=Sequence Header OBU=]</assert>.
+    - Otherwise, the color_description_present_flag is set to 0 in the [=Sequence Header OBU=]. <assert>The colorPrimaries, transferCharacteristics, and matrixCoefficients parameter values SHOULD be set to the default values below</assert>.
+
+NOTE: It is encouraged that a 'colr' box be present. The 'colr' box simplifies the task of the codecs parameter generator.
+
+NOTE: If the encoded video uses a color space that is not registered in [[CICP]] and the file doesn't explicitly code 2/2/2 either in the 'colr' box or in the [=Sequence Header OBU=] (with color_description_present_flag set to 1), the derived codecs parameter string will declare ITU-R BT.709 (1/1/1). To avoid this behavior, a 'colr' box should be used.
+
+The videoFullRangeFlag is represented by a single digit.
+
+<assert>If the codecs parameter string ends with ".0.110.01.01.01.0" (containing all the default values below), that trailing part of the string SHOULD be omitted</assert>.
 
 For example, codecs="av01.0.04M.10.0.112.09.16.09.0" represents AV1 Main Profile, level 3.0, Main tier, 10-bit content, non-monochrome, with 4:2:0 chroma subsampling co-located with (0, 0) luma sample, ITU-R BT.2100 color primaries, ITU-R BT.2100 PQ transfer characteristics, ITU-R BT.2100 YCbCr color matrix, and studio swing representation.
 
@@ -679,3 +698,4 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/174">Correct the page numbers in links to the AV1 spec.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a>
