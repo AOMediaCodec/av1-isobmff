@@ -195,8 +195,8 @@ AV1 Sample Entry {#av1sampleentry-section}
 <pre class="def">
 	Sample Entry Type: <dfn value export for="AV1SampleEntry">av01</dfn>
 	Container:         Sample Description Box ('stsd')
-	<assert>Mandatory:         Yes <span hidden>for av01</p></assert>
-	<assert>Quantity:          One or more <span hidden>for av01</p></assert>
+	<assert>Mandatory:         Yes <span hidden>for av01</span></assert>
+	<assert>Quantity:          One or more <span hidden>for av01</span></assert>
 </pre>
 
 ### Description ### {#av1sampleentry-description}
@@ -242,8 +242,8 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 <pre class="def">
 	Box Type:  <dfn export>av1C</dfn>
 	Container: AV1 Sample Entry ('av01')
-	<assert>Mandatory: Yes <span hidden>for av1C</p></assert>
-	<assert>Quantity:  Exactly One <span hidden>for av1C</p></assert>
+	<assert>Mandatory: Yes <span hidden>for av1C</span></assert>
+	<assert>Quantity:  Exactly One <span hidden>for av1C</span></assert>
 </pre>
 
 
@@ -412,8 +412,8 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn export>av1f</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	<assert>Mandatory:  No <span hidden>for av1f</p></assert>
-	<assert>Quantity:   Zero or more <span hidden>for av1f</p></assert>.
+	<assert>Mandatory:  No <span hidden>for av1f</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1f</span></assert>.
 </pre>
 
 ### Description ### {#forwardkeyframesamplegroupentry-description}
@@ -441,8 +441,8 @@ AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn value export for="AV1MultiFrameSampleGroupEntry">av1m</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	<assert>Mandatory:  No <span hidden>for av1m</p></assert>
-	<assert>Quantity:   Zero or more <span hidden>for av1m</p></assert>.
+	<assert>Mandatory:  No <span hidden>for av1m</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1m</span></assert>.
 </pre>
 
 
@@ -466,8 +466,8 @@ AV1 Switch Frame sample group entry {#switchframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn export>av1s</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	<assert>Mandatory:  No <span hidden>for av1s</p></assert>
-	<assert>Quantity:   Zero or more <span hidden>for av1s</p></assert>.
+	<assert>Mandatory:  No <span hidden>for av1s</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1s</span></assert>.
 </pre>
 
 
@@ -490,8 +490,8 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 <pre class="def">
 	Group Type: <dfn value noexport for="AV1MetadataSampleGroupEntry">av1M</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	<assert>Mandatory:  No <span hidden>for av1M</p></assert>
-	<assert>Quantity:   Zero or more <span hidden>for av1M</p></assert>.
+	<assert>Mandatory:  No <span hidden>for av1M</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1M</span></assert>.
 </pre>
 
 
@@ -569,7 +569,7 @@ Within protected samples, the following constraints apply:
 	    NOTE: As a result of the above, [=BytesOfProtectedData=] is not necessarily a multiple of 16 bytes and partial blocks are included in the [=BytesOfProtectedData=] range, but per [[!CENC]] the data is not be encrypted.
 
 	    - <assert>A subsample SHALL be created for each tile, even if its size is less than 16 bytes</assert>.
-		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cbcs</p></assert>.
+		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cbcs</span></assert>.
 
 	- for the protected scheme <code>[=cenc=]</code>:
 	    - <assert>[=BytesOfProtectedData=] SHALL be a multiple of 16 bytes</assert>.
@@ -578,7 +578,7 @@ Within protected samples, the following constraints apply:
 
 	    NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
 	    - <assert>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes</assert>. <assert>If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any</assert>.
-		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cenc</p></assert>.
+		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cenc</span></assert>.
 
 Subsample Encryption Illustration {#subsample-encryption-illustration}
 ------------------
