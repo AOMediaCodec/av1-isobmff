@@ -306,11 +306,11 @@ The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfi
 
 <assert>The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].</assert>
 
-<assert>The <dfn export>seq_level_idx_0</dfn> field indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=]</assert>.
+<assert>The <dfn export>seq_level_idx_0</dfn> field SHALL be equal to the value of seq_level_idx[0] from the [=Sequence Header OBU=]</assert>.
 
-<assert>The <dfn export>seq_tier_0</dfn> field indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=]</assert>.
+<assert>The <dfn export>seq_tier_0</dfn> field SHALL be equal to the value of seq_tier[0] from the [=Sequence Header OBU=]</assert>.
 
-The <dfn export>high_bitdepth</dfn> field indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
+The <dfn export>high_bitdepth</dfn> field SHALL be equal to the value of high_bitdepth flag from the [=Sequence Header OBU=].
 
 The <dfn export>twelve_bit</dfn> field indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
 
@@ -368,7 +368,7 @@ OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Ove
 
 <assert>When a [=Sequence Header OBU=] is contained within the configOBUs of the AV1CodecConfigurationRecord, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord.</assert>
 
-<assert>When the samples associated with a sample entry do not contain any sync sample, a [=Sequence Header OBU=] SHALL be present in the [=configOBUs=] field of the [=AV1CodecConfigurationRecord=] of that sample entry.</assert>
+<assert>When the samples associated with a sample entry do not contain any sync sample, a [=Sequence Header OBU=] SHALL be present in the [=configOBUs=] field of the AV1CodecConfigurationRecord of that sample entry.</assert>
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. <assert>The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0</assert>. <assert>If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</assert>
 
