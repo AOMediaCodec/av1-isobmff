@@ -4,7 +4,6 @@ Status: WGD
 URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
-Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
 Date: 2021-11-15
 Repository: AOMediaCodec/av1-isobmff
