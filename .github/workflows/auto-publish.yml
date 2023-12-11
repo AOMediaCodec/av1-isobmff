@@ -27,20 +27,17 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install Poetry
+      - name: Install dependencies
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-
-      # - name: Install dependencies
-      #   run: |
+          pip install bikeshed
       #     cd conformance
+      #     curl -sSL https://install.python-poetry.org | python3 -
       #     poetry install
 
       # - name: Generate conformance report
       #   run: |
-      #     cd conformance
-      #     pip install bikeshed
-      #     poetry run generate-report
+      #     # cd conformance
+      #     # poetry run generate-report
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
