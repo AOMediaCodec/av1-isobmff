@@ -310,7 +310,7 @@ The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfi
 
 <assert>The <dfn export>seq_tier_0</dfn> field SHALL be equal to the value of seq_tier[0] from the [=Sequence Header OBU=]</assert>.
 
-The <dfn export>high_bitdepth</dfn> field SHALL be equal to the value of high_bitdepth flag from the [=Sequence Header OBU=].
+<assert>The <dfn export>high_bitdepth</dfn> field SHALL be equal to the value of high_bitdepth flag from the [=Sequence Header OBU=].</assert>
 
 The <dfn export>twelve_bit</dfn> field SHALL be equal to the value of the twelve_bit flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
 
