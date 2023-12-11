@@ -1490,7 +1490,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://aomediacodec.github.io/av1-isobmff/" rel="canonical">
-  <meta content="014d8ea0f24d5a25eb7d69a30b0bbde7ad86089c" name="document-revision">
+  <meta content="df5721b6677c11b02132b5cd517440aae933f6e1" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -2263,8 +2263,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <h4 class="heading settled" data-level="2.2.1" id="av1sampleentry-definition"><span class="secno">2.2.1. </span><span class="content">Definition</span><a class="self-link" href="#av1sampleentry-definition"></a></h4>
 <pre class="def">Sample Entry Type: <dfn data-dfn-for="AV1SampleEntry" data-dfn-type="value" data-export id="valdef-av1sampleentry-av01">av01<a class="self-link" href="#valdef-av1sampleentry-av01"></a></dfn>
 Container:         Sample Description Box ('stsd')
-Mandatory:         <span id="assert-93cba074">Yes</span>
-Quantity:          <span id="assert-17ecb535">One or more.</span>
+<span id="assert-485d25aa">Mandatory:         Yes <span hidden>for av01</span></span>
+<span id="assert-e091fa3c">Quantity:          One or more <span hidden>for av01</span></span>
 </pre>
    <h4 class="heading settled" data-level="2.2.2" id="av1sampleentry-description"><span class="secno">2.2.2. </span><span class="content">Description</span><a class="self-link" href="#av1sampleentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1sampleentry">AV1SampleEntry</dfn> sample entry identifies that the track contains <a data-link-type="dfn" href="#av1-sample" id="ref-for-av1-sample">AV1 Samples</a>, and uses an <a data-link-type="dfn" href="#av1codecconfigurationbox" id="ref-for-av1codecconfigurationbox">AV1CodecConfigurationBox</a>.</p>
@@ -2291,8 +2291,8 @@ Quantity:          <span id="assert-17ecb535">One or more.</span>
    <h4 class="heading settled" data-level="2.3.1" id="av1codecconfigurationbox-definition"><span class="secno">2.3.1. </span><span class="content">Definition</span><a class="self-link" href="#av1codecconfigurationbox-definition"></a></h4>
 <pre class="def">Box Type:  <dfn data-dfn-type="dfn" data-export id="av1c">av1C<a class="self-link" href="#av1c"></a></dfn>
 Container: AV1 Sample Entry ('av01')
-Mandatory: <span id="assert-93cba074">Yes</span>
-Quantity:  <span id="assert-29c02c41">Exactly One</span>
+<span id="assert-318390e9">Mandatory: Yes <span hidden>for av1C</span></span>
+<span id="assert-a249db05">Quantity:  Exactly One <span hidden>for av1C</span></span>
 </pre>
    <h4 class="heading settled" data-level="2.3.2" id="av1codecconfigurationbox-description"><span class="secno">2.3.2. </span><span class="content">Description</span><a class="self-link" href="#av1codecconfigurationbox-description"></a></h4>
     <span id="assert-f875c695">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1codecconfigurationbox">AV1CodecConfigurationBox</dfn> contains decoder configuration information that SHALL be valid for every sample that references the sample entry.</span> 
@@ -2421,8 +2421,8 @@ But if the frames were grouped as follows:</p>
    <h4 class="heading settled" data-level="2.5.1" id="forwardkeyframesamplegroupentry-definition"><span class="secno">2.5.1. </span><span class="content">Definition</span><a class="self-link" href="#forwardkeyframesamplegroupentry-definition"></a></h4>
 <pre class="def">Group Type: <dfn data-dfn-type="dfn" data-export id="av1f">av1f<a class="self-link" href="#av1f"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
-Mandatory:  <span id="assert-bafd7322">No</span>
-Quantity:   <span id="assert-5c97b843">Zero or more</span>.
+<span id="assert-b19a22ce">Mandatory:  No <span hidden>for av1f</span></span>
+<span id="assert-6de7aff7">Quantity:   Zero or more <span hidden>for av1f</span></span>.
 </pre>
    <h4 class="heading settled" data-level="2.5.2" id="forwardkeyframesamplegroupentry-description"><span class="secno">2.5.2. </span><span class="content">Description</span><a class="self-link" href="#forwardkeyframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1forwardkeyframesamplegroupentry">AV1ForwardKeyFrameSampleGroupEntry</dfn> documents samples that contain a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=218" id="ref-for-page=218⑧">Delayed Random Access Point</a> that are followed at a given distance in the bitstream by a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=218" id="ref-for-page=218⑨">Key Frame Dependent Recovery Point</a>.</p>
@@ -2439,8 +2439,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.6.1" id="multiframesamplegroupentry-definition"><span class="secno">2.6.1. </span><span class="content">Definition</span><a class="self-link" href="#multiframesamplegroupentry-definition"></a></h4>
 <pre class="def">Group Type: <dfn data-dfn-for="AV1MultiFrameSampleGroupEntry" data-dfn-type="value" data-export id="valdef-av1multiframesamplegroupentry-av1m">av1m<a class="self-link" href="#valdef-av1multiframesamplegroupentry-av1m"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
-Mandatory:  <span id="assert-bafd7322">No</span>
-Quantity:   <span id="assert-5c97b843">Zero or more</span>.
+<span id="assert-5482ba80">Mandatory:  No <span hidden>for av1m</span></span>
+<span id="assert-35d7f2e6">Quantity:   Zero or more <span hidden>for av1m</span></span>.
 </pre>
    <h4 class="heading settled" data-level="2.6.2" id="multiframesamplegroupentry-description"><span class="secno">2.6.2. </span><span class="content">Description</span><a class="self-link" href="#multiframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1multiframesamplegroupentry">AV1MultiFrameSampleGroupEntry</dfn> documents samples that contain multiple frames.</p>
@@ -2454,8 +2454,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.7.1" id="switchframesamplegroupentry-definition"><span class="secno">2.7.1. </span><span class="content">Definition</span><a class="self-link" href="#switchframesamplegroupentry-definition"></a></h4>
 <pre class="def">Group Type: <dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="av1s">av1s</dfn>
 Container:  Sample Group Description Box ('sgpd')
-Mandatory:  <span id="assert-bafd7322">No</span>
-Quantity:   <span id="assert-5c97b843">Zero or more</span>.
+<span id="assert-72c62575">Mandatory:  No <span hidden>for av1s</span></span>
+<span id="assert-731712f5">Quantity:   Zero or more <span hidden>for av1s</span></span>.
 </pre>
    <h4 class="heading settled" data-level="2.7.2" id="switchframesamplegroupentry-description"><span class="secno">2.7.2. </span><span class="content">Description</span><a class="self-link" href="#switchframesamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1switchframesamplegroupentry">AV1SwitchFrameSampleGroupEntry</dfn> documents samples that start with a <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=13" id="ref-for-page=13①⓪">Switch Frame</a>.</p>
@@ -2469,8 +2469,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
    <h4 class="heading settled" data-level="2.8.1" id="metadatasamplegroupentry-definition"><span class="secno">2.8.1. </span><span class="content">Definition</span><a class="self-link" href="#metadatasamplegroupentry-definition"></a></h4>
 <pre class="def">Group Type: <dfn data-dfn-for="AV1MetadataSampleGroupEntry" data-dfn-type="value" data-noexport id="valdef-av1metadatasamplegroupentry-av1m">av1M<a class="self-link" href="#valdef-av1metadatasamplegroupentry-av1m"></a></dfn>
 Container:  Sample Group Description Box ('sgpd')
-Mandatory:  <span id="assert-bafd7322">No</span>
-Quantity:   <span id="assert-5c97b843">Zero or more</span>.
+<span id="assert-b6627aa5">Mandatory:  No <span hidden>for av1M</span></span>
+<span id="assert-fa0bc954">Quantity:   Zero or more <span hidden>for av1M</span></span>.
 </pre>
    <h4 class="heading settled" data-level="2.8.2" id="metadatasamplegroupentry-description"><span class="secno">2.8.2. </span><span class="content">Description</span><a class="self-link" href="#metadatasamplegroupentry-description"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="av1metadatasamplegroupentry">AV1MetadataSampleGroupEntry</dfn> documents samples that contain <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46⑨">metadata OBUs</a>. The <code>grouping_type_parameter</code> can be used to identify samples containing <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①⓪">metadata OBUs</a> of a given type. If no <code>grouping_type_parameter</code> is provided, the sample group entry identifies samples containing <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=46" id="ref-for-page=46①①">metadata OBUs</a> for which the <code>metadata_type</code> is unknown.</p>
@@ -2544,7 +2544,7 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
        <p class="note" role="note"><span class="marker">NOTE:</span> As a result of the above, <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④②">BytesOfProtectedData</a> is not necessarily a multiple of 16 bytes and partial blocks are included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④③">BytesOfProtectedData</a> range, but per <a data-link-type="biblio" href="#biblio-cenc" title="Information technology — MPEG systems technologies — Part 7: Common encryption in ISO base media file format files">[CENC]</a> the data is not be encrypted.</p>
        <ul>
         <li data-md><span id="assert-6547e5e3">A subsample SHALL be created for each tile, even if its size is less than 16 bytes</span>. 
-        <li data-md><span id="assert-606a0a3a">All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑤">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑥">Frame OBUs</a> SHALL be unprotected</span>. 
+        <li data-md><span id="assert-68939155">All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑤">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑥">Frame OBUs</a> SHALL be unprotected <span hidden>for cbcs</span></span>. 
        </ul>
       <li data-md>
        <p>for the protected scheme <code><a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④④">cenc</a></code>:</p>
@@ -2555,8 +2555,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
        </ul>
        <p class="note" role="note"><span class="marker">NOTE:</span> As a result of the above, partial blocks are not used and it is possible that <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④⑧">BytesOfProtectedData</a> does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.</p>
        <ul>
-        <li data-md><span id="assert-4efcdef9">A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes<span id="assert-4cf03933">. <span id="assert-e145e592">If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④⑨">BytesOfClearData</a> field of a surrounding subsample, if any</span>. </span></span>
-        <li data-md><span id="assert-606a0a3a">All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑦">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑧">Frame OBUs</a> SHALL be unprotected</span>. 
+        <li data-md><span id="assert-df6aa49f">A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes</span>. <span id="assert-e145e592">If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the <a data-link-type="dfn" href="https://www.iso.org/standard/68042.html#" id="ref-for-something④⑨">BytesOfClearData</a> field of a surrounding subsample, if any</span>. 
+        <li data-md><span id="assert-f7394188">All other parts of <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑦">Tile Group OBUs</a> and <a data-link-type="dfn" href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=71" id="ref-for-page=71⑧">Frame OBUs</a> SHALL be unprotected <span hidden>for cenc</span></span>. 
        </ul>
      </ul>
    </ul>
@@ -2636,6 +2636,8 @@ Quantity:   <span id="assert-5c97b843">Zero or more</span>.
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a></p>
     <li data-md>
      <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a></p>
+    <li data-md>
+     <p><a href="https://github.com/AOMediaCodec/av1-isobmff/pull/171">Make assert-id’s unique and add them to the previous version.</a></p>
    </ul>
   </main>
   <div data-fill-with="conformance">
