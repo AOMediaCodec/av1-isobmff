@@ -2,16 +2,71 @@ name: Auto-Publish
 on:
   push:
     branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   main:
-    name: Deploy to GitHub pages
+    name: Compile and deploy
     runs-on: ubuntu-20.04
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: w3c/spec-prod@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          GH_PAGES_BRANCH: gh-pages
-          TOOLCHAIN: bikeshed
-          SOURCE: index.bs
-          DESTINATION: index.html
-          VALIDATE_MARKUP: false
+          python-version: 3.9
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      # - name: Install dependencies
+      #   run: |
+      #     cd conformance
+      #     poetry install
+
+      # - name: Generate conformance report
+      #   run: |
+      #     cd conformance
+      #     pip install bikeshed
+      #     poetry run generate-report
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      # - name: Build conformance page
+      #   run: |
+      #     cd conformance/conformance_page
+      #     npm ci
+      #     npm run build
+
+      - name: Run bikeshed
+        run: |
+          bikeshed spec
+          mkdir dist
+          cp *.html dist
+          cp -r figures dist
+          # mkdir dist/conformance
+          # cp -r conformance/conformance_page/dist/* dist/conformance
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
