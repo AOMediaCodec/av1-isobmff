@@ -6,7 +6,7 @@ Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
 Editor: Tom Finegan, Google, tom.finegan@google.com
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2021-11-15
+Date: 2023-12-11
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
 !Previously approved version: <a href="v1.2.0.html">v1.2.0</a>
