@@ -312,15 +312,15 @@ The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfi
 
 <assert>The <dfn export>high_bitdepth</dfn> field SHALL be equal to the value of high_bitdepth flag from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>twelve_bit</dfn> field SHALL be equal to the value of the twelve_bit flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
+<assert>The <dfn export>twelve_bit</dfn> field SHALL be equal to the value of the twelve_bit flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
 
-The <dfn export>monochrome</dfn> field SHALL be equal to the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
+<assert>The <dfn export>monochrome</dfn> field SHALL be equal to the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_subsampling_x</dfn> field SHALL be equal to the value of the [=subsampling_x=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_subsampling_x</dfn> field SHALL be equal to the value of the [=subsampling_x=] value from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_subsampling_y</dfn> field SHALL be equal to the value of the [=subsampling_y=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_subsampling_y</dfn> field SHALL be equal to the value of the [=subsampling_y=] value from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_sample_position</dfn> field SHALL be equal to the value of the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_sample_position</dfn> field SHALL be equal to the value of the [=chroma_sample_position=] value from the [=Sequence Header OBU=].</assert>
 
 <assert>When not specified in the [=Sequence Header OBU=], and not defined by the conditions specified in the [[!AV1]] [=color_config=], the values of [=chroma_subsampling_x=], [=chroma_subsampling_y=], and [=chroma_sample_position=] SHALL be 0.</assert>
 
