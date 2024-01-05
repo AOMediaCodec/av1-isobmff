@@ -47,7 +47,7 @@ def update_validation(args):
 
 def run_compliance_warden(cwexe_path, input_file):
     """run cw.exe"""
-    res = execute_cmd(f'{cwexe_path} {SPECIFICATION} {input_file} json')
+    res = execute_cmd(f'{cwexe_path} -s {SPECIFICATION} -f json {input_file}')
     return json.loads(res.stdout.decode())
 
 
