@@ -1,5 +1,5 @@
 """
-Module to add new files to conformance suite
+Module to manage files of the conformance suite
 """
 import argparse
 import copy
@@ -8,7 +8,10 @@ import os
 import shutil
 import sys
 
-from utils import (compute_file_md5, dump_to_json, execute_cmd, make_dirs_from_path, read_json)
+from .utils import (compute_file_md5, dump_to_json, execute_cmd,
+                    make_dirs_from_path, read_json)
+
+SPECIFICATION = 'av1isobmff'
 
 FILE_ENTRY = {
     'contributor': '',
@@ -24,11 +27,27 @@ FILE_ENTRY = {
 INCLUDELIST = ['.bin', '.mp4', '.obu']
 
 
+def update_validation(args):
+    '''
+    Update validation metadata for all files
+    '''
+    for root, _subdirs, files in os.walk('./conformance_files'):
+        for conf_file in files:
+            input_filename, input_extension = os.path.splitext(conf_file)
+            if input_extension not in INCLUDELIST:
+                continue
+            input_path = os.path.join(root, conf_file)
+            prefix, ext = os.path.splitext(input_path)
+            input_json = prefix + '.json'
+            file_meta = read_json(input_json)
+            cw_out = run_compliance_warden(args.complianceWarden, input_path)
+            file_meta['compliance_warden'] = cw_out
+            dump_to_json(input_json, file_meta)
+
+
 def run_compliance_warden(cwexe_path, input_file):
     """run cw.exe"""
-    if cwexe_path is None:
-        return None
-    res = execute_cmd(f'{cwexe_path} av1hdr10plus {input_file} json')
+    res = execute_cmd(f'{cwexe_path} {SPECIFICATION} {input_file} json')
     return json.loads(res.stdout.decode())
 
 
@@ -97,22 +116,24 @@ def main():
     """Entry point"""
     parser = argparse.ArgumentParser(
         description='Contribute new files to the conformance suite')
-    parser.add_argument(
-        '-i', '--input', help='Input directory with new files', required=True)
+    parser.add_argument('-i', '--input',
+                        help='Input directory with new files')
     parser.add_argument('-l', '--license',
                         help='Path to a .txt file with a license')
     parser.add_argument('-e', '--complianceWarden',
-                        help='Path to Compliance Warden executable cw.exe')
-    parser.add_argument(
-        '--force', help='Force running the script even if files already exist.', action='store_true')
+                        help='Path to Compliance Warden executable cw.exe',
+                        required=True)
+    parser.add_argument('--force',
+                        help='Force run the script if files already exist.',
+                        action='store_true')
+    parser.add_argument('--update',
+                        help='Run cw.exe on all files and update validation.',
+                        action='store_true')
     args = parser.parse_args()
 
-    # make sure the script is executed from the tools dir
-    cwd = os.getcwd()
-    filedir = os.path.dirname(os.path.abspath(__file__))
-    if not filedir == os.getcwd():
-        print(f'Error: Please make sure to run the script from the file directory. Run the following command\ncd {filedir}')
-        return 1
+    if args.update:
+        update_validation(args)
+        sys.exit(0)
 
     license_str = ''
     if args.license is None:
@@ -135,10 +156,8 @@ def main():
         print('ERROR: input should be a directory')
         sys.exit(-1)
     _input_base, input_last_folder = os.path.split(args.input)
-    output_root = os.path.join('../conformance_files', input_last_folder)
+    output_root = os.path.join('./conformance_files', input_last_folder)
 
     print(f'Process files from "{input_last_folder}".')
-    process_files(args, output_root, contributor, license_str)
 
-if __name__=="__main__":
-    main()
+    process_files(args, output_root, contributor, license_str)

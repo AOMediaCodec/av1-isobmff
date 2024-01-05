@@ -1,0 +1,28 @@
+{
+    "name": "aom-coverage",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "format": "prettier --write src/**/*.{jsx,json,css}",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "clsx": "^1.2.1",
+        "preact": "^10.15.0",
+        "react-icons": "^4.8.0",
+        "usehooks-ts": "^2.9.1"
+    },
+    "devDependencies": {
+        "@preact/preset-vite": "^2.5.0",
+        "autoprefixer": "^10.4.14",
+        "postcss": "^8.4.23",
+        "prettier": "^2.8.8",
+        "prettier-plugin-organize-imports": "^3.2.2",
+        "prettier-plugin-tailwindcss": "^0.3.0",
+        "tailwindcss": "^3.3.2",
+        "vite": "^4.3.8"
+    }
+}
