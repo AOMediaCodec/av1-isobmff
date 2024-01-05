@@ -1,0 +1,46 @@
+name: Check PR
+on:
+    pull_request:
+
+jobs:
+  main:
+    name: Run checks for specification and conformance
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Install dependencies
+        run: |
+          cd conformance
+          poetry install
+
+      - name: Generate conformance report
+        run: |
+          cd conformance
+          pip install bikeshed
+          poetry run generate-report
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Build conformance page
+        run: |
+          cd conformance/conformance_page
+          npm ci
+          npm run build
+
+      - name: Run bikeshed
+        run: bikeshed spec
