@@ -8,7 +8,7 @@
   "license": "AV1 Video Sequence \"Sparks\"\nCopyright (C)  NETFLIX INC.  2019\n\nThis license covers OBU encodes.\n\nCOPYRIGHT AND LICENSE INFORMATION\nOctober, 2019\n\nNETFLIX INC.\n100 Winchester Circle, Los Gatos, CA 95032, USA\n\nThe audio and video sequences listed above and all intellectual property rights\ntherein remain the property of Netflix Inc. This video sequence is licensed\nunder the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0\nInternational License. To view a copy of this license, visit\nhttp://creativecommons.org/licenses/by-nc-nd/4.0/",
   "path": "./Sparks-5994fps-AV1-10bit-1920x1080-2194kbps_100_102.mp4",
   "compliance_warden": {
-    "cw_version": "v34-av1isobmff-rev14-gbc79fc0",
+    "cw_version": "v34-av1isobmff-rev17-g7365482",
     "input_file": "Sparks-5994fps-AV1-10bit-1920x1080-2194kbps_100_102.mp4",
     "specification": "av1isobmff",
     "spec_name": "AV1 Codec ISO Media File Format Binding v1.2.0, 12 December 2019\nhttps://github.com/AOMediaCodec/av1-isobmff/commit/ee2f1f0d2c342478206767fb4b79a39870c0827e\nhttps://aomediacodec.github.io/av1-isobmff/v1.2.0.html",
@@ -22,31 +22,38 @@
         "successful_checks": [
           {
             "rule": "0",
-            "details": "Section 2.1\nIt SHALL have the 'av01' brand among the compatible brands array of the FileTypeBox"
+            "id": "assert-03258f22",
+            "details": "Section 2.1\nIt SHALL have the av01 brand among the compatible brands array of the FileTypeBox"
           },
           {
             "rule": "1",
-            "details": "Section 2.1\nIt SHOULD indicate a structural ISOBMFF brand among the compatible brands array of\nthe FileTypeBox"
+            "id": "assert-5e63f779",
+            "details": "Section 2.1\nIt SHOULD indicate a structural ISOBMFF brand among the compatible brands array of the FileTypeBox, such as iso6"
           },
           {
             "rule": "2",
+            "id": "assert-0f24a9ee",
             "details": "Section 2.1\nIt SHALL contain at least one track using an AV1SampleEntry"
           },
           {
             "rule": "3",
-            "details": "Section 2.2.4\nThe width and height fields of the VisualSampleEntry SHALL equal the values of\nmax_frame_width_minus_1 + 1 and max_frame_height_minus_1 + 1 of the Sequence Header\nOBU applying to the samples associated with this sample entry."
+            "id": "assert-4708372f",
+            "details": "Section 2.2.4\nThe width and height fields of the VisualSampleEntry SHALL equal the values of max_frame_width_minus_1 + 1 and max_frame_height_minus_1 + 1 of the Sequence Header OBU applying to the samples associated with this sample entry."
           },
           {
             "rule": "4",
-            "details": "Section 2.2.4\nThe width and height in the TrackHeaderBox SHOULD equal, respectively, the maximum\nRenderWidth, called MaxRenderWidth, and the maximum RenderHeight, called\nMaxRenderHeight, of all the frames associated with this sample entry"
+            "id": "assert-1624cff2",
+            "details": "Section 2.2.4\nThe width and height in the TrackHeaderBox SHOULD equal, respectively, the maximum RenderWidth, called MaxRenderWidth, and the maximum RenderHeight, called MaxRenderHeight, of all the frames associated with this sample entry."
           },
           {
             "rule": "6",
-            "details": "Section 2.2.4\nThe config field SHALL contain an AV1CodecConfigurationBox that applies to the samples\nassociated with this sample entry."
+            "id": "assert-8d3f8e0c",
+            "details": "Section 2.2.4\nThe config field SHALL contain an AV1CodecConfigurationBox that applies to the samples associated with this sample entry."
           },
           {
             "rule": "7",
-            "details": "Section 2.3.4\nThe AV1CodecConfigurationRecord marker field SHALL be set to 1"
+            "id": "assert-52768b11",
+            "details": "Section 2.3.4\nThe marker field SHALL be set to 1."
           },
           {
             "rule": "8",
@@ -313,7 +320,8 @@
         "unchecked": [
           {
             "rule": "5",
-            "details": "Section 2.2.4\nAdditionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively\nthe max_frame_width_minus_1 + 1 and max_frame_height_minus_1 + 1 values of the\nSequence Header OBU, a PixelAspectRatioBox box SHALL be present in the sample entry"
+            "id": "assert-54ae6192",
+            "details": "Section 2.2.4\nAdditionally, if MaxRenderWidth and MaxRenderHeight values do not equal respectively the max_frame_width_minus_1 + 1 and max_frame_height_minus_1 + 1 values of the Sequence Header OBU, a PixelAspectRatioBox box SHALL be present in the sample entry and set such that"
           },
           {
             "rule": "18",
