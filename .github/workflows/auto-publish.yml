@@ -58,8 +58,8 @@ jobs:
           mkdir dist
           cp *.html dist
           cp -r images dist
-          # mkdir dist/conformance
-          # cp -r conformance/conformance_page/dist/* dist/conformance
+          mkdir dist/conformance
+          cp -r conformance/conformance_page/dist/* dist/conformance
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
