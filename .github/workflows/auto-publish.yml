@@ -30,25 +30,24 @@ jobs:
       - name: Install dependencies
         run: |
           pip install bikeshed
-      #     cd conformance
-      #     curl -sSL https://install.python-poetry.org | python3 -
-      #     poetry install
+            
+          cd conformance
+          poetry install
 
-      # - name: Generate conformance report
-      #   run: |
-      #     # cd conformance
-      #     # poetry run generate-report
+      - name: Generate conformance report
+        run: |
+          poetry run generate-report
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 20
 
-      # - name: Build conformance page
-      #   run: |
-      #     cd conformance/conformance_page
-      #     npm ci
-      #     npm run build
+      - name: Build conformance page
+        run: |
+          cd conformance_page
+          npm ci
+          npm run build
 
       - name: Run bikeshed
         run: |
