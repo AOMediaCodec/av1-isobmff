@@ -554,6 +554,8 @@ For this sample group entry, the <code>grouping_type_parameter</code> syntax is 
 
 <dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. <assert>In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure.</assert> <assert>For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code></assert>.
 
+NOTE: The current design is constrained to using only 3 bytes for ITU-T T.35 identification, which typically suffices for the itu_t_t35_country_code and the itu_t_t35_terminal_provider_code identification. Consequently, inspection of the payload becomes essential if an implementation aims to determine the values of subsequent bytes, for instance, the itu_t_t35_terminal_provider_oriented_code.
+
 CMAF AV1 track format {#cmaf}
 =====================================================
 
@@ -708,4 +710,5 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/171">Make assert-id's unique and add them to the previous version.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/181">Add a note on the identification of the T.35 message.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/183">Use undated reference for ISOBMFF.</a>
