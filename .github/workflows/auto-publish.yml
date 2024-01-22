@@ -38,6 +38,7 @@ jobs:
 
       - name: Generate conformance report
         run: |
+          cd conformance
           poetry run generate-report
 
       - name: Set up Node.js
@@ -47,7 +48,7 @@ jobs:
 
       - name: Build conformance page
         run: |
-          cd conformance_page
+          cd conformance/conformance_page
           npm ci
           npm run build
 
