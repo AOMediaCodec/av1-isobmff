@@ -29,6 +29,7 @@ url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: pasp
 	text: sgpd
 	text: stsd
+	text: saiz
 
 url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
 	text: SmDm
@@ -618,6 +619,8 @@ Within protected samples, the following constraints apply:
 	    NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
 	    - <assert>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes</assert>. <assert>If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any</assert>.
 		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cenc</span></assert>.
+
+NOTE: Version 1 of the [=saiz=] box as defined in [[ISOBMFF]] can only describe [=Sample Auxiliary Information=] whose size does not exceed 256 bytes. In the case of AV1 streams that use a large number of tiles or a large number of frames per sample, when following the encryption requirements defined in this section the size of corresponding Sample Auxiliary Information may exceed that limit. Until updates are made to ISOBMFF, authors are encouraged to avoid reaching the limit. 
 
 Subsample Encryption Illustration {#subsample-encryption-illustration}
 ------------------
