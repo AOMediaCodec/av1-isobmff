@@ -17,7 +17,7 @@ Metadata Order: This version, !*, *
 <pre class="anchors">
 url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
-	tetx: Sample Auxiliary Information
+	text: Sample Auxiliary Information
 
 url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
