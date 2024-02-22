@@ -8,19 +8,27 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: 3.11
+          cache: 'pip'
+      - run: pip install bikeshed
 
       - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
+        uses: abatilo/actions-poetry@v3
 
-      - name: Install dependencies
+      - name: Setup a local virtual environment
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+
+      - name: Install Poetry dependencies
         run: |
           cd conformance
           poetry install
@@ -28,11 +36,10 @@ jobs:
       - name: Generate conformance report
         run: |
           cd conformance
-          pip install bikeshed
           poetry run generate-report
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
