@@ -318,21 +318,21 @@ The <dfn noexport>version</dfn> field indicates the version of the AV1CodecConfi
 
 <assert>The <dfn export>seq_profile</dfn> field indicates the AV1 profile and SHALL be equal to the seq_profile value from the [=Sequence Header OBU=].</assert>
 
-<assert>The <dfn export>seq_level_idx_0</dfn> field indicates the value of seq_level_idx[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_level_idx[0] in the [=Sequence Header OBU=]</assert>.
+<assert>The <dfn export>seq_level_idx_0</dfn> field SHALL be equal to the value of seq_level_idx[0] from the [=Sequence Header OBU=]</assert>.
 
-<assert>The <dfn export>seq_tier_0</dfn> field indicates the value of seq_tier[0] found in the [=Sequence Header OBU=] and SHALL be equal to the value of seq_tier[0] in the [=Sequence Header OBU=]</assert>.
+<assert>The <dfn export>seq_tier_0</dfn> field SHALL be equal to the value of seq_tier[0] from the [=Sequence Header OBU=]</assert>.
 
-The <dfn export>high_bitdepth</dfn> field indicates the value of the [=high_bitdepth=] flag from the [=Sequence Header OBU=].
+<assert>The <dfn export>high_bitdepth</dfn> field SHALL be equal to the value of high_bitdepth flag from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>twelve_bit</dfn> field indicates the value of the [=twelve_bit=] flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
+<assert>The <dfn export>twelve_bit</dfn> field SHALL be equal to the value of the twelve_bit flag from the [=Sequence Header OBU=]. <assert>When twelve_bit is not present in the [=Sequence Header OBU=] the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.</assert>
 
-The <dfn export>monochrome</dfn> field indicates the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].
+<assert>The <dfn export>monochrome</dfn> field SHALL be equal to the value of the [=mono_chrome=] flag from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_subsampling_x</dfn> field indicates the [=subsampling_x=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_subsampling_x</dfn> field SHALL be equal to the value of the [=subsampling_x=] value from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_subsampling_y</dfn> field indicates the [=subsampling_y=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_subsampling_y</dfn> field SHALL be equal to the value of the [=subsampling_y=] value from the [=Sequence Header OBU=].</assert>
 
-The <dfn export>chroma_sample_position</dfn> field indicates the [=chroma_sample_position=] value from the [=Sequence Header OBU=].
+<assert>The <dfn export>chroma_sample_position</dfn> field SHALL be equal to the value of the [=chroma_sample_position=] value from the [=Sequence Header OBU=].</assert>
 
 <assert>When not specified in the [=Sequence Header OBU=], and not defined by the conditions specified in the [[!AV1]] [=color_config=], the values of [=chroma_subsampling_x=], [=chroma_subsampling_y=], and [=chroma_sample_position=] SHALL be 0.</assert>
 
@@ -367,6 +367,9 @@ But if the frames were grouped as follows:
 
 <assert>The <dfn export>configOBUs</dfn> field contains zero or more OBUs</assert>. Any OBU may be present provided that the following procedures produce compliant AV1 bitstreams:
 - <assert>From any sync sample, an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the samples themselves, in order, starting from the sync sample.</assert>
+
+NOTE: If a [=Sequence Header OBU=] is stored in the [=configOBUs=] field, because a sync sample also stores the [=Sequence Header OBU=], this procedure will produce 2 consecutive and identical [=Sequence Header OBUs=]. Compliant [[AV1]] decoders are expected to handle that.
+
 - <assert>From any sample marked with the [=AV1ForwardKeyFrameSampleGroupEntry=], an AV1 bitstream is formed by first outputting the OBUs contained in the [=AV1CodecConfigurationBox=] and then by outputing all OBUs in the sample itself, then by outputting all OBUs in the samples, in order, starting from the sample at the distance indicated by the sample group.</assert>
 
 Additionally, <assert>the configOBUs field SHALL contain at most one [=Sequence Header OBU=]</assert> and if present, <assert>it SHALL be the first OBU</assert>.
@@ -376,6 +379,8 @@ NOTE: The configOBUs field is expected to contain only one [=Sequence Header OBU
 OBUs stored in the configOBUs field follow the [=open_bitstream_unit=] [=Low Overhead Bitstream Format=] syntax as specified in [[!AV1]]. <assert>The flag [=obu_has_size_field=] SHALL be set to 1, indicating that the size of the OBU payload follows the header, and that it is coded using LEB128</assert>.
 
 <assert>When a [=Sequence Header OBU=] is contained within the configOBUs of the AV1CodecConfigurationRecord, the values present in the [=Sequence Header OBU=] contained within configOBUs SHALL match the values of the AV1CodecConfigurationRecord.</assert>
+
+<assert>When the samples associated with a sample entry do not contain any sync sample, a [=Sequence Header OBU=] SHALL be present in the [=configOBUs=] field of the AV1CodecConfigurationRecord of that sample entry.</assert>
 
 The presentation times of AV1 samples are given by the ISOBMFF structures. <assert>The [=timing_info_present_flag=] in the [=Sequence Header OBU=] (in the configOBUs field or in the associated samples) SHOULD be set to 0</assert>. <assert>If set to 1, the [=timing_info=] structure of the [=Sequence Header OBU=], the [=frame_presentation_time=] and [=buffer_removal_time=] fields of the [=Frame Header OBUs=], if present, SHALL be ignored for the purpose of timed processing of the ISOBMFF file.</assert>
 
@@ -715,8 +720,8 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/175">Shorten long lines</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/182">Clarify storage of Sequence Header OBU.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/171">Make assert-id's unique and add them to the previous version.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/181">Add a note on the identification of the T.35 message.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/183">Use undated reference for ISOBMFF.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/195">Add note for encryption description limit.</a>
-
