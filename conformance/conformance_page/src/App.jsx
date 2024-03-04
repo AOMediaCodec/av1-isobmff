@@ -322,7 +322,7 @@ export default function App() {
                         version: {coverage_raw["cw_version"]}
                     </span>
                     <span className="border-l-4 border-red-400 pl-2 text-xl">
-                        <b>WARNING: </b> This page is under development and does not yet reflect the current status of the conforance test framework.
+                        <b>WARNING: </b> This page is under development and does not yet reflect the current status of the conformance test framework.
                     </span>
                 </div>
             </div>
