@@ -726,6 +726,7 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/181">Add a note on the identification of the T.35 message.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/183">Use undated reference for ISOBMFF.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/195">Add note for encryption description limit.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/198">Add a link to the conformance page.</a>
 
 <script>
 if (window.location.hash) {
