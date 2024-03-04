@@ -3,18 +3,23 @@ Title: AV1 Codec ISO Media File Format Binding
 Status: WGD
 URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
-Editor: Cyril Concolato, Netflix, cconcolato@netflix.com
-Editor: Tom Finegan, Google, tom.finegan@google.com
+Editor: Cyril Concolato, Netflix
+Editor: Dimitri Podborski, Apple
+Editor: Wan-Teh Chang, Google
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2021-11-15
+Date: 2023-12-11
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
-!Previously approved version: <a href="v1.2.0.html">v1.2.0</a>
+!Previously approved version: <a href="v1.2.0.html">https://aomediacodec.github.io/av1-isobmff/v1.2.0.html</a>
+!Latest approved version: <a href="latest-approved.html">https://aomediacodec.github.io/av1-isobmff/latest-approved.html</a>
+!Latest draft version: <a href="latest-draft.html">https://aomediacodec.github.io/av1-isobmff/latest-draft.html</a>
+Metadata Order: This version, !*, *
 </pre>
 
 <pre class="anchors">
 url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: dfn;
 	text: VisualSampleEntry
+	text: Sample Auxiliary Information
 
 url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: bitr
@@ -27,6 +32,7 @@ url: https://www.iso.org/standard/68960.html#; spec: ISOBMFF; type: property;
 	text: pasp
 	text: sgpd
 	text: stsd
+	text: saiz
 
 url: https://www.webmproject.org/vp9/mp4/#; spec: VP9; type: property;
 	text: SmDm
@@ -137,6 +143,12 @@ url: https://aomediacodec.github.io/av1-spec/av1-spec.pdf#page=2; spec: AV1; typ
 		"status": "Standard",
 		"publisher": "AOM"
 	},
+	"ISOBMFF": {
+		"title": "Information technology — Coding of audio-visual objects — Part 12: ISO base media file format",
+		"status": "Standard",
+		"publisher": "ISO",
+		"href": "https://www.iso.org/standard/83102.html"
+	},
 	"CMAF": {
 		"title": "Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media",
 		"status": "Standard",
@@ -202,8 +214,8 @@ AV1 Sample Entry {#av1sampleentry-section}
 <pre class="def">
 	Sample Entry Type: <dfn value export for="AV1SampleEntry">av01</dfn>
 	Container:         Sample Description Box ('stsd')
-	Mandatory:         <assert>Yes</assert>
-	Quantity:          <assert>One or more.</assert>
+	<assert>Mandatory:         Yes <span hidden>for av01</span></assert>
+	<assert>Quantity:          One or more <span hidden>for av01</span></assert>
 </pre>
 
 ### Description ### {#av1sampleentry-description}
@@ -251,8 +263,8 @@ AV1 Codec Configuration Box {#av1codecconfigurationbox-section}
 <pre class="def">
 	Box Type:  <dfn export>av1C</dfn>
 	Container: AV1 Sample Entry ('av01')
-	Mandatory: <assert>Yes</assert>
-	Quantity:  <assert>Exactly One</assert>
+	<assert>Mandatory: Yes <span hidden>for av1C</span></assert>
+	<assert>Quantity:  Exactly One <span hidden>for av1C</span></assert>
 </pre>
 
 
@@ -434,8 +446,8 @@ AV1 Forward Key Frame sample group entry {#forwardkeyframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn export>av1f</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	Mandatory:  <assert>No</assert>
-	Quantity:   <assert>Zero or more</assert>.
+	<assert>Mandatory:  No <span hidden>for av1f</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1f</span></assert>.
 </pre>
 
 ### Description ### {#forwardkeyframesamplegroupentry-description}
@@ -465,8 +477,8 @@ AV1 Multi-Frame sample group entry {#multiframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn value export for="AV1MultiFrameSampleGroupEntry">av1m</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	Mandatory:  <assert>No</assert>
-	Quantity:   <assert>Zero or more</assert>.
+	<assert>Mandatory:  No <span hidden>for av1m</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1m</span></assert>.
 </pre>
 
 
@@ -492,8 +504,8 @@ AV1 Switch Frame sample group entry {#switchframesamplegroupentry}
 <pre class="def">
 	Group Type: <dfn export>av1s</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	Mandatory:  <assert>No</assert>
-	Quantity:   <assert>Zero or more</assert>.
+	<assert>Mandatory:  No <span hidden>for av1s</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1s</span></assert>.
 </pre>
 
 
@@ -518,8 +530,8 @@ AV1 Metadata sample group entry {#metadatasamplegroupentry}
 <pre class="def">
 	Group Type: <dfn value noexport for="AV1MetadataSampleGroupEntry">av1M</dfn>
 	Container:  Sample Group Description Box ('sgpd')
-	Mandatory:  <assert>No</assert>
-	Quantity:   <assert>Zero or more</assert>.
+	<assert>Mandatory:  No <span hidden>for av1M</span></assert>
+	<assert>Quantity:   Zero or more <span hidden>for av1M</span></assert>.
 </pre>
 
 
@@ -550,6 +562,8 @@ For this sample group entry, the <code>grouping_type_parameter</code> syntax is 
 <dfn export>metadata_type</dfn> is a 8-bit field whose value is the value of the metadata_type field defined in [[!AV1]], when it is equal or lower than 255. metadata_type values above 255 are not supported by this sample group.
 
 <dfn export>metadata_specific_parameters</dfn> provides an additional part of the <code>grouping_type_parameter</code>, which MAY be used to distinguish different sample groups having the same <code>metadata_type</code> but different sub-parameters. <assert>In this version of the specification, <code>metadata_specific_parameters</code> is only defined when <code>metadata_type</code> is set to <code>METADATA_TYPE_ITUT_T35</code> in which case its value SHALL be set to the first 24 bits of the <code>metadata_itut_t35</code> structure.</assert> <assert>For other types of metadata, its value SHOULD be set to 0. In all cases, when the <code>grouping_type_parameter</code> is used, readers processing sample groups SHALL use the entire value of <code>grouping_type_parameter</code></assert>.
+
+NOTE: The current design is constrained to using only 3 bytes for ITU-T T.35 identification, which typically suffices for the itu_t_t35_country_code and the itu_t_t35_terminal_provider_code identification. Consequently, inspection of the payload becomes essential if an implementation aims to determine the values of subsequent bytes, for instance, the itu_t_t35_terminal_provider_oriented_code.
 
 CMAF AV1 track format {#cmaf}
 =====================================================
@@ -603,7 +617,7 @@ Within protected samples, the following constraints apply:
 	    NOTE: As a result of the above, [=BytesOfProtectedData=] is not necessarily a multiple of 16 bytes and partial blocks are included in the [=BytesOfProtectedData=] range, but per [[!CENC]] the data is not be encrypted.
 
 	    - <assert>A subsample SHALL be created for each tile, even if its size is less than 16 bytes</assert>.
-		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected</assert>.
+		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cbcs</span></assert>.
 
 	- for the protected scheme <code>[=cenc=]</code>:
 	    - <assert>[=BytesOfProtectedData=] SHALL be a multiple of 16 bytes</assert>.
@@ -611,8 +625,10 @@ Within protected samples, the following constraints apply:
 	    - <assert>[=BytesOfProtectedData=] SHALL span all complete 16-byte blocks of the <code>decode_tile</code> structure (including any trailing bits)</assert>.
 
 	    NOTE: As a result of the above, partial blocks are not used and it is possible that [=BytesOfProtectedData=] does not start at the first byte of the <code>decode_tile</code> structure, but some number of bytes following that.
-	    - <assert>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes<assert>. <assert>If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any</assert>.
-		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected</assert>.
+	    - <assert>A subsample SHALL be created for each tile that has a <code>decode_tile</code> structure whose size (including any trailing bits) is larger or equal to 16 bytes</assert>. <assert>If it is less than 16 bytes, per the rules above, the <code>decode_tile</code> structure is not encrypted and the corresponding bytes SHOULD be included in the [=BytesOfClearData=] field of a surrounding subsample, if any</assert>.
+		- <assert>All other parts of [=Tile Group OBUs=] and [=Frame OBUs=] SHALL be unprotected <span hidden>for cenc</span></assert>.
+
+NOTE: Version 0 of the 'saiz' box as defined in [[ISOBMFF]] can only describe [=Sample Auxiliary Information=] whose size does not exceed 255 bytes. In the case of AV1 streams that use a large number of tiles or a large number of frames per sample, when following the encryption requirements defined in this section the size of the corresponding Sample Auxiliary Information may exceed that limit. Until updates are made to [[ISOBMFF]], authors are encouraged to avoid reaching the limit.
 
 Subsample Encryption Illustration {#subsample-encryption-illustration}
 ------------------
@@ -705,3 +721,7 @@ Changes since v1.2.0 release {#changelist}
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/170">Update the CMAF section to mention the cmf2 brand.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/142">Clarify the color info in the codecs string.</a>
 - <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/182">Clarify storage of Sequence Header OBU.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/171">Make assert-id's unique and add them to the previous version.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/181">Add a note on the identification of the T.35 message.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/183">Use undated reference for ISOBMFF.</a>
+- <a href="https://github.com/AOMediaCodec/av1-isobmff/pull/195">Add note for encryption description limit.</a>

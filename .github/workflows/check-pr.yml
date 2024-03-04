@@ -1,21 +1,10 @@
-name: Auto-Publish
+name: Check PR
 on:
-  push:
-    branches: [main]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-  group: pages
-  cancel-in-progress: true
+    pull_request:
 
 jobs:
   main:
-    name: Compile and deploy
+    name: Run checks for specification and conformance
     runs-on: ubuntu-20.04
 
     steps:
@@ -61,19 +50,4 @@ jobs:
           npm run build
 
       - name: Run bikeshed
-        run: |
-          bikeshed spec
-          mkdir dist
-          cp *.html dist
-          cp -r images dist
-          mkdir dist/conformance
-          cp -r conformance/conformance_page/dist/* dist/conformance
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        run: bikeshed spec
