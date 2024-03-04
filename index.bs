@@ -1,13 +1,14 @@
 <pre class='metadata'>
 Title: AV1 Codec ISO Media File Format Binding
-Status: WGD
+Status: WGA
+Text Macro: SPECVERSION v1.3.0
 URL: https://aomediacodec.github.io/av1-isobmff/
 Shortname: av1-isobmff
 Editor: Cyril Concolato, Netflix
 Editor: Dimitri Podborski, Apple
 Editor: Wan-Teh Chang, Google
 Abstract: This document specifies the storage format for [[!AV1]] bitstreams in [[!ISOBMFF]] tracks as well as in [[!CMAF]] files.
-Date: 2023-12-11
+Date: 2024-03-05
 Repository: AOMediaCodec/av1-isobmff
 Group: AOM
 Test Suite: https://aomediacodec.github.io/av1-isobmff/conformance/
