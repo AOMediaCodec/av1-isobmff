@@ -45,3 +45,20 @@ Follow these steps to contribute new files:
 This script will ask you a couple of questions for each file and will run the `cw.exe` on every file found in `./MyCompany` directory.
 It will then copy your conformance files to the `conformance/conformance_files` directory with all the metadata associated to it.
 After that you can open a new pull request to the repository.
+
+## Refreshing conformance report
+
+1. Update Compliance Warden to latest version
+2. Update the conformance data
+```
+cd conformance
+poetry install
+poetry run manage-files -e pathto/ComplianceWarden/bin/cw.exe --update --force  // will update the individual JSON files
+poetry run generate-report                                                      // will generate a coverage.json file from the individual JSON files
+```
+3. Regenerate the report
+```
+cd conformance_page
+npm run build                                                                   // will create a dist folder with HTML, CSS, JS from coverage.json
+npm run dev // to serve the files locally
+```
