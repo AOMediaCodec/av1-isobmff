@@ -8,7 +8,7 @@
   "license": "AV1 Video Sequence \"Sparks\"\nCopyright (C)  NETFLIX INC.  2019\n\nThis license covers OBU encodes.\n\nCOPYRIGHT AND LICENSE INFORMATION\nOctober, 2019\n\nNETFLIX INC.\n100 Winchester Circle, Los Gatos, CA 95032, USA\n\nThe audio and video sequences listed above and all intellectual property rights\ntherein remain the property of Netflix Inc. This video sequence is licensed\nunder the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0\nInternational License. To view a copy of this license, visit\nhttp://creativecommons.org/licenses/by-nc-nd/4.0/",
   "path": "./Sparks-5994fps-AV1-10bit-1920x1080-2194kbps_100_102.mp4",
   "compliance_warden": {
-    "cw_version": "v34-master-rev26-gb20c334",
+    "cw_version": "v34-master-rev27-g42bd772",
     "input_file": "Sparks-5994fps-AV1-10bit-1920x1080-2194kbps_100_102.mp4",
     "specification": "av1isobmff",
     "spec_name": "AV1 Codec ISO Media File Format Binding v1.2.0, 12 December 2019\nhttps://github.com/AOMediaCodec/av1-isobmff/commit/ee2f1f0d2c342478206767fb4b79a39870c0827e\nhttps://aomediacodec.github.io/av1-isobmff/v1.2.0.html",
@@ -47,7 +47,7 @@
           },
           {
             "rule": "6",
-            "id": "assert-f875c695",
+            "id": "assert-8d3f8e0c",
             "details": "Section 2.2.4\nThe config field SHALL contain an AV1CodecConfigurationBox that applies to the samples associated with this sample entry."
           },
           {
@@ -58,7 +58,82 @@
           {
             "rule": "8",
             "id": "assert-49a325d3",
-            "details": "Section 2.3.4\nThe AV1CodecConfigurationRecord version field SHALL be set to 1"
+            "details": "Section 2.3.4\nThe value SHALL be set to 1 for AV1CodecConfigurationRecord."
+          },
+          {
+            "rule": "9",
+            "id": "assert-96a6c200",
+            "details": "Section 2.3.4\nThe seq_profile field indicates the AV1 profile and SHALL be equal to\nthe seq_profile value from the Sequence Header OBU."
+          },
+          {
+            "rule": "10",
+            "id": "assert-4f91ed20",
+            "details": "Section 2.3.4\nThe seq_level_idx_0 field SHALL be equal to the value of seq_level_idx[0] from\nthe Sequence Header OBU."
+          },
+          {
+            "rule": "11",
+            "id": "assert-c5e10274",
+            "details": "Section 2.3.4\nThe seq_tier_0 field SHALL be equal to the value of seq_tier[0] from the Sequence Header OBU."
+          },
+          {
+            "rule": "12",
+            "id": "assert-821f7437",
+            "details": "Section 2.3.4\nThe high_bitdepth field indicates the value of the high_bitdepth flag from the\nSequence Header OBU."
+          },
+          {
+            "rule": "13",
+            "id": "assert-0027b3b1",
+            "details": "Section 2.3.4\nThe twelve_bit field indicates the value of the twelve_bit flag from the\nSequence Header OBU. When twelve_bit is not present in the Sequence Header\nOBU the AV1CodecConfigurationRecord twelve_bit value SHALL be 0."
+          },
+          {
+            "rule": "14",
+            "id": "assert-755c9133",
+            "details": "Section 2.3.4\nThe configOBUs field SHALL contain at most one Sequence Header OBU and if present, it SHALL be the first OBU."
+          },
+          {
+            "rule": "15",
+            "id": "assert-cf9ef74c",
+            "details": "Section 2.3.4\nConfigOBUs: the flag obu_has_size_field SHALL be set to 1."
+          },
+          {
+            "rule": "16",
+            "id": "assert-745b4db3",
+            "details": "Section 2.3.4\nWhen a Sequence Header OBU is contained within the configOBUs of the\nAV1CodecConfigurationRecord, the values present in the Sequence Header OBU\ncontained within configOBUs SHALL match the values of the\nAV1CodecConfigurationRecord."
+          },
+          {
+            "rule": "17",
+            "id": "assert-551498bd",
+            "details": "Section 2.3.4\nThe timing_info_present_flag in the Sequence Header OBU (in the configOBUs field or in the associated samples) SHOULD be set to 0."
+          },
+          {
+            "rule": "21",
+            "id": "assert-9ba1392f",
+            "details": "Section 2.4\nThe sample data SHALL be a sequence of OBUs forming a Temporal Unit"
+          },
+          {
+            "rule": "22",
+            "id": "assert-f204884a",
+            "details": "Section 2.4\nEach OBU SHALL follow the open_bitstream_unit Low Overhead Bitstream Format\nsyntax as specified in [AV1]. Each OBU SHALL have the obu_has_size_field set\nto 1 except for the last OBU in the sample, for which obu_has_size_field MAY be\nset to 0, in which case it is assumed to fill the remainder of the sample"
+          },
+          {
+            "rule": "23",
+            "id": "assert-c2e52ab3",
+            "details": "Section 2.4\nOBU trailing bits SHOULD be limited to byte alignment and SHOULD not be used for padding"
+          },
+          {
+            "rule": "24",
+            "id": "assert-c7a31be1",
+            "details": "Section 2.4\nOBUs of type OBU_TILE_LIST SHALL NOT be used."
+          },
+          {
+            "rule": "25",
+            "id": "assert-2487540d",
+            "details": "Section 2.4\nOBUs of type OBU_TEMPORAL_DELIMITER, OBU_PADDING, or OBU_REDUNDANT_FRAME_HEADER SHOULD NOT be used."
+          },
+          {
+            "rule": "32",
+            "id": "assert-bee456d5",
+            "details": "Section 2.4\nIf an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by\nsetting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point\nas defined in [AV1], i.e. satisfy the following constraints:\n- Its first frame is a Key Frame that has show_frame flag set to 1,\n- It contains a Sequence Header OBU before the first Frame Header OBU."
           },
           {
             "rule": "33",
@@ -71,106 +146,8 @@
             "details": "Section 2.4\nIn tracks using the AV1SampleEntry, the is_leading flag, if used,\nSHALL be set to 0 or 2."
           }
         ],
-        "errors": [
-        ],
-        "warnings": [
-          {
-            "rule": "9",
-            "id": "assert-96a6c200",
-            "details": "Section 2.3.4\nThe seq_profile field indicates the AV1 profile and SHALL be equal to\nthe seq_profile value from the Sequence Header OBU.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "10",
-            "id": "assert-4f91ed20",
-            "details": "Section 2.3.4\nThe seq_level_idx_0 field indicates the value of seq_level_idx[0] found in the\nSequence Header OBU and SHALL be equal to the value of seq_level_idx[0] in the\nSequence Header OBU.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "11",
-            "id": "assert-c5e10274",
-            "details": "Section 2.3.4\nThe seq_tier_0 field indicates the value of seq_tier[0] found in the\nSequence Header OBU and SHALL be equal to the value of seq_tier[0] in the\nSequence Header OBU.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "12",
-            "id": "assert-821f7437",
-            "details": "Section 2.3.4\nThe high_bitdepth field indicates the value of the high_bitdepth flag from the\nSequence Header OBU.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "13",
-            "id": "assert-0027b3b1",
-            "details": "Section 2.3.4\nThe twelve_bit field indicates the value of the twelve_bit flag from the\nSequence Header OBU. When twelve_bit is not present in the Sequence Header\nOBU the AV1CodecConfigurationRecord twelve_bit value SHALL be 0.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "14",
-            "id": "assert-755c9133",
-            "details": "Section 2.3.4\nThe configOBUs field SHALL contain at most one Sequence Header OBU and if present, it SHALL be the first OBU.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "15",
-            "id": "assert-cf9ef74c",
-            "details": "Section 2.3.4\nConfigOBUs: the flag obu_has_size_field SHALL be set to 1.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "16",
-            "id": "assert-745b4db3",
-            "details": "Section 2.3.4\nWhen a Sequence Header OBU is contained within the configOBUs of the\nAV1CodecConfigurationRecord, the values present in the Sequence Header OBU\ncontained within configOBUs SHALL match the values of the\nAV1CodecConfigurationRecord.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "17",
-            "id": "assert-551498bd",
-            "details": "Section 2.3.4\nThe timing_info_present_flag in the Sequence Header OBU (in the configOBUs field or in the associated samples) SHOULD be set to 0.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "20",
-            "id": "assert-3e46dfaf",
-            "details": "Section 2.3.4\nFor sample entries corresponding to HDR content, the\nMasteringDisplayColourVolumeBox mdcv and ContentLightLevelBox clli SHOULD be\npresent, and their values SHALL match the values of contained in the Metadata\nOBUs of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in\nthe configOBUs or in the samples).",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "26",
-            "id": "assert-0c895956",
-            "details": "Section 2.4\nIntra-only frames SHOULD be signaled using the sample_depends_on flag set to 2.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "27",
-            "id": "assert-4f779503",
-            "details": "Section 2.4\nDelayed Random Access Points SHOULD be signaled using sample groups and the\nAV1ForwardKeyFrameSampleGroupEntry.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "28",
-            "id": "assert-d10ee363",
-            "details": "Section 2.4\nSwitch Frames SHOULD be signaled using sample groups and the AV1SwitchFrameSampleGroupEntry.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "30",
-            "id": "assert-d41e5e3f",
-            "details": "Section 2.4\nMetadata OBUs may be carried in sample data. In this case, the\nAV1MetadataSampleGroupEntry SHOULD be used.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "31",
-            "id": "assert-f0ce5ae3",
-            "details": "Section 2.4\nIf the metadata OBUs are static for the entire set of samples associated with a\ngiven sample description entry, they SHOULD also be in the OBU array in the\nsample description entry.",
-            "description": "No sample found for trackId=1"
-          },
-          {
-            "rule": "32",
-            "id": "assert-bee456d5",
-            "details": "Section 2.4\nIf an AV1 Sample is signaled as a sync sample (in the SyncSampleBox or by\nsetting sample_is_non_sync_sample to 0), it SHALL be a Random Access Point\nas defined in [AV1], i.e. satisfy the following constraints:\n- Its first frame is a Key Frame that has show_frame flag set to 1,\n- It contains a Sequence Header OBU before the first Frame Header OBU.",
-            "description": "No sample found for trackId=1"
-          }
-        ],
+        "errors": [],
+        "warnings": [],
         "unchecked": [
           {
             "rule": "5",
@@ -187,9 +164,39 @@
             "details": "Section 2.3.4\nThe CleanApertureBox clap SHOULD not be present."
           },
           {
+            "rule": "20",
+            "id": "assert-3e46dfaf",
+            "details": "Section 2.3.4\nFor sample entries corresponding to HDR content, the\nMasteringDisplayColourVolumeBox mdcv and ContentLightLevelBox clli SHOULD be\npresent, and their values SHALL match the values of contained in the Metadata\nOBUs of type METADATA_TYPE_HDR_CLL and METADATA_TYPE_HDR_MDCV, if present (in\nthe configOBUs or in the samples)."
+          },
+          {
+            "rule": "26",
+            "id": "assert-0c895956",
+            "details": "Section 2.4\nIntra-only frames SHOULD be signaled using the sample_depends_on flag set to 2."
+          },
+          {
+            "rule": "27",
+            "id": "assert-4f779503",
+            "details": "Section 2.4\nDelayed Random Access Points SHOULD be signaled using sample groups and the\nAV1ForwardKeyFrameSampleGroupEntry."
+          },
+          {
+            "rule": "28",
+            "id": "assert-d10ee363",
+            "details": "Section 2.4\nSwitch Frames SHOULD be signaled using sample groups and the AV1SwitchFrameSampleGroupEntry."
+          },
+          {
             "rule": "29",
             "id": "assert-ccbd7555",
             "details": "Section 2.4\nIf a file contains multiple tracks that are alternative representations of the\nsame content, in particular using Switch Frames, those tracks SHOULD be marked\nas belonging to the same alternate group and should use a track selection box\nwith an appropriate attribute (e.g. bitr)."
+          },
+          {
+            "rule": "30",
+            "id": "assert-d41e5e3f",
+            "details": "Section 2.4\nMetadata OBUs may be carried in sample data. In this case, the\nAV1MetadataSampleGroupEntry SHOULD be used."
+          },
+          {
+            "rule": "31",
+            "id": "assert-f0ce5ae3",
+            "details": "Section 2.4\nIf the metadata OBUs are static for the entire set of samples associated with a\ngiven sample description entry, they SHOULD also be in the OBU array in the\nsample description entry."
           },
           {
             "rule": "35",
