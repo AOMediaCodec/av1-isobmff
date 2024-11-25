@@ -5,7 +5,7 @@ description = ""
 authors = ["Dimitri Podborski"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12"
 beautifulsoup4 = "^4.12.2"
 lxml = "^4.9.2"
 
